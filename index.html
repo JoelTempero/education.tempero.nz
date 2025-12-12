@@ -94,6 +94,14 @@
             color: var(--accent-yellow);
         }
 
+        .product-blurb {
+            color: #999;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
         .expand-icon {
             font-size: 1.5rem;
             color: #666;
@@ -791,6 +799,159 @@
             color: #ff9999;
         }
 
+        /* Campaigns builder */
+        .campaigns-builder {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .campaign-offer {
+            padding: 20px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .campaign-offer-header {
+            margin-bottom: 12px;
+        }
+
+        .campaign-offer-label {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+
+        .campaign-offer-label input {
+            display: none;
+        }
+
+        .campaign-offer-check {
+            width: 24px;
+            height: 24px;
+            border: 2px solid rgba(232, 184, 48, 0.5);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+        .campaign-offer-check:after {
+            content: '';
+            width: 12px;
+            height: 12px;
+            background: var(--accent-yellow);
+            border-radius: 3px;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .campaign-offer-label input:checked + .campaign-offer-check {
+            border-color: var(--accent-yellow);
+        }
+
+        .campaign-offer-label input:checked + .campaign-offer-check:after {
+            opacity: 1;
+        }
+
+        .campaign-offer-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .campaign-offer-info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .campaign-offer-name {
+            font-size: 1.1rem;
+            color: var(--text-light);
+        }
+
+        .campaign-offer-price {
+            font-size: 1.1rem;
+            color: var(--accent-yellow);
+            font-weight: 700;
+        }
+
+        .campaign-offer-price-small {
+            font-size: 0.9rem;
+            color: var(--accent-yellow);
+        }
+
+        .campaign-offer-desc {
+            font-size: 0.85rem;
+            color: #999;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+
+        .campaign-slider-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 8px;
+        }
+
+        .campaign-slider-label {
+            font-size: 0.9rem;
+            color: #888;
+            min-width: 70px;
+        }
+
+        .campaign-slider {
+            flex: 1;
+            height: 6px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: rgba(255,255,255,0.1);
+            border-radius: 3px;
+            outline: none;
+        }
+
+        .campaign-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            background: var(--accent-yellow);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .campaign-slider::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            background: var(--accent-yellow);
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+        }
+
+        .campaign-slider-value {
+            font-size: 1rem;
+            color: var(--text-light);
+            min-width: 30px;
+            text-align: center;
+        }
+
+        .campaign-slider-total {
+            font-size: 1rem;
+            color: var(--accent-yellow);
+            min-width: 70px;
+            text-align: right;
+        }
+
         .summary-line.total {
             margin-top: 12px;
             padding-top: 12px;
@@ -961,6 +1122,7 @@
                         <span class="expand-icon">▼</span>
                     </div>
                     <div class="product-content">
+                        <p class="product-blurb">A school year is full of moments that deserve to be remembered! A highlights film brings those memories together into one tight showcase, giving students, families, and staff a chance to look back, celebrate growth, and feel connected. These end of year recaps become part of the school's legacy, and immortalise its story.</p>
                         <div class="tier-grid">
                             <div class="tier-btn entry" data-tier="Entry" data-price="850" data-product="eoy-highlights">
                                 <div class="tier-header">
@@ -1011,27 +1173,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="addons-section">
-                            <div class="addons-title">Add-ons</div>
-                            <div class="addon-grid">
-                                <div class="addon-item" id="addon-eoy-extra-events">
-                                    <span class="addon-name">Extra Events $200/ea</span>
-                                    <div class="addon-qty-controls">
-                                        <button class="addon-qty-btn" onclick="changeAddonQty('eoy-highlights', 'Extra Events', 200, -1)">−</button>
-                                        <span class="addon-qty-display" id="qty-addon-eoy-extra-events">0</span>
-                                        <button class="addon-qty-btn" onclick="changeAddonQty('eoy-highlights', 'Extra Events', 200, 1)">+</button>
-                                    </div>
-                                </div>
-                                <div class="addon-item" id="addon-eoy-extra-edits">
-                                    <span class="addon-name">Extra Edits $350/ea</span>
-                                    <div class="addon-qty-controls">
-                                        <button class="addon-qty-btn" onclick="changeAddonQty('eoy-highlights', 'Extra Edits', 350, -1)">−</button>
-                                        <span class="addon-qty-display" id="qty-addon-eoy-extra-edits">0</span>
-                                        <button class="addon-qty-btn" onclick="changeAddonQty('eoy-highlights', 'Extra Edits', 350, 1)">+</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
 
@@ -1042,6 +1183,7 @@
                         <span class="expand-icon">▼</span>
                     </div>
                     <div class="product-content">
+                        <p class="product-blurb">Some events deserve their own spotlight. Whether it's athletics day, house competitions or a big day out for the cohort! Day Highlights captures a single event and delivers a polished recap you can share straight away. Day Highlights footage can be included for free in an End of Year Highlights product when purchased.</p>
                         <div class="tier-grid">
                             <div class="tier-btn entry" data-tier="Entry" data-price="500" data-product="day-highlights">
                                 <div class="tier-header">
@@ -1092,35 +1234,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="addons-section">
-                            <div class="addons-title">Add-ons</div>
-                            <div class="addon-grid">
-                                <div class="addon-item" id="addon-day-drone">
-                                    <span class="addon-name">Drone Hire $250/ea</span>
-                                    <div class="addon-qty-controls">
-                                        <button class="addon-qty-btn" onclick="changeAddonQty('day-highlights', 'Drone Hire', 250, -1)">−</button>
-                                        <span class="addon-qty-display" id="qty-addon-day-drone">0</span>
-                                        <button class="addon-qty-btn" onclick="changeAddonQty('day-highlights', 'Drone Hire', 250, 1)">+</button>
-                                    </div>
-                                </div>
-                                <div class="addon-item" id="addon-day-dayafter">
-                                    <span class="addon-name">Day-after Delivery $450/ea</span>
-                                    <div class="addon-qty-controls">
-                                        <button class="addon-qty-btn" onclick="changeAddonQty('day-highlights', 'Day-after Delivery', 450, -1)">−</button>
-                                        <span class="addon-qty-display" id="qty-addon-day-dayafter">0</span>
-                                        <button class="addon-qty-btn" onclick="changeAddonQty('day-highlights', 'Day-after Delivery', 450, 1)">+</button>
-                                    </div>
-                                </div>
-                                <div class="addon-item" id="addon-day-extraedits">
-                                    <span class="addon-name">Extra Edits $350/ea</span>
-                                    <div class="addon-qty-controls">
-                                        <button class="addon-qty-btn" onclick="changeAddonQty('day-highlights', 'Extra Edits', 350, -1)">−</button>
-                                        <span class="addon-qty-display" id="qty-addon-day-extraedits">0</span>
-                                        <button class="addon-qty-btn" onclick="changeAddonQty('day-highlights', 'Extra Edits', 350, 1)">+</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
 
@@ -1131,6 +1244,7 @@
                         <span class="expand-icon">▼</span>
                     </div>
                     <div class="product-content">
+                        <p class="product-blurb">School Balls, Formal Prizegivings or Graduation Dinners are key calendar moments for the community. An opportunity to seal those moments in time is to showcase it in a cinematic event video. Share on your school's socials and watch your community spread it like wildfire. This product can be included for free in the End of Year Highlights when purchased.</p>
                         <div class="tier-grid">
                             <div class="tier-btn entry" data-tier="Entry" data-price="500" data-product="formal-events">
                                 <div class="tier-header">
@@ -1181,25 +1295,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="addons-section">
-                            <div class="addons-title">Add-ons</div>
-                            <div class="addon-grid">
-                                <div class="addon-item" id="addon-formal-vertical">
-                                    <span class="addon-name">9x16 Vertical Edit $300/ea</span>
-                                    <div class="addon-qty-controls">
-                                        <button class="addon-qty-btn" onclick="changeAddonQty('formal-events', '9x16 Vertical Edit', 300, -1)">−</button>
-                                        <span class="addon-qty-display" id="qty-addon-formal-vertical">0</span>
-                                        <button class="addon-qty-btn" onclick="changeAddonQty('formal-events', '9x16 Vertical Edit', 300, 1)">+</button>
-                                    </div>
-                                </div>
-                                <div class="addon-item tbd" id="addon-formal-photo" onclick="toggleTBD('formal-events', 'Photography', this)">
-                                    <span class="addon-name">Photography – TBD</span>
-                                </div>
-                                <div class="addon-item tbd" id="addon-formal-design" onclick="toggleTBD('formal-events', 'Graphic Design', this)">
-                                    <span class="addon-name">Graphic Design – TBD</span>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
 
@@ -1210,6 +1305,7 @@
                         <span class="expand-icon">▼</span>
                     </div>
                     <div class="product-content">
+                        <p class="product-blurb">It's showtime! Check out our flexible options so you can choose what fits your show needs and budget - whether that's simply a recording for families to look back on, a cinematic highlights reel to bring the memories to life, or a behind-the-scenes documentary that cements the show as a part of the school's history.</p>
                         <div class="productions-grid">
                             <div class="productions-column">
                                 <h4 class="recording">Recording</h4>
@@ -1259,7 +1355,7 @@
                                     <div class="production-option-header" onclick="showInfo('school-productions', 'highlights-standard')">
                                         <div>
                                             <span class="production-option-name">Standard</span>
-                                            <span class="production-option-price">2-3 min · $800</span>
+                                            <span class="production-option-price">2 min · $800</span>
                                         </div>
                                     </div>
                                     <div class="tier-qty-controls" style="border-color: rgba(232,180,184,0.3);">
@@ -1288,7 +1384,7 @@
                                     <div class="production-option-header" onclick="showInfo('school-productions', 'documentary')">
                                         <div>
                                             <span class="production-option-name">Full Documentary</span>
-                                            <span class="production-option-price">20-25 min · $2,000</span>
+                                            <span class="production-option-price">15-20 min · $2,000</span>
                                         </div>
                                     </div>
                                     <div class="tier-qty-controls" style="border-color: rgba(212,165,116,0.3);">
@@ -1315,20 +1411,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="addons-section">
-                            <div class="addons-title">Add-ons</div>
-                            <div class="addon-grid">
-                                <div class="addon-item tbd" onclick="toggleTBD('school-productions', 'Cast & Show Photography', this)">
-                                    <span class="addon-name">Cast & Show Photography – TBD</span>
-                                </div>
-                                <div class="addon-item tbd" onclick="toggleTBD('school-productions', 'Graphic Design', this)">
-                                    <span class="addon-name">Graphic Design – TBD</span>
-                                </div>
-                                <div class="addon-item tbd" onclick="toggleTBD('school-productions', 'Visual Effects', this)">
-                                    <span class="addon-name">Visual Effects – TBD</span>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
 
@@ -1339,148 +1421,66 @@
                         <span class="expand-icon">▼</span>
                     </div>
                     <div class="product-content">
-                        <div class="campaigns-grid">
-                            <div class="campaigns-category">
-                                <h4>Production</h4>
-                                <div class="campaign-item">
-                                    <span class="campaign-item-name">Half day shoot</span>
-                                    <div class="campaign-item-controls">
-                                        <button class="campaign-qty-btn" onclick="changeCampaignItem('half-day', -1)">−</button>
-                                        <span class="campaign-qty" id="campaign-half-day">0</span>
-                                        <button class="campaign-qty-btn" onclick="changeCampaignItem('half-day', 1)">+</button>
-                                        <span style="color: #888; font-size: 0.8rem; margin-left: 5px;">$600</span>
+                        <p class="product-blurb">Every school has a story to tell. Whether you're attracting international students, launching a new initiative, or simply showcasing what makes your community special - we'll help you craft a message that resonates. Please browse our unique offers!</p>
+                        <div class="campaigns-builder">
+                            <div class="campaign-offer">
+                                <div class="campaign-offer-header">
+                                    <label class="campaign-offer-label">
+                                        <input type="checkbox" id="campaign-international" onchange="updateCampaigns()">
+                                        <span class="campaign-offer-check"></span>
+                                        <div class="campaign-offer-info">
+                                            <span class="campaign-offer-name">International Students Advertising Campaign</span>
+                                            <span class="campaign-offer-price">$3,500</span>
+                                        </div>
+                                    </label>
+                                </div>
+                                <p class="campaign-offer-desc">Capture school life of your international students doing lots of unique and fun activities around the school. Include key parts of study and co-curricular life. Showcase their experience of New Zealand culture and staying with a homestay family. This premium product offers up to two days of production onsite and unlimited revisions.</p>
+                            </div>
+                            <div class="campaign-offer">
+                                <div class="campaign-offer-header">
+                                    <div class="campaign-offer-info-row">
+                                        <span class="campaign-offer-name">"Introducing Ourselves to Ourselves"</span>
+                                        <span class="campaign-offer-price-small">$800/video</span>
                                     </div>
                                 </div>
-                                <div class="campaign-item">
-                                    <span class="campaign-item-name">Full day shoot</span>
-                                    <div class="campaign-item-controls">
-                                        <button class="campaign-qty-btn" onclick="changeCampaignItem('full-day', -1)">−</button>
-                                        <span class="campaign-qty" id="campaign-full-day">0</span>
-                                        <button class="campaign-qty-btn" onclick="changeCampaignItem('full-day', 1)">+</button>
-                                        <span style="color: #888; font-size: 0.8rem; margin-left: 5px;">$1,000</span>
-                                    </div>
-                                </div>
-                                <div class="campaign-item">
-                                    <span class="campaign-item-name">Second camera</span>
-                                    <div class="campaign-item-controls">
-                                        <button class="campaign-qty-btn" onclick="changeCampaignItem('second-cam', -1)">−</button>
-                                        <span class="campaign-qty" id="campaign-second-cam">0</span>
-                                        <button class="campaign-qty-btn" onclick="changeCampaignItem('second-cam', 1)">+</button>
-                                        <span style="color: #888; font-size: 0.8rem; margin-left: 5px;">$400</span>
-                                    </div>
-                                </div>
-                                <div class="campaign-item">
-                                    <span class="campaign-item-name">Drone coverage</span>
-                                    <div class="campaign-item-controls">
-                                        <button class="campaign-qty-btn" onclick="changeCampaignItem('drone', -1)">−</button>
-                                        <span class="campaign-qty" id="campaign-drone">0</span>
-                                        <button class="campaign-qty-btn" onclick="changeCampaignItem('drone', 1)">+</button>
-                                        <span style="color: #888; font-size: 0.8rem; margin-left: 5px;">$250</span>
-                                    </div>
+                                <p class="campaign-offer-desc">A resource for building connection within your school community. These short videos give a platform to unique voices - students, staff, or whanau - sharing stories, perspectives, or insights that help your community understand itself better. Each video is about 1-2 minutes long.</p>
+                                <div class="campaign-slider-row">
+                                    <span class="campaign-slider-label">Videos:</span>
+                                    <input type="range" id="campaign-ourselves" min="0" max="10" value="0" class="campaign-slider" oninput="updateCampaigns()">
+                                    <span class="campaign-slider-value" id="campaign-ourselves-value">0</span>
+                                    <span class="campaign-slider-total" id="campaign-ourselves-total">$0</span>
                                 </div>
                             </div>
-                            <div class="campaigns-category">
-                                <h4>Post-Production</h4>
-                                <div class="campaign-item">
-                                    <span class="campaign-item-name">Short edit (&lt;2 min)</span>
-                                    <div class="campaign-item-controls">
-                                        <button class="campaign-qty-btn" onclick="changeCampaignItem('short-edit', -1)">−</button>
-                                        <span class="campaign-qty" id="campaign-short-edit">0</span>
-                                        <button class="campaign-qty-btn" onclick="changeCampaignItem('short-edit', 1)">+</button>
-                                        <span style="color: #888; font-size: 0.8rem; margin-left: 5px;">$300</span>
+                            <div class="campaign-offer">
+                                <div class="campaign-offer-header">
+                                    <div class="campaign-offer-info-row">
+                                        <span class="campaign-offer-name">Student/Staff Testimonials</span>
+                                        <span class="campaign-offer-price-small">$150/interview</span>
                                     </div>
                                 </div>
-                                <div class="campaign-item">
-                                    <span class="campaign-item-name">Standard edit (2-5 min)</span>
-                                    <div class="campaign-item-controls">
-                                        <button class="campaign-qty-btn" onclick="changeCampaignItem('standard-edit', -1)">−</button>
-                                        <span class="campaign-qty" id="campaign-standard-edit">0</span>
-                                        <button class="campaign-qty-btn" onclick="changeCampaignItem('standard-edit', 1)">+</button>
-                                        <span style="color: #888; font-size: 0.8rem; margin-left: 5px;">$500</span>
-                                    </div>
-                                </div>
-                                <div class="campaign-item">
-                                    <span class="campaign-item-name">Long form (5-10 min)</span>
-                                    <div class="campaign-item-controls">
-                                        <button class="campaign-qty-btn" onclick="changeCampaignItem('long-edit', -1)">−</button>
-                                        <span class="campaign-qty" id="campaign-long-edit">0</span>
-                                        <button class="campaign-qty-btn" onclick="changeCampaignItem('long-edit', 1)">+</button>
-                                        <span style="color: #888; font-size: 0.8rem; margin-left: 5px;">$800</span>
-                                    </div>
-                                </div>
-                                <div class="campaign-item">
-                                    <span class="campaign-item-name">Extra revision</span>
-                                    <div class="campaign-item-controls">
-                                        <button class="campaign-qty-btn" onclick="changeCampaignItem('extra-revision', -1)">−</button>
-                                        <span class="campaign-qty" id="campaign-extra-revision">0</span>
-                                        <button class="campaign-qty-btn" onclick="changeCampaignItem('extra-revision', 1)">+</button>
-                                        <span style="color: #888; font-size: 0.8rem; margin-left: 5px;">$100</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="campaigns-category">
-                                <h4>Extras</h4>
-                                <div class="campaign-item">
-                                    <span class="campaign-item-name">Script development</span>
-                                    <div class="campaign-item-controls">
-                                        <button class="campaign-qty-btn" onclick="changeCampaignItem('script', -1)">−</button>
-                                        <span class="campaign-qty" id="campaign-script">0</span>
-                                        <button class="campaign-qty-btn" onclick="changeCampaignItem('script', 1)">+</button>
-                                        <span style="color: #888; font-size: 0.8rem; margin-left: 5px;">$200</span>
-                                    </div>
-                                </div>
-                                <div class="campaign-item">
-                                    <span class="campaign-item-name">Voiceover</span>
-                                    <div class="campaign-item-controls">
-                                        <button class="campaign-qty-btn" onclick="changeCampaignItem('voiceover', -1)">−</button>
-                                        <span class="campaign-qty" id="campaign-voiceover">0</span>
-                                        <button class="campaign-qty-btn" onclick="changeCampaignItem('voiceover', 1)">+</button>
-                                        <span style="color: #888; font-size: 0.8rem; margin-left: 5px;">$150</span>
-                                    </div>
-                                </div>
-                                <div class="campaign-item">
-                                    <span class="campaign-item-name">Licensed music</span>
-                                    <div class="campaign-item-controls">
-                                        <button class="campaign-qty-btn" onclick="changeCampaignItem('music', -1)">−</button>
-                                        <span class="campaign-qty" id="campaign-music">0</span>
-                                        <button class="campaign-qty-btn" onclick="changeCampaignItem('music', 1)">+</button>
-                                        <span style="color: #888; font-size: 0.8rem; margin-left: 5px;">$75</span>
-                                    </div>
-                                </div>
-                                <div class="campaign-item">
-                                    <span class="campaign-item-name">Motion graphics</span>
-                                    <div class="campaign-item-controls">
-                                        <button class="campaign-qty-btn" onclick="changeCampaignItem('motion', -1)">−</button>
-                                        <span class="campaign-qty" id="campaign-motion">0</span>
-                                        <button class="campaign-qty-btn" onclick="changeCampaignItem('motion', 1)">+</button>
-                                        <span style="color: #888; font-size: 0.8rem; margin-left: 5px;">$200</span>
-                                    </div>
-                                </div>
-                                <div class="campaign-item">
-                                    <span class="campaign-item-name">Subtitles</span>
-                                    <div class="campaign-item-controls">
-                                        <button class="campaign-qty-btn" onclick="changeCampaignItem('subtitles', -1)">−</button>
-                                        <span class="campaign-qty" id="campaign-subtitles">0</span>
-                                        <button class="campaign-qty-btn" onclick="changeCampaignItem('subtitles', 1)">+</button>
-                                        <span style="color: #888; font-size: 0.8rem; margin-left: 5px;">$75</span>
-                                    </div>
+                                <p class="campaign-offer-desc">Direct-to-camera storytelling, designed to be purchased in bulk. These testimonials let students or staff speak in their own words about what makes your school special. Perfect for promoting departments, co-curricular programmes, or encouraging prospective families to see themselves at your school. Each interview is about 1-2 minutes long.</p>
+                                <div class="campaign-slider-row">
+                                    <span class="campaign-slider-label">Interviews:</span>
+                                    <input type="range" id="campaign-testimonials" min="0" max="30" value="0" class="campaign-slider" oninput="updateCampaigns()">
+                                    <span class="campaign-slider-value" id="campaign-testimonials-value">0</span>
+                                    <span class="campaign-slider-total" id="campaign-testimonials-total">$0</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Sports -->
-                <div class="product-card" data-product="sports">
+                <!-- Themed Highlights -->
+                <div class="product-card" data-product="themed-highlights">
                     <div class="product-header" onclick="toggleProduct(this)">
-                        <h2 class="product-title"><span>Sports</span></h2>
+                        <h2 class="product-title">Themed <span>Highlights</span></h2>
                         <span class="expand-icon">▼</span>
                     </div>
                     <div class="product-content">
-                        <p style="color: #999; font-size: 0.9rem; margin-bottom: 20px; line-height: 1.6;">
-                            Build your own sports package. Choose how many games you want covered and how long you want the final video to be.
-                        </p>
-                        <div class="sports-builder">
+                        <p class="product-blurb">Build highlight reels around the themes that matter most to your school community. Whether it's sports action, arts performances, or cultural events - we capture the moments and craft them into videos your community will watch on repeat.</p>
+                        
+                        <!-- Sports Package -->
+                        <div class="sports-builder" style="margin-bottom: 25px;">
                             <div class="sports-activate">
                                 <label class="sports-activate-label">
                                     <input type="checkbox" id="sports-activate" onchange="toggleSportsPackage()">
@@ -1540,8 +1540,475 @@
                                     </div>
                                 </div>
                                 <div class="sports-package-total">
-                                    <span>Package total:</span>
+                                    <span>Sports total:</span>
                                     <span id="sports-total">$800</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Arts Package -->
+                        <div class="sports-builder">
+                            <div class="sports-activate">
+                                <label class="sports-activate-label">
+                                    <input type="checkbox" id="arts-activate" onchange="toggleArtsPackage()">
+                                    <span class="sports-activate-check"></span>
+                                    <span class="sports-activate-text">Arts Package</span>
+                                    <span class="sports-activate-price">from $850</span>
+                                </label>
+                            </div>
+                            <div class="sports-options" id="arts-options" style="display: none;">
+                                <div class="sports-item">
+                                    <div class="sports-item-header">
+                                        <span class="sports-item-name">Base fee</span>
+                                        <span class="sports-item-desc">Travel, admin & gear cover</span>
+                                    </div>
+                                    <div class="sports-item-value">
+                                        <span class="sports-fixed-price">$350</span>
+                                        <span class="sports-included-badge">Included</span>
+                                    </div>
+                                </div>
+                                <div class="sports-item">
+                                    <div class="sports-item-header">
+                                        <span class="sports-item-name">Event coverage</span>
+                                        <span class="sports-item-desc">$70/event</span>
+                                    </div>
+                                    <div class="sports-item-value">
+                                        <span class="sports-calc-price" id="arts-events-total">$350</span>
+                                        <div class="sports-slider-container">
+                                            <input type="range" id="arts-events" min="5" max="30" value="5" class="sports-slider" oninput="updateArts()">
+                                            <span class="sports-slider-value" id="arts-events-value">5 events</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="sports-item">
+                                    <div class="sports-item-header">
+                                        <span class="sports-item-name">Video length</span>
+                                        <span class="sports-item-desc">$150/minute</span>
+                                    </div>
+                                    <div class="sports-item-value">
+                                        <span class="sports-calc-price" id="arts-video-total">$150</span>
+                                        <div class="sports-slider-container">
+                                            <input type="range" id="arts-video" min="1" max="6" value="1" class="sports-slider" oninput="updateArts()">
+                                            <span class="sports-slider-value" id="arts-video-value">1 min</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="sports-item">
+                                    <div class="sports-item-header">
+                                        <span class="sports-item-name">Social media cut</span>
+                                        <span class="sports-item-desc">Optional vertical edit</span>
+                                    </div>
+                                    <div class="sports-item-value">
+                                        <span class="sports-fixed-price">$250</span>
+                                        <label class="sports-toggle">
+                                            <input type="checkbox" id="arts-social" onchange="updateArts()">
+                                            <span class="sports-toggle-slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="sports-package-total">
+                                    <span>Arts total:</span>
+                                    <span id="arts-total">$850</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recap Website -->
+                <div class="product-card" data-product="recap-website">
+                    <div class="product-header" onclick="toggleProduct(this)">
+                        <h2 class="product-title">Recap <span>Website</span></h2>
+                        <span class="expand-icon">▼</span>
+                    </div>
+                    <div class="product-content">
+                        <p class="product-blurb">Your school's digital yearbook - look back on the best moments, bring all the videos into one place and make it the perfect end-of-year gift to send out to your community.</p>
+                        <div class="tier-grid">
+                            <div class="tier-btn entry" data-product="recap-website" data-tier="Entry" onclick="showInfo('recap-website', 'Entry')">
+                                <div class="tier-name">Entry</div>
+                                <div class="tier-price">$350</div>
+                                <div class="tier-qty">
+                                    <button class="qty-btn minus" onclick="event.stopPropagation(); changeTierQty('recap-website', 'Entry', 350, -1)">−</button>
+                                    <span class="qty-display" id="qty-recap-website-Entry">0</span>
+                                    <button class="qty-btn plus" onclick="event.stopPropagation(); changeTierQty('recap-website', 'Entry', 350, 1)">+</button>
+                                </div>
+                            </div>
+                            <div class="tier-btn basic" data-product="recap-website" data-tier="Basic" onclick="showInfo('recap-website', 'Basic')">
+                                <div class="tier-name">Basic</div>
+                                <div class="tier-price">$450</div>
+                                <div class="tier-qty">
+                                    <button class="qty-btn minus" onclick="event.stopPropagation(); changeTierQty('recap-website', 'Basic', 450, -1)">−</button>
+                                    <span class="qty-display" id="qty-recap-website-Basic">0</span>
+                                    <button class="qty-btn plus" onclick="event.stopPropagation(); changeTierQty('recap-website', 'Basic', 450, 1)">+</button>
+                                </div>
+                            </div>
+                            <div class="tier-btn standard" data-product="recap-website" data-tier="Standard" onclick="showInfo('recap-website', 'Standard')">
+                                <div class="tier-name">Standard</div>
+                                <div class="tier-price">$550</div>
+                                <div class="tier-qty">
+                                    <button class="qty-btn minus" onclick="event.stopPropagation(); changeTierQty('recap-website', 'Standard', 550, -1)">−</button>
+                                    <span class="qty-display" id="qty-recap-website-Standard">0</span>
+                                    <button class="qty-btn plus" onclick="event.stopPropagation(); changeTierQty('recap-website', 'Standard', 550, 1)">+</button>
+                                </div>
+                            </div>
+                            <div class="tier-btn premium" data-product="recap-website" data-tier="Premium" onclick="showInfo('recap-website', 'Premium')">
+                                <div class="tier-name">Premium</div>
+                                <div class="tier-price">$700</div>
+                                <div class="tier-qty">
+                                    <button class="qty-btn minus" onclick="event.stopPropagation(); changeTierQty('recap-website', 'Premium', 700, -1)">−</button>
+                                    <span class="qty-display" id="qty-recap-website-Premium">0</span>
+                                    <button class="qty-btn plus" onclick="event.stopPropagation(); changeTierQty('recap-website', 'Premium', 700, 1)">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Event Photography -->
+                <div class="product-card" data-product="event-photography">
+                    <div class="product-header" onclick="toggleProduct(this)">
+                        <h2 class="product-title">Event <span>Photography</span></h2>
+                        <span class="expand-icon">▼</span>
+                    </div>
+                    <div class="product-content">
+                        <p class="product-blurb">Professional photography to capture your school's important moments. Each session includes one hour of shooting and one hour of editing, delivering polished images ready to share.</p>
+                        <div class="sports-builder">
+                            <div class="sports-options" style="display: flex;">
+                                <div class="sports-item">
+                                    <div class="sports-item-header">
+                                        <span class="sports-item-name">Photography sessions</span>
+                                        <span class="sports-item-desc">$150/session (1hr shoot + 1hr edit)</span>
+                                    </div>
+                                    <div class="sports-item-value">
+                                        <span class="sports-calc-price" id="photography-total">$150</span>
+                                        <div class="sports-slider-container">
+                                            <input type="range" id="photography-sessions" min="1" max="15" value="1" class="sports-slider" oninput="updatePhotography()">
+                                            <span class="sports-slider-value" id="photography-sessions-value">1 session</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Graphic Design -->
+                <div class="product-card" data-product="graphic-design">
+                    <div class="product-header" onclick="toggleProduct(this)">
+                        <h2 class="product-title">Graphic <span>Design</span></h2>
+                        <span class="expand-icon">▼</span>
+                    </div>
+                    <div class="product-content">
+                        <p class="product-blurb">Professional design services to elevate your school's visual communications. From production pamphlets to advertising posters, we create polished materials that represent your school with style.</p>
+                        
+                        <!-- School Production Pamphlets -->
+                        <div style="margin-bottom: 25px;">
+                            <h4 style="color: var(--accent-yellow); margin-bottom: 15px; font-weight: 400;">School Production Pamphlets</h4>
+                            <div class="tier-grid">
+                                <div class="tier-btn entry" data-product="pamphlets" data-tier="Entry" onclick="showInfo('pamphlets', 'Entry')">
+                                    <div class="tier-name">Entry</div>
+                                    <div class="tier-price">$350</div>
+                                    <div class="tier-qty">
+                                        <button class="qty-btn minus" onclick="event.stopPropagation(); changeTierQty('pamphlets', 'Entry', 350, -1)">−</button>
+                                        <span class="qty-display" id="qty-pamphlets-Entry">0</span>
+                                        <button class="qty-btn plus" onclick="event.stopPropagation(); changeTierQty('pamphlets', 'Entry', 350, 1)">+</button>
+                                    </div>
+                                </div>
+                                <div class="tier-btn basic" data-product="pamphlets" data-tier="Basic" onclick="showInfo('pamphlets', 'Basic')">
+                                    <div class="tier-name">Basic</div>
+                                    <div class="tier-price">$550</div>
+                                    <div class="tier-qty">
+                                        <button class="qty-btn minus" onclick="event.stopPropagation(); changeTierQty('pamphlets', 'Basic', 550, -1)">−</button>
+                                        <span class="qty-display" id="qty-pamphlets-Basic">0</span>
+                                        <button class="qty-btn plus" onclick="event.stopPropagation(); changeTierQty('pamphlets', 'Basic', 550, 1)">+</button>
+                                    </div>
+                                </div>
+                                <div class="tier-btn standard" data-product="pamphlets" data-tier="Standard" onclick="showInfo('pamphlets', 'Standard')">
+                                    <div class="tier-name">Standard</div>
+                                    <div class="tier-price">$650</div>
+                                    <div class="tier-qty">
+                                        <button class="qty-btn minus" onclick="event.stopPropagation(); changeTierQty('pamphlets', 'Standard', 650, -1)">−</button>
+                                        <span class="qty-display" id="qty-pamphlets-Standard">0</span>
+                                        <button class="qty-btn plus" onclick="event.stopPropagation(); changeTierQty('pamphlets', 'Standard', 650, 1)">+</button>
+                                    </div>
+                                </div>
+                                <div class="tier-btn premium" data-product="pamphlets" data-tier="Premium" onclick="showInfo('pamphlets', 'Premium')">
+                                    <div class="tier-name">Premium</div>
+                                    <div class="tier-price">$850</div>
+                                    <div class="tier-qty">
+                                        <button class="qty-btn minus" onclick="event.stopPropagation(); changeTierQty('pamphlets', 'Premium', 850, -1)">−</button>
+                                        <span class="qty-display" id="qty-pamphlets-Premium">0</span>
+                                        <button class="qty-btn plus" onclick="event.stopPropagation(); changeTierQty('pamphlets', 'Premium', 850, 1)">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Advertising Posters -->
+                        <div>
+                            <h4 style="color: var(--accent-yellow); margin-bottom: 15px; font-weight: 400;">Advertising Posters</h4>
+                            <div class="sports-builder">
+                                <div class="sports-options" style="display: flex;">
+                                    <div class="sports-item">
+                                        <div class="sports-item-header">
+                                            <span class="sports-item-name">Poster designs</span>
+                                            <span class="sports-item-desc">$75/poster (A3 design included)</span>
+                                        </div>
+                                        <div class="sports-item-value">
+                                            <span class="sports-calc-price" id="posters-base-total">$75</span>
+                                            <div class="sports-slider-container">
+                                                <input type="range" id="posters-qty" min="1" max="30" value="1" class="sports-slider" oninput="updatePosters()">
+                                                <span class="sports-slider-value" id="posters-qty-value">1 poster</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="sports-item" style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px; margin-top: 10px;">
+                                        <div class="sports-item-header">
+                                            <span class="sports-item-name">Additional formats</span>
+                                            <span class="sports-item-desc">Added to each poster</span>
+                                        </div>
+                                    </div>
+                                    <div class="sports-item" style="padding-top: 5px;">
+                                        <div class="sports-item-header">
+                                            <span class="sports-item-name">1×1 Square</span>
+                                            <span class="sports-item-desc">+$5/poster</span>
+                                        </div>
+                                        <div class="sports-item-value">
+                                            <label class="sports-toggle">
+                                                <input type="checkbox" id="posters-1x1" onchange="updatePosters()">
+                                                <span class="sports-toggle-slider"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="sports-item">
+                                        <div class="sports-item-header">
+                                            <span class="sports-item-name">16×9 Landscape</span>
+                                            <span class="sports-item-desc">+$5/poster</span>
+                                        </div>
+                                        <div class="sports-item-value">
+                                            <label class="sports-toggle">
+                                                <input type="checkbox" id="posters-16x9" onchange="updatePosters()">
+                                                <span class="sports-toggle-slider"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="sports-item">
+                                        <div class="sports-item-header">
+                                            <span class="sports-item-name">9×16 Portrait</span>
+                                            <span class="sports-item-desc">+$5/poster</span>
+                                        </div>
+                                        <div class="sports-item-value">
+                                            <label class="sports-toggle">
+                                                <input type="checkbox" id="posters-9x16" onchange="updatePosters()">
+                                                <span class="sports-toggle-slider"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="sports-package-total">
+                                        <span>Posters total:</span>
+                                        <span id="posters-total">$75</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Student Training -->
+                <div class="product-card" data-product="student-training">
+                    <div class="product-header" onclick="toggleProduct(this)">
+                        <h2 class="product-title">Student <span>Training</span></h2>
+                        <span class="expand-icon">▼</span>
+                    </div>
+                    <div class="product-content">
+                        <p class="product-blurb">Empower your students with hands-on video production skills. Our training sessions cover everything from basic camera operation to editing techniques, building capability within your school community.</p>
+                        <p style="color: #999; font-size: 0.85rem; margin-bottom: 20px; font-style: italic;">Minimum of 5 students required per session</p>
+                        
+                        <div class="training-tiers">
+                            <!-- Entry Training -->
+                            <div class="sports-builder" style="margin-bottom: 20px;">
+                                <div class="sports-activate">
+                                    <label class="sports-activate-label">
+                                        <input type="checkbox" id="training-entry-activate" onchange="toggleTraining('entry')">
+                                        <span class="sports-activate-check"></span>
+                                        <span class="sports-activate-text">Entry Training</span>
+                                        <span class="sports-activate-price">from $100</span>
+                                    </label>
+                                </div>
+                                <div class="sports-options" id="training-entry-options" style="display: none;">
+                                    <p style="color: #aaa; font-size: 0.85rem; margin-bottom: 15px;">1 hour entry level session into camera operating</p>
+                                    <div class="sports-item">
+                                        <div class="sports-item-header">
+                                            <span class="sports-item-name">Students</span>
+                                            <span class="sports-item-desc">5 minimum</span>
+                                        </div>
+                                        <div class="sports-item-value">
+                                            <span class="sports-calc-price" id="training-entry-total">$100</span>
+                                            <div class="sports-slider-container">
+                                                <input type="range" id="training-entry-students" min="5" max="20" value="5" class="sports-slider" oninput="updateTraining('entry')">
+                                                <span class="sports-slider-value" id="training-entry-students-value">5 students</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Basic Training -->
+                            <div class="sports-builder" style="margin-bottom: 20px;">
+                                <div class="sports-activate">
+                                    <label class="sports-activate-label">
+                                        <input type="checkbox" id="training-basic-activate" onchange="toggleTraining('basic')">
+                                        <span class="sports-activate-check"></span>
+                                        <span class="sports-activate-text">Basic Training</span>
+                                        <span class="sports-activate-price">from $150</span>
+                                    </label>
+                                </div>
+                                <div class="sports-options" id="training-basic-options" style="display: none;">
+                                    <p style="color: #aaa; font-size: 0.85rem; margin-bottom: 15px;">2 hour beginner's guide to basic camera operation & shooting techniques</p>
+                                    <div class="sports-item">
+                                        <div class="sports-item-header">
+                                            <span class="sports-item-name">Students</span>
+                                            <span class="sports-item-desc">5 minimum</span>
+                                        </div>
+                                        <div class="sports-item-value">
+                                            <span class="sports-calc-price" id="training-basic-total">$150</span>
+                                            <div class="sports-slider-container">
+                                                <input type="range" id="training-basic-students" min="5" max="20" value="5" class="sports-slider" oninput="updateTraining('basic')">
+                                                <span class="sports-slider-value" id="training-basic-students-value">5 students</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Standard Training -->
+                            <div class="sports-builder" style="margin-bottom: 20px;">
+                                <div class="sports-activate">
+                                    <label class="sports-activate-label">
+                                        <input type="checkbox" id="training-standard-activate" onchange="toggleTraining('standard')">
+                                        <span class="sports-activate-check"></span>
+                                        <span class="sports-activate-text">Standard Training</span>
+                                        <span class="sports-activate-price">from $200</span>
+                                    </label>
+                                </div>
+                                <div class="sports-options" id="training-standard-options" style="display: none;">
+                                    <p style="color: #aaa; font-size: 0.85rem; margin-bottom: 15px;">Half day course covering basic camera operation, shooting techniques and entry level editing</p>
+                                    <div class="sports-item">
+                                        <div class="sports-item-header">
+                                            <span class="sports-item-name">Students</span>
+                                            <span class="sports-item-desc">5 minimum</span>
+                                        </div>
+                                        <div class="sports-item-value">
+                                            <span class="sports-calc-price" id="training-standard-total">$200</span>
+                                            <div class="sports-slider-container">
+                                                <input type="range" id="training-standard-students" min="5" max="20" value="5" class="sports-slider" oninput="updateTraining('standard')">
+                                                <span class="sports-slider-value" id="training-standard-students-value">5 students</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Premium Training -->
+                            <div class="sports-builder">
+                                <div class="sports-activate">
+                                    <label class="sports-activate-label">
+                                        <input type="checkbox" id="training-premium-activate" onchange="toggleTraining('premium')">
+                                        <span class="sports-activate-check"></span>
+                                        <span class="sports-activate-text">Premium Training</span>
+                                        <span class="sports-activate-price">from $400</span>
+                                    </label>
+                                </div>
+                                <div class="sports-options" id="training-premium-options" style="display: none;">
+                                    <p style="color: #aaa; font-size: 0.85rem; margin-bottom: 15px;">Full day course covering intermediate camera operation, shooting techniques & editing highlights videos</p>
+                                    <div class="sports-item">
+                                        <div class="sports-item-header">
+                                            <span class="sports-item-name">Students</span>
+                                            <span class="sports-item-desc">5 minimum</span>
+                                        </div>
+                                        <div class="sports-item-value">
+                                            <span class="sports-calc-price" id="training-premium-total">$400</span>
+                                            <div class="sports-slider-container">
+                                                <input type="range" id="training-premium-students" min="5" max="20" value="5" class="sports-slider" oninput="updateTraining('premium')">
+                                                <span class="sports-slider-value" id="training-premium-students-value">5 students</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Music Videos -->
+                <div class="product-card" data-product="music-videos">
+                    <div class="product-header" onclick="toggleProduct(this)">
+                        <h2 class="product-title">Music <span>Videos</span></h2>
+                        <span class="expand-icon">▼</span>
+                    </div>
+                    <div class="product-content">
+                        <p class="product-blurb">Create a professional music video with your students. From storyboarding through to final edit, we handle the production while your students take centre stage. Perfect for choirs, bands, and performance groups.</p>
+                        <div class="sports-builder">
+                            <div class="sports-activate">
+                                <label class="sports-activate-label">
+                                    <input type="checkbox" id="musicvideo-activate" onchange="toggleMusicVideo()">
+                                    <span class="sports-activate-check"></span>
+                                    <span class="sports-activate-text">Music Video Package</span>
+                                    <span class="sports-activate-price">from $1,875</span>
+                                </label>
+                            </div>
+                            <div class="sports-options" id="musicvideo-options" style="display: none;">
+                                <div class="sports-item">
+                                    <div class="sports-item-header">
+                                        <span class="sports-item-name">Base fee</span>
+                                        <span class="sports-item-desc">Admin, gear rental, storyboarding & editing</span>
+                                    </div>
+                                    <div class="sports-item-value">
+                                        <span class="sports-fixed-price">$600</span>
+                                        <span class="sports-included-badge">Included</span>
+                                    </div>
+                                </div>
+                                <div class="sports-item">
+                                    <div class="sports-item-header">
+                                        <span class="sports-item-name">Students</span>
+                                        <span class="sports-item-desc">15-70 students</span>
+                                    </div>
+                                    <div class="sports-item-value">
+                                        <div class="sports-slider-container">
+                                            <input type="range" id="musicvideo-students" min="15" max="70" value="15" class="sports-slider" oninput="updateMusicVideo()">
+                                            <span class="sports-slider-value" id="musicvideo-students-value">15 students</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="sports-item">
+                                    <div class="sports-item-header">
+                                        <span class="sports-item-name">Recording days</span>
+                                        <span class="sports-item-desc">$40/student/day</span>
+                                    </div>
+                                    <div class="sports-item-value">
+                                        <span class="sports-calc-price" id="musicvideo-recording-total">$600</span>
+                                        <div class="sports-slider-container">
+                                            <input type="range" id="musicvideo-recording" min="1" max="3" value="1" class="sports-slider" oninput="updateMusicVideo()">
+                                            <span class="sports-slider-value" id="musicvideo-recording-value">1 day</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="sports-item">
+                                    <div class="sports-item-header">
+                                        <span class="sports-item-name">Shoot days</span>
+                                        <span class="sports-item-desc">$45/student/day</span>
+                                    </div>
+                                    <div class="sports-item-value">
+                                        <span class="sports-calc-price" id="musicvideo-shoot-total">$675</span>
+                                        <div class="sports-slider-container">
+                                            <input type="range" id="musicvideo-shoot" min="1" max="3" value="1" class="sports-slider" oninput="updateMusicVideo()">
+                                            <span class="sports-slider-value" id="musicvideo-shoot-value">1 day</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="sports-package-total">
+                                    <span>Music video total:</span>
+                                    <span id="musicvideo-total">$1,875</span>
                                 </div>
                             </div>
                         </div>
@@ -1788,30 +2255,108 @@
                         'Best value! Save $1000!'
                     ]
                 }
+            },
+            'recap-website': {
+                'Entry': {
+                    price: 350,
+                    details: [
+                        'Basic digital yearbook website',
+                        'Host your video highlights',
+                        'Simple, clean design',
+                        'Perfect for smaller schools'
+                    ]
+                },
+                'Basic': {
+                    price: 450,
+                    details: [
+                        'Enhanced digital yearbook',
+                        'Custom branding',
+                        'Multiple video sections',
+                        'Photo galleries included'
+                    ]
+                },
+                'Standard': {
+                    price: 550,
+                    details: [
+                        'Full-featured yearbook site',
+                        'Custom design & branding',
+                        'Unlimited video embeds',
+                        'Interactive timeline',
+                        'Social sharing features'
+                    ]
+                },
+                'Premium': {
+                    price: 700,
+                    details: [
+                        'Premium yearbook experience',
+                        'Bespoke design',
+                        'All Standard features',
+                        'Student/staff spotlights',
+                        'Archive access for future years',
+                        'Priority support'
+                    ]
+                }
+            },
+            'pamphlets': {
+                'Entry': {
+                    price: 350,
+                    details: [
+                        'Basic pamphlet design',
+                        'Single-fold layout',
+                        'Show information & credits',
+                        'Print-ready PDF'
+                    ]
+                },
+                'Basic': {
+                    price: 550,
+                    details: [
+                        'Enhanced pamphlet design',
+                        'Bi-fold layout',
+                        'Cast photos included',
+                        'Custom branding',
+                        'Print-ready PDF'
+                    ]
+                },
+                'Standard': {
+                    price: 650,
+                    details: [
+                        'Professional pamphlet',
+                        'Multi-page booklet',
+                        'Cast & crew bios',
+                        'Scene breakdown',
+                        'Custom illustrations',
+                        'Print-ready PDF'
+                    ]
+                },
+                'Premium': {
+                    price: 850,
+                    details: [
+                        'Premium programme booklet',
+                        'Magazine-style layout',
+                        'Full cast & crew features',
+                        'Behind-the-scenes content',
+                        'Sponsor integration',
+                        'Digital & print versions'
+                    ]
+                }
             }
         };
 
         // State management
         let selections = {
-            'eoy-highlights': { tiers: {}, addons: {}, tbdAddons: [] },
-            'day-highlights': { tiers: {}, addons: {} },
-            'formal-events': { tiers: {}, addons: {}, tbdAddons: [] },
-            'school-productions': { components: {}, tbdAddons: [] },
-            'campaigns': {},
-            'sports': { active: false, games: 5, videoMins: 1, socialCut: false }
-        };
-
-        const campaignPrices = {
-            'half-day': 600, 'full-day': 1000, 'second-cam': 400, 'drone': 250,
-            'short-edit': 300, 'standard-edit': 500, 'long-edit': 800, 'extra-revision': 100,
-            'script': 200, 'voiceover': 150, 'music': 75, 'motion': 200, 'subtitles': 75
-        };
-
-        const campaignNames = {
-            'half-day': 'Half day shoot', 'full-day': 'Full day shoot', 'second-cam': 'Second camera',
-            'drone': 'Drone coverage', 'short-edit': 'Short edit', 'standard-edit': 'Standard edit',
-            'long-edit': 'Long form edit', 'extra-revision': 'Extra revision', 'script': 'Script development',
-            'voiceover': 'Voiceover', 'music': 'Licensed music', 'motion': 'Motion graphics', 'subtitles': 'Subtitles'
+            'eoy-highlights': { tiers: {} },
+            'day-highlights': { tiers: {} },
+            'formal-events': { tiers: {} },
+            'school-productions': { components: {} },
+            'campaigns': { international: false, ourselves: 0, testimonials: 0 },
+            'sports': { active: false, games: 5, videoMins: 1, socialCut: false },
+            'arts': { active: false, events: 5, videoMins: 1, socialCut: false },
+            'recap-website': { tiers: {} },
+            'photography': { sessions: 0 },
+            'pamphlets': { tiers: {} },
+            'posters': { qty: 0, format1x1: false, format16x9: false, format9x16: false },
+            'training': { entry: { active: false, students: 5 }, basic: { active: false, students: 5 }, standard: { active: false, students: 5 }, premium: { active: false, students: 5 } },
+            'musicvideo': { active: false, students: 15, recordingDays: 1, shootDays: 1 }
         };
 
         function toggleProduct(header) {
@@ -1872,57 +2417,6 @@
             updateSummary();
         }
 
-        function changeAddonQty(product, addonName, price, delta) {
-            const addonKey = addonName.toLowerCase().replace(/[^a-z]/g, '');
-            const productKey = product.split('-')[0];
-            const qtyEl = document.getElementById(`qty-addon-${productKey}-${addonKey}`) || 
-                          document.querySelector(`[id*="addon-${productKey}"] .addon-qty-display`);
-            
-            // Find the correct element
-            let actualQtyEl;
-            if (product === 'eoy-highlights') {
-                if (addonName === 'Extra Events') actualQtyEl = document.getElementById('qty-addon-eoy-extra-events');
-                if (addonName === 'Extra Edits') actualQtyEl = document.getElementById('qty-addon-eoy-extra-edits');
-            } else if (product === 'day-highlights') {
-                if (addonName === 'Drone Hire') actualQtyEl = document.getElementById('qty-addon-day-drone');
-                if (addonName === 'Day-after Delivery') actualQtyEl = document.getElementById('qty-addon-day-dayafter');
-                if (addonName === 'Extra Edits') actualQtyEl = document.getElementById('qty-addon-day-extraedits');
-            } else if (product === 'formal-events') {
-                if (addonName === '9x16 Vertical Edit') actualQtyEl = document.getElementById('qty-addon-formal-vertical');
-            }
-
-            if (!actualQtyEl) return;
-
-            let qty = parseInt(actualQtyEl.textContent) + delta;
-            if (qty < 0) qty = 0;
-            actualQtyEl.textContent = qty;
-
-            if (qty > 0) {
-                selections[product].addons[addonName] = { price: price, quantity: qty };
-            } else {
-                delete selections[product].addons[addonName];
-            }
-
-            actualQtyEl.closest('.addon-item').classList.toggle('selected', qty > 0);
-            updateSummary();
-        }
-
-        function toggleTBD(product, addonName, btn) {
-            const tbdList = selections[product].tbdAddons || [];
-            const index = tbdList.indexOf(addonName);
-            
-            if (index > -1) {
-                tbdList.splice(index, 1);
-                btn.classList.remove('selected');
-            } else {
-                tbdList.push(addonName);
-                btn.classList.add('selected');
-            }
-            
-            selections[product].tbdAddons = tbdList;
-            updateSummary();
-        }
-
         function changeProductionQty(itemId, name, price, delta) {
             const qtyEl = document.getElementById(`qty-${itemId}`);
             let qty = parseInt(qtyEl.textContent) + delta;
@@ -1939,17 +2433,24 @@
             updateSummary();
         }
 
-        function changeCampaignItem(item, delta) {
-            const qtyEl = document.getElementById(`campaign-${item}`);
-            let qty = parseInt(qtyEl.textContent) + delta;
-            if (qty < 0) qty = 0;
-            qtyEl.textContent = qty;
+        function updateCampaigns() {
+            const international = document.getElementById('campaign-international').checked;
+            const ourselves = parseInt(document.getElementById('campaign-ourselves').value);
+            const testimonials = parseInt(document.getElementById('campaign-testimonials').value);
 
-            if (qty > 0) {
-                selections['campaigns'][item] = qty;
-            } else {
-                delete selections['campaigns'][item];
-            }
+            // Update state
+            selections['campaigns'] = { international, ourselves, testimonials };
+
+            // Update display values
+            document.getElementById('campaign-ourselves-value').textContent = ourselves;
+            document.getElementById('campaign-testimonials-value').textContent = testimonials;
+
+            // Calculate costs
+            const ourselvesCost = ourselves * 800;
+            const testimonialsCost = testimonials * 150;
+
+            document.getElementById('campaign-ourselves-total').textContent = `$${ourselvesCost.toLocaleString()}`;
+            document.getElementById('campaign-testimonials-total').textContent = `$${testimonialsCost.toLocaleString()}`;
 
             updateSummary();
         }
@@ -1983,6 +2484,53 @@
             updateSummary();
         }
 
+        function updateArts() {
+            const active = document.getElementById('arts-activate').checked;
+            const events = parseInt(document.getElementById('arts-events').value);
+            const videoMins = parseInt(document.getElementById('arts-video').value);
+            const socialCut = document.getElementById('arts-social').checked;
+
+            // Update state
+            selections['arts'] = { active, events, videoMins, socialCut };
+
+            // Update display values
+            document.getElementById('arts-events-value').textContent = `${events} event${events !== 1 ? 's' : ''}`;
+            document.getElementById('arts-video-value').textContent = `${videoMins} min${videoMins !== 1 ? 's' : ''}`;
+
+            // Calculate costs
+            const eventsCost = events * 70;
+            const videoCost = videoMins * 150;
+
+            document.getElementById('arts-events-total').textContent = `$${eventsCost}`;
+            document.getElementById('arts-video-total').textContent = `$${videoCost}`;
+
+            // Calculate total (base fee always included when active)
+            let total = 350 + eventsCost + videoCost;
+            if (socialCut) total += 250;
+
+            document.getElementById('arts-total').textContent = `$${total.toLocaleString()}`;
+
+            updateSummary();
+        }
+
+        function toggleArtsPackage() {
+            const active = document.getElementById('arts-activate').checked;
+            const optionsEl = document.getElementById('arts-options');
+
+            if (active) {
+                optionsEl.style.display = 'flex';
+                // Set minimums
+                document.getElementById('arts-events').value = 5;
+                document.getElementById('arts-video').value = 1;
+            } else {
+                optionsEl.style.display = 'none';
+                // Reset social cut when deactivating
+                document.getElementById('arts-social').checked = false;
+            }
+
+            updateArts();
+        }
+
         function toggleSportsPackage() {
             const active = document.getElementById('sports-activate').checked;
             const optionsEl = document.getElementById('sports-options');
@@ -1999,6 +2547,124 @@
             }
 
             updateSports();
+        }
+
+        // Photography functions
+        function updatePhotography() {
+            const sessions = parseInt(document.getElementById('photography-sessions').value);
+            selections['photography'].sessions = sessions;
+            
+            const total = sessions * 150;
+            document.getElementById('photography-sessions-value').textContent = `${sessions} session${sessions !== 1 ? 's' : ''}`;
+            document.getElementById('photography-total').textContent = `$${total.toLocaleString()}`;
+            
+            updateSummary();
+        }
+
+        // Posters functions
+        function updatePosters() {
+            const qty = parseInt(document.getElementById('posters-qty').value);
+            const format1x1 = document.getElementById('posters-1x1').checked;
+            const format16x9 = document.getElementById('posters-16x9').checked;
+            const format9x16 = document.getElementById('posters-9x16').checked;
+            
+            selections['posters'] = { qty, format1x1, format16x9, format9x16 };
+            
+            // Calculate per-poster price
+            let perPoster = 75;
+            if (format1x1) perPoster += 5;
+            if (format16x9) perPoster += 5;
+            if (format9x16) perPoster += 5;
+            
+            const baseTotal = qty * 75;
+            const total = qty * perPoster;
+            
+            document.getElementById('posters-qty-value').textContent = `${qty} poster${qty !== 1 ? 's' : ''}`;
+            document.getElementById('posters-base-total').textContent = `$${baseTotal}`;
+            document.getElementById('posters-total').textContent = `$${total.toLocaleString()}`;
+            
+            updateSummary();
+        }
+
+        // Training functions
+        const trainingPrices = {
+            entry: { base: 100, perStudent: 15 },
+            basic: { base: 150, perStudent: 20 },
+            standard: { base: 200, perStudent: 25 },
+            premium: { base: 400, perStudent: 35 }
+        };
+
+        function toggleTraining(tier) {
+            const active = document.getElementById(`training-${tier}-activate`).checked;
+            const optionsEl = document.getElementById(`training-${tier}-options`);
+            
+            if (active) {
+                optionsEl.style.display = 'flex';
+                document.getElementById(`training-${tier}-students`).value = 5;
+            } else {
+                optionsEl.style.display = 'none';
+            }
+            
+            selections['training'][tier].active = active;
+            updateTraining(tier);
+        }
+
+        function updateTraining(tier) {
+            const active = document.getElementById(`training-${tier}-activate`).checked;
+            const students = parseInt(document.getElementById(`training-${tier}-students`).value);
+            
+            selections['training'][tier] = { active, students };
+            
+            // Calculate price: base + (students - 5) * perStudent rate
+            const prices = trainingPrices[tier];
+            const total = prices.base + (students - 5) * prices.perStudent;
+            
+            document.getElementById(`training-${tier}-students-value`).textContent = `${students} students`;
+            document.getElementById(`training-${tier}-total`).textContent = `$${total.toLocaleString()}`;
+            
+            updateSummary();
+        }
+
+        // Music Video functions
+        function toggleMusicVideo() {
+            const active = document.getElementById('musicvideo-activate').checked;
+            const optionsEl = document.getElementById('musicvideo-options');
+            
+            if (active) {
+                optionsEl.style.display = 'flex';
+                document.getElementById('musicvideo-students').value = 15;
+                document.getElementById('musicvideo-recording').value = 1;
+                document.getElementById('musicvideo-shoot').value = 1;
+            } else {
+                optionsEl.style.display = 'none';
+            }
+            
+            selections['musicvideo'].active = active;
+            updateMusicVideo();
+        }
+
+        function updateMusicVideo() {
+            const active = document.getElementById('musicvideo-activate').checked;
+            const students = parseInt(document.getElementById('musicvideo-students').value);
+            const recordingDays = parseInt(document.getElementById('musicvideo-recording').value);
+            const shootDays = parseInt(document.getElementById('musicvideo-shoot').value);
+            
+            selections['musicvideo'] = { active, students, recordingDays, shootDays };
+            
+            // Calculate costs
+            const baseFee = 600;
+            const recordingCost = students * recordingDays * 40;
+            const shootCost = students * shootDays * 45;
+            const total = baseFee + recordingCost + shootCost;
+            
+            document.getElementById('musicvideo-students-value').textContent = `${students} students`;
+            document.getElementById('musicvideo-recording-value').textContent = `${recordingDays} day${recordingDays !== 1 ? 's' : ''}`;
+            document.getElementById('musicvideo-shoot-value').textContent = `${shootDays} day${shootDays !== 1 ? 's' : ''}`;
+            document.getElementById('musicvideo-recording-total').textContent = `$${recordingCost.toLocaleString()}`;
+            document.getElementById('musicvideo-shoot-total').textContent = `$${shootCost.toLocaleString()}`;
+            document.getElementById('musicvideo-total').textContent = `$${total.toLocaleString()}`;
+            
+            updateSummary();
         }
 
         function countBonusEvents() {
@@ -2020,7 +2686,8 @@
             });
 
             // Campaigns - counts as 1 if any items selected
-            if (Object.keys(selections['campaigns']).length > 0) {
+            const campSel = selections['campaigns'];
+            if (campSel.international || campSel.ourselves > 0 || campSel.testimonials > 0) {
                 count += 1;
             }
 
@@ -2053,8 +2720,7 @@
                     subtotal += itemTotal;
 
                     const baseEvents = productDetails['eoy-highlights'][tierName].baseEvents;
-                    const extraEvents = (selections['eoy-highlights'].addons['Extra Events']?.quantity || 0);
-                    const totalEvents = baseEvents + bonusEvents + extraEvents;
+                    const totalEvents = baseEvents + bonusEvents;
 
                     const qtyText = tierData.quantity > 1 ? ` × ${tierData.quantity}` : '';
 
@@ -2070,34 +2736,6 @@
                         </div>
                     `;
                 });
-
-                // EOY Addons
-                Object.entries(selections['eoy-highlights'].addons).forEach(([name, data]) => {
-                    const addonTotal = data.price * data.quantity;
-                    subtotal += addonTotal;
-                    html += `
-                        <div class="summary-item" style="opacity: 0.8; padding-left: 20px;">
-                            <div class="summary-item-details">
-                                <div class="summary-item-name" style="font-size: 0.85rem;">+ ${name} ×${data.quantity}</div>
-                            </div>
-                            <span class="summary-item-price">$${addonTotal.toLocaleString()}</span>
-                        </div>
-                    `;
-                });
-
-                // EOY TBD addons
-                if (selections['eoy-highlights'].tbdAddons?.length > 0) {
-                    selections['eoy-highlights'].tbdAddons.forEach(name => {
-                        html += `
-                            <div class="summary-item" style="opacity: 0.8; padding-left: 20px;">
-                                <div class="summary-item-details">
-                                    <div class="summary-item-name" style="font-size: 0.85rem;">+ ${name}</div>
-                                </div>
-                                <span class="summary-item-price tbd">TBD</span>
-                            </div>
-                        `;
-                    });
-                }
             }
 
             // Other standard products
@@ -2121,34 +2759,6 @@
                             </div>
                         `;
                     });
-
-                    // Addons
-                    Object.entries(selections[product].addons).forEach(([name, data]) => {
-                        const addonTotal = data.price * data.quantity;
-                        subtotal += addonTotal;
-                        html += `
-                            <div class="summary-item" style="opacity: 0.8; padding-left: 20px;">
-                                <div class="summary-item-details">
-                                    <div class="summary-item-name" style="font-size: 0.85rem;">+ ${name} ×${data.quantity}</div>
-                                </div>
-                                <span class="summary-item-price">$${addonTotal.toLocaleString()}</span>
-                            </div>
-                        `;
-                    });
-
-                    // TBD addons
-                    if (selections[product].tbdAddons?.length > 0) {
-                        selections[product].tbdAddons.forEach(name => {
-                            html += `
-                                <div class="summary-item" style="opacity: 0.8; padding-left: 20px;">
-                                    <div class="summary-item-details">
-                                        <div class="summary-item-name" style="font-size: 0.85rem;">+ ${name}</div>
-                                    </div>
-                                    <span class="summary-item-price tbd">TBD</span>
-                                </div>
-                            `;
-                        });
-                    }
                 }
             });
 
@@ -2172,34 +2782,28 @@
                         </div>
                     `;
                 });
-
-                // School Productions TBD addons
-                if (selections['school-productions'].tbdAddons?.length > 0) {
-                    selections['school-productions'].tbdAddons.forEach(name => {
-                        html += `
-                            <div class="summary-item" style="opacity: 0.8; padding-left: 20px;">
-                                <div class="summary-item-details">
-                                    <div class="summary-item-name" style="font-size: 0.85rem;">+ ${name}</div>
-                                </div>
-                                <span class="summary-item-price tbd">TBD</span>
-                            </div>
-                        `;
-                    });
-                }
             }
 
             // Campaigns
             const campSel = selections['campaigns'];
-            if (Object.keys(campSel).length > 0) {
+            const hasCampaigns = campSel.international || campSel.ourselves > 0 || campSel.testimonials > 0;
+            if (hasCampaigns) {
                 hasItems = true;
                 let campTotal = 0;
                 const campItems = [];
 
-                Object.entries(campSel).forEach(([item, qty]) => {
-                    const itemTotal = campaignPrices[item] * qty;
-                    campTotal += itemTotal;
-                    campItems.push(`${campaignNames[item]}${qty > 1 ? ` ×${qty}` : ''}`);
-                });
+                if (campSel.international) {
+                    campTotal += 3500;
+                    campItems.push('International Campaign');
+                }
+                if (campSel.ourselves > 0) {
+                    campTotal += campSel.ourselves * 800;
+                    campItems.push(`Introducing Ourselves ×${campSel.ourselves}`);
+                }
+                if (campSel.testimonials > 0) {
+                    campTotal += campSel.testimonials * 150;
+                    campItems.push(`Testimonials ×${campSel.testimonials}`);
+                }
 
                 subtotal += campTotal;
 
@@ -2234,11 +2838,171 @@
                 html += `
                     <div class="summary-item">
                         <div class="summary-item-details">
-                            <div class="summary-item-name">Sports Package</div>
+                            <div class="summary-item-name">Sports Highlights</div>
                             <div class="summary-item-tier" style="font-size: 0.75rem;">${sportsDetails.join(', ')}</div>
                         </div>
                         <span class="summary-item-price">$${sportsTotal.toLocaleString()}</span>
                         <button class="summary-item-remove" onclick="removeProduct('sports')">×</button>
+                    </div>
+                `;
+            }
+
+            // Arts
+            const artsSel = selections['arts'];
+            if (artsSel.active) {
+                hasItems = true;
+                let artsTotal = 350; // base fee always included
+                artsTotal += artsSel.events * 70;
+                artsTotal += artsSel.videoMins * 150;
+                if (artsSel.socialCut) artsTotal += 250;
+
+                subtotal += artsTotal;
+
+                const artsDetails = [];
+                artsDetails.push(`${artsSel.events} events`);
+                artsDetails.push(`${artsSel.videoMins} min video`);
+                if (artsSel.socialCut) artsDetails.push('+ social cut');
+
+                html += `
+                    <div class="summary-item">
+                        <div class="summary-item-details">
+                            <div class="summary-item-name">Arts Highlights</div>
+                            <div class="summary-item-tier" style="font-size: 0.75rem;">${artsDetails.join(', ')}</div>
+                        </div>
+                        <span class="summary-item-price">$${artsTotal.toLocaleString()}</span>
+                        <button class="summary-item-remove" onclick="removeProduct('arts')">×</button>
+                    </div>
+                `;
+            }
+
+            // Recap Website
+            const recapEntries = Object.entries(selections['recap-website'].tiers);
+            if (recapEntries.length > 0) {
+                hasItems = true;
+                recapEntries.forEach(([tierName, tierData]) => {
+                    const itemTotal = tierData.price * tierData.quantity;
+                    subtotal += itemTotal;
+                    const qtyText = tierData.quantity > 1 ? ` × ${tierData.quantity}` : '';
+
+                    html += `
+                        <div class="summary-item">
+                            <div class="summary-item-details">
+                                <div class="summary-item-name">Recap Website</div>
+                                <div class="summary-item-tier">${tierName}${qtyText}</div>
+                            </div>
+                            <span class="summary-item-price">$${itemTotal.toLocaleString()}</span>
+                            <button class="summary-item-remove" onclick="removeTier('recap-website', '${tierName}')">×</button>
+                        </div>
+                    `;
+                });
+            }
+
+            // Photography
+            if (selections['photography'].sessions > 0) {
+                hasItems = true;
+                const photoTotal = selections['photography'].sessions * 150;
+                subtotal += photoTotal;
+
+                html += `
+                    <div class="summary-item">
+                        <div class="summary-item-details">
+                            <div class="summary-item-name">Event Photography</div>
+                            <div class="summary-item-tier">${selections['photography'].sessions} session${selections['photography'].sessions !== 1 ? 's' : ''}</div>
+                        </div>
+                        <span class="summary-item-price">$${photoTotal.toLocaleString()}</span>
+                        <button class="summary-item-remove" onclick="removeProduct('photography')">×</button>
+                    </div>
+                `;
+            }
+
+            // Pamphlets
+            const pamphletEntries = Object.entries(selections['pamphlets'].tiers);
+            if (pamphletEntries.length > 0) {
+                hasItems = true;
+                pamphletEntries.forEach(([tierName, tierData]) => {
+                    const itemTotal = tierData.price * tierData.quantity;
+                    subtotal += itemTotal;
+                    const qtyText = tierData.quantity > 1 ? ` × ${tierData.quantity}` : '';
+
+                    html += `
+                        <div class="summary-item">
+                            <div class="summary-item-details">
+                                <div class="summary-item-name">Production Pamphlets</div>
+                                <div class="summary-item-tier">${tierName}${qtyText}</div>
+                            </div>
+                            <span class="summary-item-price">$${itemTotal.toLocaleString()}</span>
+                            <button class="summary-item-remove" onclick="removeTier('pamphlets', '${tierName}')">×</button>
+                        </div>
+                    `;
+                });
+            }
+
+            // Posters
+            if (selections['posters'].qty > 0) {
+                hasItems = true;
+                let perPoster = 75;
+                if (selections['posters'].format1x1) perPoster += 5;
+                if (selections['posters'].format16x9) perPoster += 5;
+                if (selections['posters'].format9x16) perPoster += 5;
+                const posterTotal = selections['posters'].qty * perPoster;
+                subtotal += posterTotal;
+
+                const formats = [];
+                formats.push('A3');
+                if (selections['posters'].format1x1) formats.push('1×1');
+                if (selections['posters'].format16x9) formats.push('16×9');
+                if (selections['posters'].format9x16) formats.push('9×16');
+
+                html += `
+                    <div class="summary-item">
+                        <div class="summary-item-details">
+                            <div class="summary-item-name">Advertising Posters</div>
+                            <div class="summary-item-tier">${selections['posters'].qty} poster${selections['posters'].qty !== 1 ? 's' : ''} (${formats.join(', ')})</div>
+                        </div>
+                        <span class="summary-item-price">$${posterTotal.toLocaleString()}</span>
+                        <button class="summary-item-remove" onclick="removeProduct('posters')">×</button>
+                    </div>
+                `;
+            }
+
+            // Training
+            ['entry', 'basic', 'standard', 'premium'].forEach(tier => {
+                if (selections['training'][tier].active) {
+                    hasItems = true;
+                    const students = selections['training'][tier].students;
+                    const prices = trainingPrices[tier];
+                    const total = prices.base + (students - 5) * prices.perStudent;
+                    subtotal += total;
+
+                    const tierName = tier.charAt(0).toUpperCase() + tier.slice(1);
+                    html += `
+                        <div class="summary-item">
+                            <div class="summary-item-details">
+                                <div class="summary-item-name">Student Training</div>
+                                <div class="summary-item-tier">${tierName} (${students} students)</div>
+                            </div>
+                            <span class="summary-item-price">$${total.toLocaleString()}</span>
+                            <button class="summary-item-remove" onclick="removeProduct('training-${tier}')">×</button>
+                        </div>
+                    `;
+                }
+            });
+
+            // Music Video
+            if (selections['musicvideo'].active) {
+                hasItems = true;
+                const mv = selections['musicvideo'];
+                const mvTotal = 600 + (mv.students * mv.recordingDays * 40) + (mv.students * mv.shootDays * 45);
+                subtotal += mvTotal;
+
+                html += `
+                    <div class="summary-item">
+                        <div class="summary-item-details">
+                            <div class="summary-item-name">Music Video</div>
+                            <div class="summary-item-tier">${mv.students} students, ${mv.recordingDays} rec day${mv.recordingDays !== 1 ? 's' : ''}, ${mv.shootDays} shoot day${mv.shootDays !== 1 ? 's' : ''}</div>
+                        </div>
+                        <span class="summary-item-price">$${mvTotal.toLocaleString()}</span>
+                        <button class="summary-item-remove" onclick="removeProduct('musicvideo')">×</button>
                     </div>
                 `;
             }
@@ -2257,26 +3021,17 @@
                 discountableCount += tier.quantity;
                 discountableSubtotal += tier.price * tier.quantity;
             });
-            Object.values(selections['eoy-highlights'].addons).forEach(addon => {
-                discountableSubtotal += addon.price * addon.quantity;
-            });
 
             // Count Day Highlights
             Object.values(selections['day-highlights'].tiers).forEach(tier => {
                 discountableCount += tier.quantity;
                 discountableSubtotal += tier.price * tier.quantity;
             });
-            Object.values(selections['day-highlights'].addons).forEach(addon => {
-                discountableSubtotal += addon.price * addon.quantity;
-            });
 
             // Count Formal Events
             Object.values(selections['formal-events'].tiers).forEach(tier => {
                 discountableCount += tier.quantity;
                 discountableSubtotal += tier.price * tier.quantity;
-            });
-            Object.values(selections['formal-events'].addons).forEach(addon => {
-                discountableSubtotal += addon.price * addon.quantity;
             });
 
             // Count School Productions
@@ -2295,19 +3050,86 @@
                 discountableSubtotal += sportsSubtotal;
             }
 
-            // Campaigns total (not discountable)
-            Object.entries(selections['campaigns']).forEach(([item, qty]) => {
-                campaignsTotal += campaignPrices[item] * qty;
+            // Count Arts (counts as 1 discountable product if active)
+            if (selections['arts'].active) {
+                discountableCount += 1;
+                let artsSubtotal = 350;
+                artsSubtotal += selections['arts'].events * 70;
+                artsSubtotal += selections['arts'].videoMins * 150;
+                if (selections['arts'].socialCut) artsSubtotal += 250;
+                discountableSubtotal += artsSubtotal;
+            }
+
+            // Count Recap Website
+            Object.values(selections['recap-website'].tiers).forEach(tier => {
+                discountableCount += tier.quantity;
+                discountableSubtotal += tier.price * tier.quantity;
             });
 
+            // Count Photography (counts as 1 if any sessions)
+            if (selections['photography'].sessions > 0) {
+                discountableCount += 1;
+                discountableSubtotal += selections['photography'].sessions * 150;
+            }
+
+            // Count Pamphlets
+            Object.values(selections['pamphlets'].tiers).forEach(tier => {
+                discountableCount += tier.quantity;
+                discountableSubtotal += tier.price * tier.quantity;
+            });
+
+            // Count Posters (counts as 1 if any)
+            if (selections['posters'].qty > 0) {
+                discountableCount += 1;
+                let perPoster = 75;
+                if (selections['posters'].format1x1) perPoster += 5;
+                if (selections['posters'].format16x9) perPoster += 5;
+                if (selections['posters'].format9x16) perPoster += 5;
+                discountableSubtotal += selections['posters'].qty * perPoster;
+            }
+
+            // Count Training (each tier counts as 1)
+            ['entry', 'basic', 'standard', 'premium'].forEach(tier => {
+                if (selections['training'][tier].active) {
+                    discountableCount += 1;
+                    const students = selections['training'][tier].students;
+                    const prices = trainingPrices[tier];
+                    discountableSubtotal += prices.base + (students - 5) * prices.perStudent;
+                }
+            });
+
+            // Count Music Video (counts as 1 if active)
+            if (selections['musicvideo'].active) {
+                discountableCount += 1;
+                const mv = selections['musicvideo'];
+                discountableSubtotal += 600 + (mv.students * mv.recordingDays * 40) + (mv.students * mv.shootDays * 45);
+            }            // Count Arts (counts as 1 discountable product if active)
+            if (selections['arts'].active) {
+                discountableCount += 1;
+                let artsSubtotal = 350;
+                artsSubtotal += selections['arts'].events * 70;
+                artsSubtotal += selections['arts'].videoMins * 150;
+                if (selections['arts'].socialCut) artsSubtotal += 250;
+                discountableSubtotal += artsSubtotal;
+            }
+
+            // Campaigns total (not discountable)
+            const campSel2 = selections['campaigns'];
+            if (campSel2.international) campaignsTotal += 3500;
+            if (campSel2.ourselves > 0) campaignsTotal += campSel2.ourselves * 800;
+            if (campSel2.testimonials > 0) campaignsTotal += campSel2.testimonials * 150;
+
             // Determine discount percentage
+            // 3 projects - 5%, 6 projects - 8%, 12 projects - 12%, 20 projects - 15%
             let discountPercent = 0;
-            if (discountableCount >= 10) {
-                discountPercent = 20;
-            } else if (discountableCount >= 6) {
+            if (discountableCount >= 20) {
                 discountPercent = 15;
+            } else if (discountableCount >= 12) {
+                discountPercent = 12;
+            } else if (discountableCount >= 6) {
+                discountPercent = 8;
             } else if (discountableCount >= 3) {
-                discountPercent = 10;
+                discountPercent = 5;
             }
 
             const discountAmount = discountableSubtotal * (discountPercent / 100);
@@ -2341,16 +3163,6 @@
             const tierBtns = document.querySelectorAll(`[data-product="${product}"][data-tier="${tierName}"]`);
             tierBtns.forEach(btn => btn.classList.remove('selected'));
 
-            if (Object.keys(selections[product].tiers).length === 0) {
-                selections[product].addons = {};
-                // Reset addon quantities
-                const card = document.querySelector(`.product-card[data-product="${product}"]`);
-                if (card) {
-                    card.querySelectorAll('.addon-qty-display').forEach(el => el.textContent = '0');
-                    card.querySelectorAll('.addon-item').forEach(el => el.classList.remove('selected'));
-                }
-            }
-
             updateSummary();
         }
 
@@ -2362,10 +3174,14 @@
 
         function removeProduct(product) {
             if (product === 'campaigns') {
-                selections[product] = {};
-                Object.keys(campaignPrices).forEach(item => {
-                    document.getElementById(`campaign-${item}`).textContent = '0';
-                });
+                selections['campaigns'] = { international: false, ourselves: 0, testimonials: 0 };
+                document.getElementById('campaign-international').checked = false;
+                document.getElementById('campaign-ourselves').value = 0;
+                document.getElementById('campaign-testimonials').value = 0;
+                document.getElementById('campaign-ourselves-value').textContent = '0';
+                document.getElementById('campaign-testimonials-value').textContent = '0';
+                document.getElementById('campaign-ourselves-total').textContent = '$0';
+                document.getElementById('campaign-testimonials-total').textContent = '$0';
             } else if (product === 'sports') {
                 selections['sports'] = { active: false, games: 5, videoMins: 1, socialCut: false };
                 document.getElementById('sports-activate').checked = false;
@@ -2378,16 +3194,61 @@
                 document.getElementById('sports-video-total').textContent = '$150';
                 document.getElementById('sports-total').textContent = '$800';
                 document.getElementById('sports-options').style.display = 'none';
+            } else if (product === 'arts') {
+                selections['arts'] = { active: false, events: 5, videoMins: 1, socialCut: false };
+                document.getElementById('arts-activate').checked = false;
+                document.getElementById('arts-events').value = 5;
+                document.getElementById('arts-video').value = 1;
+                document.getElementById('arts-social').checked = false;
+                document.getElementById('arts-events-value').textContent = '5 events';
+                document.getElementById('arts-video-value').textContent = '1 min';
+                document.getElementById('arts-events-total').textContent = '$350';
+                document.getElementById('arts-video-total').textContent = '$150';
+                document.getElementById('arts-total').textContent = '$850';
+                document.getElementById('arts-options').style.display = 'none';
+            } else if (product === 'photography') {
+                selections['photography'] = { sessions: 0 };
+                document.getElementById('photography-sessions').value = 1;
+                document.getElementById('photography-sessions-value').textContent = '1 session';
+                document.getElementById('photography-total').textContent = '$150';
+            } else if (product === 'posters') {
+                selections['posters'] = { qty: 0, format1x1: false, format16x9: false, format9x16: false };
+                document.getElementById('posters-qty').value = 1;
+                document.getElementById('posters-1x1').checked = false;
+                document.getElementById('posters-16x9').checked = false;
+                document.getElementById('posters-9x16').checked = false;
+                document.getElementById('posters-qty-value').textContent = '1 poster';
+                document.getElementById('posters-base-total').textContent = '$75';
+                document.getElementById('posters-total').textContent = '$75';
+            } else if (product.startsWith('training-')) {
+                const tier = product.replace('training-', '');
+                selections['training'][tier] = { active: false, students: 5 };
+                document.getElementById(`training-${tier}-activate`).checked = false;
+                document.getElementById(`training-${tier}-students`).value = 5;
+                document.getElementById(`training-${tier}-students-value`).textContent = '5 students';
+                document.getElementById(`training-${tier}-total`).textContent = `$${trainingPrices[tier].base}`;
+                document.getElementById(`training-${tier}-options`).style.display = 'none';
+            } else if (product === 'musicvideo') {
+                selections['musicvideo'] = { active: false, students: 15, recordingDays: 1, shootDays: 1 };
+                document.getElementById('musicvideo-activate').checked = false;
+                document.getElementById('musicvideo-students').value = 15;
+                document.getElementById('musicvideo-recording').value = 1;
+                document.getElementById('musicvideo-shoot').value = 1;
+                document.getElementById('musicvideo-students-value').textContent = '15 students';
+                document.getElementById('musicvideo-recording-value').textContent = '1 day';
+                document.getElementById('musicvideo-shoot-value').textContent = '1 day';
+                document.getElementById('musicvideo-recording-total').textContent = '$600';
+                document.getElementById('musicvideo-shoot-total').textContent = '$675';
+                document.getElementById('musicvideo-total').textContent = '$1,875';
+                document.getElementById('musicvideo-options').style.display = 'none';
             }
             updateSummary();
         }
 
         function clearAll() {
             // Clear standard products
-            ['eoy-highlights', 'day-highlights', 'formal-events'].forEach(product => {
+            ['eoy-highlights', 'day-highlights', 'formal-events', 'recap-website', 'pamphlets'].forEach(product => {
                 selections[product].tiers = {};
-                selections[product].addons = {};
-                selections[product].tbdAddons = [];
 
                 ['Entry', 'Basic', 'Standard', 'Premium'].forEach(tier => {
                     const el = document.getElementById(`qty-${product}-${tier}`);
@@ -2397,17 +3258,10 @@
                 document.querySelectorAll(`[data-product="${product}"]`).forEach(btn => {
                     btn.classList.remove('selected');
                 });
-
-                const card = document.querySelector(`.product-card[data-product="${product}"]`);
-                if (card) {
-                    card.querySelectorAll('.addon-item').forEach(b => b.classList.remove('selected'));
-                    card.querySelectorAll('.addon-qty-display').forEach(el => el.textContent = '0');
-                }
             });
 
             // Clear productions
             selections['school-productions'].components = {};
-            selections['school-productions'].tbdAddons = [];
             ['recording-basic', 'recording-standard', 'recording-premium', 'highlights-standard', 'highlights-premium', 'documentary', 'full-package'].forEach(id => {
                 const el = document.getElementById(`qty-${id}`);
                 if (el) {
@@ -2415,13 +3269,29 @@
                     el.closest('.production-option')?.classList.remove('selected');
                 }
             });
-            document.querySelectorAll('.product-card[data-product="school-productions"] .addon-item').forEach(el => el.classList.remove('selected'));
 
             // Clear campaigns
             removeProduct('campaigns');
 
             // Clear sports
             removeProduct('sports');
+
+            // Clear arts
+            removeProduct('arts');
+
+            // Clear photography
+            removeProduct('photography');
+
+            // Clear posters
+            removeProduct('posters');
+
+            // Clear training
+            ['entry', 'basic', 'standard', 'premium'].forEach(tier => {
+                removeProduct(`training-${tier}`);
+            });
+
+            // Clear music video
+            removeProduct('musicvideo');
 
             updateSummary();
         }
