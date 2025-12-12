@@ -1,0 +1,2458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Production Pricing Calculator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #1a1a1a;
+            --text-light: #f5f5f5;
+            --entry-purple: #b8b4d4;
+            --basic-pink: #e8b4b8;
+            --standard-coral: #d4a574;
+            --premium-gold: #e8c864;
+            --addons-cream: #f5f0e1;
+            --accent-yellow: #e8b830;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Libre Baskerville', 'Big Caslon', 'Book Antiqua', Palatino, serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 3.5rem;
+            font-weight: 400;
+            margin-bottom: 10px;
+            letter-spacing: 0.02em;
+        }
+
+        h1 span {
+            color: var(--accent-yellow);
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #999;
+            margin-bottom: 50px;
+            font-style: italic;
+        }
+
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 40px;
+        }
+
+        .products-section {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .product-card {
+            background: rgba(255,255,255,0.03);
+            border-radius: 16px;
+            padding: 25px;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .product-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+
+        .product-title {
+            font-size: 1.8rem;
+            font-weight: 400;
+        }
+
+        .product-title span {
+            color: var(--accent-yellow);
+        }
+
+        .expand-icon {
+            font-size: 1.5rem;
+            color: #666;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card.expanded .expand-icon {
+            transform: rotate(180deg);
+        }
+
+        .product-content {
+            display: none;
+        }
+
+        .product-card.expanded .product-content {
+            display: block;
+        }
+
+        .tier-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .tier-btn {
+            padding: 15px 10px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+            text-align: center;
+            opacity: 0.7;
+            position: relative;
+        }
+
+        .tier-btn:hover {
+            opacity: 0.9;
+        }
+
+        .tier-btn.selected {
+            opacity: 1;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .tier-btn.entry { background: var(--entry-purple); color: #333; }
+        .tier-btn.basic { background: var(--basic-pink); color: #333; }
+        .tier-btn.standard { background: var(--standard-coral); color: #333; }
+        .tier-btn.premium { background: var(--premium-gold); color: #333; }
+
+        .tier-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+
+        .tier-name {
+            font-weight: 700;
+            display: block;
+        }
+
+        .tier-info-btn {
+            background: rgba(0,0,0,0.15);
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .tier-info-btn:hover {
+            background: rgba(0,0,0,0.25);
+        }
+
+        .tier-price {
+            font-size: 0.85rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .tier-qty-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .tier-qty-btn {
+            width: 26px;
+            height: 26px;
+            border: 1px solid rgba(0,0,0,0.2);
+            background: rgba(255,255,255,0.3);
+            color: #333;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .tier-qty-btn:hover {
+            background: rgba(255,255,255,0.5);
+        }
+
+        .tier-qty-display {
+            min-width: 24px;
+            text-align: center;
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .addons-section {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 15px;
+            margin-top: 10px;
+        }
+
+        .addons-title {
+            font-size: 0.9rem;
+            color: #888;
+            margin-bottom: 12px;
+        }
+
+        .addon-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .addon-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            border: 1px solid rgba(245,240,225,0.3);
+            background: transparent;
+            color: var(--addons-cream);
+            border-radius: 20px;
+            font-family: inherit;
+            font-size: 0.8rem;
+        }
+
+        .addon-item.selected {
+            background: rgba(245,240,225,0.15);
+            border-color: var(--addons-cream);
+        }
+
+        .addon-item.tbd {
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .addon-item.tbd:hover {
+            background: rgba(245,240,225,0.1);
+        }
+
+        .addon-item.tbd.selected {
+            background: rgba(245,240,225,0.15);
+        }
+
+        .addon-name {
+            white-space: nowrap;
+        }
+
+        .addon-qty-controls {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .addon-qty-btn {
+            width: 20px;
+            height: 20px;
+            border: 1px solid rgba(245,240,225,0.3);
+            background: transparent;
+            color: var(--addons-cream);
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .addon-qty-btn:hover {
+            background: rgba(245,240,225,0.1);
+        }
+
+        .addon-qty-display {
+            min-width: 18px;
+            text-align: center;
+            font-size: 0.85rem;
+        }
+
+        /* Campaigns special layout */
+        .campaigns-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .campaigns-category {
+            background: rgba(255,255,255,0.02);
+            border-radius: 12px;
+            padding: 15px;
+        }
+
+        .campaigns-category h4 {
+            font-size: 0.95rem;
+            color: var(--accent-yellow);
+            margin-bottom: 12px;
+            font-weight: 400;
+        }
+
+        .campaign-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .campaign-item:last-child {
+            border-bottom: none;
+        }
+
+        .campaign-item-name {
+            font-size: 0.85rem;
+            color: #ccc;
+        }
+
+        .campaign-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .campaign-qty-btn {
+            width: 24px;
+            height: 24px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: transparent;
+            color: var(--text-light);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .campaign-qty-btn:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .campaign-qty {
+            min-width: 20px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        /* School Productions special layout */
+        .productions-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .productions-column {
+            background: rgba(255,255,255,0.02);
+            border-radius: 12px;
+            padding: 15px;
+        }
+
+        .productions-column h4 {
+            font-size: 1rem;
+            margin-bottom: 12px;
+            font-weight: 400;
+        }
+
+        .productions-column h4.recording { color: var(--entry-purple); }
+        .productions-column h4.highlights { color: var(--basic-pink); }
+        .productions-column h4.documentary { color: var(--standard-coral); }
+        .productions-column h4.fullpackage { color: var(--premium-gold); }
+
+        .production-option {
+            padding: 10px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+
+        .production-option.selected {
+            border-color: currentColor;
+            background: rgba(255,255,255,0.08);
+        }
+
+        .production-option-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .production-option-header:hover {
+            opacity: 0.8;
+        }
+
+        .production-option-name {
+            font-weight: 700;
+            display: block;
+        }
+
+        .production-option-price {
+            font-size: 0.8rem;
+            color: #999;
+        }
+
+        /* Summary Panel */
+        .summary-panel {
+            background: rgba(255,255,255,0.03);
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid rgba(255,255,255,0.08);
+            position: sticky;
+            top: 40px;
+            height: fit-content;
+        }
+
+        .summary-title {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .summary-title span {
+            color: var(--accent-yellow);
+        }
+
+        .summary-items {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 25px;
+            min-height: 150px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 12px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 8px;
+        }
+
+        .summary-item-details {
+            flex: 1;
+        }
+
+        .summary-item-name {
+            font-size: 0.95rem;
+            margin-bottom: 4px;
+        }
+
+        .summary-item-tier {
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        .summary-item-events {
+            font-size: 0.75rem;
+            color: var(--accent-yellow);
+            margin-top: 4px;
+        }
+
+        .summary-item-addons {
+            font-size: 0.75rem;
+            color: #666;
+            margin-top: 4px;
+        }
+
+        .summary-item-price {
+            font-size: 1rem;
+            color: var(--accent-yellow);
+        }
+
+        .summary-item-price.tbd {
+            color: #888;
+            font-style: italic;
+        }
+
+        .summary-item-remove {
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 0 0 0 10px;
+            transition: color 0.2s ease;
+        }
+
+        .summary-item-remove:hover {
+            color: #ff6b6b;
+        }
+
+        .summary-empty {
+            color: #666;
+            font-style: italic;
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .summary-totals {
+            border-top: 2px solid rgba(255,255,255,0.1);
+            padding-top: 20px;
+        }
+
+        .summary-line {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .summary-line.subtotal {
+            color: #999;
+            font-size: 0.95rem;
+        }
+
+        .summary-line.gst {
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .summary-line.discount {
+            color: #4ade80;
+            font-size: 0.9rem;
+        }
+
+        /* Sports builder */
+        .sports-builder {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .sports-activate {
+            padding: 20px;
+            background: rgba(232, 184, 48, 0.08);
+            border: 1px solid rgba(232, 184, 48, 0.2);
+            border-radius: 12px;
+        }
+
+        .sports-activate-label {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+
+        .sports-activate-label input {
+            display: none;
+        }
+
+        .sports-activate-check {
+            width: 24px;
+            height: 24px;
+            border: 2px solid rgba(232, 184, 48, 0.5);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .sports-activate-check:after {
+            content: '';
+            width: 12px;
+            height: 12px;
+            background: var(--accent-yellow);
+            border-radius: 3px;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .sports-activate-label input:checked + .sports-activate-check {
+            border-color: var(--accent-yellow);
+        }
+
+        .sports-activate-label input:checked + .sports-activate-check:after {
+            opacity: 1;
+        }
+
+        .sports-activate-text {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            flex: 1;
+        }
+
+        .sports-activate-price {
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        .sports-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .sports-included-badge {
+            font-size: 0.75rem;
+            color: #4ade80;
+            background: rgba(74, 222, 128, 0.1);
+            padding: 4px 10px;
+            border-radius: 12px;
+        }
+
+        .sports-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 10px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .sports-item-header {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .sports-item-name {
+            font-size: 1rem;
+            color: var(--text-light);
+        }
+
+        .sports-item-desc {
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        .sports-item-value {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .sports-fixed-price {
+            font-size: 1rem;
+            color: var(--accent-yellow);
+            min-width: 60px;
+            text-align: right;
+        }
+
+        .sports-calc-price {
+            font-size: 1rem;
+            color: var(--accent-yellow);
+            min-width: 60px;
+            text-align: right;
+        }
+
+        .sports-slider-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 6px;
+        }
+
+        .sports-slider {
+            width: 150px;
+            height: 6px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: rgba(255,255,255,0.1);
+            border-radius: 3px;
+            outline: none;
+        }
+
+        .sports-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            background: var(--accent-yellow);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .sports-slider::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            background: var(--accent-yellow);
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+        }
+
+        .sports-slider-value {
+            font-size: 0.85rem;
+            color: #ccc;
+        }
+
+        .sports-toggle {
+            position: relative;
+            width: 50px;
+            height: 26px;
+            cursor: pointer;
+        }
+
+        .sports-toggle input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .sports-toggle-slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255,255,255,0.1);
+            border-radius: 26px;
+            transition: 0.3s;
+        }
+
+        .sports-toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 3px;
+            bottom: 3px;
+            background: #888;
+            border-radius: 50%;
+            transition: 0.3s;
+        }
+
+        .sports-toggle input:checked + .sports-toggle-slider {
+            background: rgba(232, 184, 48, 0.3);
+        }
+
+        .sports-toggle input:checked + .sports-toggle-slider:before {
+            transform: translateX(24px);
+            background: var(--accent-yellow);
+        }
+
+        .sports-package-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px;
+            background: rgba(232, 184, 48, 0.1);
+            border-radius: 10px;
+            font-size: 1.1rem;
+            margin-top: 8px;
+        }
+
+        .sports-package-total span:last-child {
+            color: var(--accent-yellow);
+            font-weight: 700;
+            font-size: 1.3rem;
+        }
+
+        .sports-package-note {
+            padding: 12px 16px;
+            background: rgba(255, 100, 100, 0.1);
+            border: 1px solid rgba(255, 100, 100, 0.3);
+            border-radius: 8px;
+            font-size: 0.85rem;
+            color: #ff9999;
+        }
+
+        .summary-line.total {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .total-label {
+            font-size: 1.2rem;
+        }
+
+        .total-amount {
+            font-size: 2rem;
+            color: var(--accent-yellow);
+        }
+
+        .clear-btn {
+            width: 100%;
+            margin-top: 20px;
+            padding: 12px;
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #888;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .clear-btn:hover {
+            background: rgba(255,255,255,0.05);
+            color: var(--text-light);
+        }
+
+        /* Lightbox */
+        .lightbox-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.85);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .lightbox-overlay.active {
+            display: flex;
+        }
+
+        .lightbox-content {
+            background: var(--bg-dark);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 30px;
+        }
+
+        .lightbox-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .lightbox-title {
+            font-size: 1.5rem;
+            font-weight: 400;
+        }
+
+        .lightbox-title span {
+            color: var(--accent-yellow);
+        }
+
+        .lightbox-close {
+            background: none;
+            border: none;
+            color: #888;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0;
+            line-height: 1;
+        }
+
+        .lightbox-close:hover {
+            color: var(--text-light);
+        }
+
+        .lightbox-price {
+            font-size: 2rem;
+            color: var(--accent-yellow);
+            margin-bottom: 20px;
+        }
+
+        .lightbox-details {
+            list-style: none;
+        }
+
+        .lightbox-details li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            color: #ccc;
+            font-size: 0.95rem;
+        }
+
+        .lightbox-details li:last-child {
+            border-bottom: none;
+        }
+
+        @media (max-width: 1100px) {
+            .calculator-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .summary-panel {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                border-radius: 16px 16px 0 0;
+                max-height: 60vh;
+                overflow-y: auto;
+                z-index: 100;
+            }
+
+            .campaigns-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .productions-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            .tier-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .productions-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Pricing <span>Calculator</span></h1>
+        <p class="subtitle">Select your products and options to see your total</p>
+
+        <div class="calculator-grid">
+            <div class="products-section">
+                
+                <!-- End of Year Highlights -->
+                <div class="product-card expanded" data-product="eoy-highlights">
+                    <div class="product-header" onclick="toggleProduct(this)">
+                        <h2 class="product-title">End of Year <span>Highlights</span></h2>
+                        <span class="expand-icon">▼</span>
+                    </div>
+                    <div class="product-content">
+                        <div class="tier-grid">
+                            <div class="tier-btn entry" data-tier="Entry" data-price="850" data-product="eoy-highlights">
+                                <div class="tier-header">
+                                    <span class="tier-name">Entry</span>
+                                    <button class="tier-info-btn" onclick="event.stopPropagation(); showInfo('eoy-highlights', 'Entry')">i</button>
+                                </div>
+                                <span class="tier-price">$850</span>
+                                <div class="tier-qty-controls">
+                                    <button class="tier-qty-btn" onclick="event.stopPropagation(); changeTierQty('eoy-highlights', 'Entry', 850, -1)">−</button>
+                                    <span class="tier-qty-display" id="qty-eoy-highlights-Entry">0</span>
+                                    <button class="tier-qty-btn" onclick="event.stopPropagation(); changeTierQty('eoy-highlights', 'Entry', 850, 1)">+</button>
+                                </div>
+                            </div>
+                            <div class="tier-btn basic" data-tier="Basic" data-price="1750" data-product="eoy-highlights">
+                                <div class="tier-header">
+                                    <span class="tier-name">Basic</span>
+                                    <button class="tier-info-btn" onclick="event.stopPropagation(); showInfo('eoy-highlights', 'Basic')">i</button>
+                                </div>
+                                <span class="tier-price">$1,750</span>
+                                <div class="tier-qty-controls">
+                                    <button class="tier-qty-btn" onclick="event.stopPropagation(); changeTierQty('eoy-highlights', 'Basic', 1750, -1)">−</button>
+                                    <span class="tier-qty-display" id="qty-eoy-highlights-Basic">0</span>
+                                    <button class="tier-qty-btn" onclick="event.stopPropagation(); changeTierQty('eoy-highlights', 'Basic', 1750, 1)">+</button>
+                                </div>
+                            </div>
+                            <div class="tier-btn standard" data-tier="Standard" data-price="3000" data-product="eoy-highlights">
+                                <div class="tier-header">
+                                    <span class="tier-name">Standard</span>
+                                    <button class="tier-info-btn" onclick="event.stopPropagation(); showInfo('eoy-highlights', 'Standard')">i</button>
+                                </div>
+                                <span class="tier-price">$3,000</span>
+                                <div class="tier-qty-controls">
+                                    <button class="tier-qty-btn" onclick="event.stopPropagation(); changeTierQty('eoy-highlights', 'Standard', 3000, -1)">−</button>
+                                    <span class="tier-qty-display" id="qty-eoy-highlights-Standard">0</span>
+                                    <button class="tier-qty-btn" onclick="event.stopPropagation(); changeTierQty('eoy-highlights', 'Standard', 3000, 1)">+</button>
+                                </div>
+                            </div>
+                            <div class="tier-btn premium" data-tier="Premium" data-price="4500" data-product="eoy-highlights">
+                                <div class="tier-header">
+                                    <span class="tier-name">Premium</span>
+                                    <button class="tier-info-btn" onclick="event.stopPropagation(); showInfo('eoy-highlights', 'Premium')">i</button>
+                                </div>
+                                <span class="tier-price">$4,500</span>
+                                <div class="tier-qty-controls">
+                                    <button class="tier-qty-btn" onclick="event.stopPropagation(); changeTierQty('eoy-highlights', 'Premium', 4500, -1)">−</button>
+                                    <span class="tier-qty-display" id="qty-eoy-highlights-Premium">0</span>
+                                    <button class="tier-qty-btn" onclick="event.stopPropagation(); changeTierQty('eoy-highlights', 'Premium', 4500, 1)">+</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="addons-section">
+                            <div class="addons-title">Add-ons</div>
+                            <div class="addon-grid">
+                                <div class="addon-item" id="addon-eoy-extra-events">
+                                    <span class="addon-name">Extra Events $200/ea</span>
+                                    <div class="addon-qty-controls">
+                                        <button class="addon-qty-btn" onclick="changeAddonQty('eoy-highlights', 'Extra Events', 200, -1)">−</button>
+                                        <span class="addon-qty-display" id="qty-addon-eoy-extra-events">0</span>
+                                        <button class="addon-qty-btn" onclick="changeAddonQty('eoy-highlights', 'Extra Events', 200, 1)">+</button>
+                                    </div>
+                                </div>
+                                <div class="addon-item" id="addon-eoy-extra-edits">
+                                    <span class="addon-name">Extra Edits $350/ea</span>
+                                    <div class="addon-qty-controls">
+                                        <button class="addon-qty-btn" onclick="changeAddonQty('eoy-highlights', 'Extra Edits', 350, -1)">−</button>
+                                        <span class="addon-qty-display" id="qty-addon-eoy-extra-edits">0</span>
+                                        <button class="addon-qty-btn" onclick="changeAddonQty('eoy-highlights', 'Extra Edits', 350, 1)">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Day Highlights -->
+                <div class="product-card" data-product="day-highlights">
+                    <div class="product-header" onclick="toggleProduct(this)">
+                        <h2 class="product-title">Day <span>Highlights</span></h2>
+                        <span class="expand-icon">▼</span>
+                    </div>
+                    <div class="product-content">
+                        <div class="tier-grid">
+                            <div class="tier-btn entry" data-tier="Entry" data-price="400" data-product="day-highlights">
+                                <div class="tier-header">
+                                    <span class="tier-name">Entry</span>
+                                    <button class="tier-info-btn" onclick="event.stopPropagation(); showInfo('day-highlights', 'Entry')">i</button>
+                                </div>
+                                <span class="tier-price">$400</span>
+                                <div class="tier-qty-controls">
+                                    <button class="tier-qty-btn" onclick="event.stopPropagation(); changeTierQty('day-highlights', 'Entry', 400, -1)">−</button>
+                                    <span class="tier-qty-display" id="qty-day-highlights-Entry">0</span>
+                                    <button class="tier-qty-btn" onclick="event.stopPropagation(); changeTierQty('day-highlights', 'Entry', 400, 1)">+</button>
+                                </div>
+                            </div>
+                            <div class="tier-btn basic" data-tier="Basic" data-price="650" data-product="day-highlights">
+                                <div class="tier-header">
+                                    <span class="tier-name">Basic</span>
+                                    <button class="tier-info-btn" onclick="event.stopPropagation(); showInfo('day-highlights', 'Basic')">i</button>
+                                </div>
+                                <span class="tier-price">$650</span>
+                                <div class="tier-qty-controls">
+                                    <button class="tier-qty-btn" onclick="event.stopPropagation(); changeTierQty('day-highlights', 'Basic', 650, -1)">−</button>
+                                    <span class="tier-qty-display" id="qty-day-highlights-Basic">0</span>
+                                    <button class="tier-qty-btn" onclick="event.stopPropagation(); changeTierQty('day-highlights', 'Basic', 650, 1)">+</button>
+                                </div>
+                            </div>
+                            <div class="tier-btn standard" data-tier="Standard" data-price="950" data-product="day-highlights">
+                                <div class="tier-header">
+                                    <span class="tier-name">Standard</span>
+                                    <button class="tier-info-btn" onclick="event.stopPropagation(); showInfo('day-highlights', 'Standard')">i</button>
+                                </div>
+                                <span class="tier-price">$950</span>
+                                <div class="tier-qty-controls">
+                                    <button class="tier-qty-btn" onclick="event.stopPropagation(); changeTierQty('day-highlights', 'Standard', 950, -1)">−</button>
+                                    <span class="tier-qty-display" id="qty-day-highlights-Standard">0</span>
+                                    <button class="tier-qty-btn" onclick="event.stopPropagation(); changeTierQty('day-highlights', 'Standard', 950, 1)">+</button>
+                                </div>
+                            </div>
+                            <div class="tier-btn premium" data-tier="Premium" data-price="1300" data-product="day-highlights">
+                                <div class="tier-header">
+                                    <span class="tier-name">Premium</span>
+                                    <button class="tier-info-btn" onclick="event.stopPropagation(); showInfo('day-highlights', 'Premium')">i</button>
+                                </div>
+                                <span class="tier-price">$1,300</span>
+                                <div class="tier-qty-controls">
+                                    <button class="tier-qty-btn" onclick="event.stopPropagation(); changeTierQty('day-highlights', 'Premium', 1300, -1)">−</button>
+                                    <span class="tier-qty-display" id="qty-day-highlights-Premium">0</span>
+                                    <button class="tier-qty-btn" onclick="event.stopPropagation(); changeTierQty('day-highlights', 'Premium', 1300, 1)">+</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="addons-section">
+                            <div class="addons-title">Add-ons</div>
+                            <div class="addon-grid">
+                                <div class="addon-item" id="addon-day-drone">
+                                    <span class="addon-name">Drone Hire $250/ea</span>
+                                    <div class="addon-qty-controls">
+                                        <button class="addon-qty-btn" onclick="changeAddonQty('day-highlights', 'Drone Hire', 250, -1)">−</button>
+                                        <span class="addon-qty-display" id="qty-addon-day-drone">0</span>
+                                        <button class="addon-qty-btn" onclick="changeAddonQty('day-highlights', 'Drone Hire', 250, 1)">+</button>
+                                    </div>
+                                </div>
+                                <div class="addon-item" id="addon-day-dayafter">
+                                    <span class="addon-name">Day-after Delivery $400/ea</span>
+                                    <div class="addon-qty-controls">
+                                        <button class="addon-qty-btn" onclick="changeAddonQty('day-highlights', 'Day-after Delivery', 400, -1)">−</button>
+                                        <span class="addon-qty-display" id="qty-addon-day-dayafter">0</span>
+                                        <button class="addon-qty-btn" onclick="changeAddonQty('day-highlights', 'Day-after Delivery', 400, 1)">+</button>
+                                    </div>
+                                </div>
+                                <div class="addon-item" id="addon-day-extraedits">
+                                    <span class="addon-name">Extra Edits $350/ea</span>
+                                    <div class="addon-qty-controls">
+                                        <button class="addon-qty-btn" onclick="changeAddonQty('day-highlights', 'Extra Edits', 350, -1)">−</button>
+                                        <span class="addon-qty-display" id="qty-addon-day-extraedits">0</span>
+                                        <button class="addon-qty-btn" onclick="changeAddonQty('day-highlights', 'Extra Edits', 350, 1)">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Formal Events -->
+                <div class="product-card" data-product="formal-events">
+                    <div class="product-header" onclick="toggleProduct(this)">
+                        <h2 class="product-title">Formal <span>Events</span></h2>
+                        <span class="expand-icon">▼</span>
+                    </div>
+                    <div class="product-content">
+                        <div class="tier-grid">
+                            <div class="tier-btn entry" data-tier="Entry" data-price="850" data-product="formal-events">
+                                <div class="tier-header">
+                                    <span class="tier-name">Entry</span>
+                                    <button class="tier-info-btn" onclick="event.stopPropagation(); showInfo('formal-events', 'Entry')">i</button>
+                                </div>
+                                <span class="tier-price">$850</span>
+                                <div class="tier-qty-controls">
+                                    <button class="tier-qty-btn" onclick="event.stopPropagation(); changeTierQty('formal-events', 'Entry', 850, -1)">−</button>
+                                    <span class="tier-qty-display" id="qty-formal-events-Entry">0</span>
+                                    <button class="tier-qty-btn" onclick="event.stopPropagation(); changeTierQty('formal-events', 'Entry', 850, 1)">+</button>
+                                </div>
+                            </div>
+                            <div class="tier-btn basic" data-tier="Basic" data-price="1100" data-product="formal-events">
+                                <div class="tier-header">
+                                    <span class="tier-name">Basic</span>
+                                    <button class="tier-info-btn" onclick="event.stopPropagation(); showInfo('formal-events', 'Basic')">i</button>
+                                </div>
+                                <span class="tier-price">$1,100</span>
+                                <div class="tier-qty-controls">
+                                    <button class="tier-qty-btn" onclick="event.stopPropagation(); changeTierQty('formal-events', 'Basic', 1100, -1)">−</button>
+                                    <span class="tier-qty-display" id="qty-formal-events-Basic">0</span>
+                                    <button class="tier-qty-btn" onclick="event.stopPropagation(); changeTierQty('formal-events', 'Basic', 1100, 1)">+</button>
+                                </div>
+                            </div>
+                            <div class="tier-btn standard" data-tier="Standard" data-price="1450" data-product="formal-events">
+                                <div class="tier-header">
+                                    <span class="tier-name">Standard</span>
+                                    <button class="tier-info-btn" onclick="event.stopPropagation(); showInfo('formal-events', 'Standard')">i</button>
+                                </div>
+                                <span class="tier-price">$1,450</span>
+                                <div class="tier-qty-controls">
+                                    <button class="tier-qty-btn" onclick="event.stopPropagation(); changeTierQty('formal-events', 'Standard', 1450, -1)">−</button>
+                                    <span class="tier-qty-display" id="qty-formal-events-Standard">0</span>
+                                    <button class="tier-qty-btn" onclick="event.stopPropagation(); changeTierQty('formal-events', 'Standard', 1450, 1)">+</button>
+                                </div>
+                            </div>
+                            <div class="tier-btn premium" data-tier="Premium" data-price="1850" data-product="formal-events">
+                                <div class="tier-header">
+                                    <span class="tier-name">Premium</span>
+                                    <button class="tier-info-btn" onclick="event.stopPropagation(); showInfo('formal-events', 'Premium')">i</button>
+                                </div>
+                                <span class="tier-price">$1,850</span>
+                                <div class="tier-qty-controls">
+                                    <button class="tier-qty-btn" onclick="event.stopPropagation(); changeTierQty('formal-events', 'Premium', 1850, -1)">−</button>
+                                    <span class="tier-qty-display" id="qty-formal-events-Premium">0</span>
+                                    <button class="tier-qty-btn" onclick="event.stopPropagation(); changeTierQty('formal-events', 'Premium', 1850, 1)">+</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="addons-section">
+                            <div class="addons-title">Add-ons</div>
+                            <div class="addon-grid">
+                                <div class="addon-item" id="addon-formal-vertical">
+                                    <span class="addon-name">9x16 Vertical Edit $300/ea</span>
+                                    <div class="addon-qty-controls">
+                                        <button class="addon-qty-btn" onclick="changeAddonQty('formal-events', '9x16 Vertical Edit', 300, -1)">−</button>
+                                        <span class="addon-qty-display" id="qty-addon-formal-vertical">0</span>
+                                        <button class="addon-qty-btn" onclick="changeAddonQty('formal-events', '9x16 Vertical Edit', 300, 1)">+</button>
+                                    </div>
+                                </div>
+                                <div class="addon-item tbd" id="addon-formal-photo" onclick="toggleTBD('formal-events', 'Photography', this)">
+                                    <span class="addon-name">Photography – TBD</span>
+                                </div>
+                                <div class="addon-item tbd" id="addon-formal-design" onclick="toggleTBD('formal-events', 'Graphic Design', this)">
+                                    <span class="addon-name">Graphic Design – TBD</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- School Productions -->
+                <div class="product-card" data-product="school-productions">
+                    <div class="product-header" onclick="toggleProduct(this)">
+                        <h2 class="product-title">School <span>Productions</span></h2>
+                        <span class="expand-icon">▼</span>
+                    </div>
+                    <div class="product-content">
+                        <div class="productions-grid">
+                            <div class="productions-column">
+                                <h4 class="recording">Recording</h4>
+                                <div class="production-option" style="color: var(--entry-purple);">
+                                    <div class="production-option-header" onclick="showInfo('school-productions', 'recording-basic')">
+                                        <div>
+                                            <span class="production-option-name">Basic</span>
+                                            <span class="production-option-price">1 camera · $600/show</span>
+                                        </div>
+                                    </div>
+                                    <div class="tier-qty-controls" style="border-color: rgba(184,180,212,0.3);">
+                                        <button class="tier-qty-btn" onclick="changeProductionQty('recording-basic', 'Recording Basic (1 cam)', 600, -1)">−</button>
+                                        <span class="tier-qty-display" id="qty-recording-basic">0</span>
+                                        <button class="tier-qty-btn" onclick="changeProductionQty('recording-basic', 'Recording Basic (1 cam)', 600, 1)">+</button>
+                                    </div>
+                                </div>
+                                <div class="production-option" style="color: var(--entry-purple);">
+                                    <div class="production-option-header" onclick="showInfo('school-productions', 'recording-standard')">
+                                        <div>
+                                            <span class="production-option-name">Standard</span>
+                                            <span class="production-option-price">2 cameras · $900/show</span>
+                                        </div>
+                                    </div>
+                                    <div class="tier-qty-controls" style="border-color: rgba(184,180,212,0.3);">
+                                        <button class="tier-qty-btn" onclick="changeProductionQty('recording-standard', 'Recording Standard (2 cam)', 900, -1)">−</button>
+                                        <span class="tier-qty-display" id="qty-recording-standard">0</span>
+                                        <button class="tier-qty-btn" onclick="changeProductionQty('recording-standard', 'Recording Standard (2 cam)', 900, 1)">+</button>
+                                    </div>
+                                </div>
+                                <div class="production-option" style="color: var(--entry-purple);">
+                                    <div class="production-option-header" onclick="showInfo('school-productions', 'recording-premium')">
+                                        <div>
+                                            <span class="production-option-name">Premium</span>
+                                            <span class="production-option-price">3 cameras · $1,200/show</span>
+                                        </div>
+                                    </div>
+                                    <div class="tier-qty-controls" style="border-color: rgba(184,180,212,0.3);">
+                                        <button class="tier-qty-btn" onclick="changeProductionQty('recording-premium', 'Recording Premium (3 cam)', 1200, -1)">−</button>
+                                        <span class="tier-qty-display" id="qty-recording-premium">0</span>
+                                        <button class="tier-qty-btn" onclick="changeProductionQty('recording-premium', 'Recording Premium (3 cam)', 1200, 1)">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="productions-column">
+                                <h4 class="highlights">Highlights</h4>
+                                <div class="production-option" style="color: var(--basic-pink);">
+                                    <div class="production-option-header" onclick="showInfo('school-productions', 'highlights-standard')">
+                                        <div>
+                                            <span class="production-option-name">Standard</span>
+                                            <span class="production-option-price">2-3 min · $800</span>
+                                        </div>
+                                    </div>
+                                    <div class="tier-qty-controls" style="border-color: rgba(232,180,184,0.3);">
+                                        <button class="tier-qty-btn" onclick="changeProductionQty('highlights-standard', 'Highlights Standard', 800, -1)">−</button>
+                                        <span class="tier-qty-display" id="qty-highlights-standard">0</span>
+                                        <button class="tier-qty-btn" onclick="changeProductionQty('highlights-standard', 'Highlights Standard', 800, 1)">+</button>
+                                    </div>
+                                </div>
+                                <div class="production-option" style="color: var(--basic-pink);">
+                                    <div class="production-option-header" onclick="showInfo('school-productions', 'highlights-premium')">
+                                        <div>
+                                            <span class="production-option-name">Premium</span>
+                                            <span class="production-option-price">4-5 min · $1,400</span>
+                                        </div>
+                                    </div>
+                                    <div class="tier-qty-controls" style="border-color: rgba(232,180,184,0.3);">
+                                        <button class="tier-qty-btn" onclick="changeProductionQty('highlights-premium', 'Highlights Premium', 1400, -1)">−</button>
+                                        <span class="tier-qty-display" id="qty-highlights-premium">0</span>
+                                        <button class="tier-qty-btn" onclick="changeProductionQty('highlights-premium', 'Highlights Premium', 1400, 1)">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="productions-column">
+                                <h4 class="documentary">Documentary</h4>
+                                <div class="production-option" style="color: var(--standard-coral);">
+                                    <div class="production-option-header" onclick="showInfo('school-productions', 'documentary')">
+                                        <div>
+                                            <span class="production-option-name">Full Documentary</span>
+                                            <span class="production-option-price">20-25 min · $2,000</span>
+                                        </div>
+                                    </div>
+                                    <div class="tier-qty-controls" style="border-color: rgba(212,165,116,0.3);">
+                                        <button class="tier-qty-btn" onclick="changeProductionQty('documentary', 'Documentary', 2000, -1)">−</button>
+                                        <span class="tier-qty-display" id="qty-documentary">0</span>
+                                        <button class="tier-qty-btn" onclick="changeProductionQty('documentary', 'Documentary', 2000, 1)">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="productions-column">
+                                <h4 class="fullpackage">Full Package</h4>
+                                <div class="production-option" style="color: var(--premium-gold);">
+                                    <div class="production-option-header" onclick="showInfo('school-productions', 'full-package')">
+                                        <div>
+                                            <span class="production-option-name">Everything</span>
+                                            <span class="production-option-price">All included · $3,000</span>
+                                        </div>
+                                    </div>
+                                    <div class="tier-qty-controls" style="border-color: rgba(232,200,100,0.3);">
+                                        <button class="tier-qty-btn" onclick="changeProductionQty('full-package', 'Full Package', 3000, -1)">−</button>
+                                        <span class="tier-qty-display" id="qty-full-package">0</span>
+                                        <button class="tier-qty-btn" onclick="changeProductionQty('full-package', 'Full Package', 3000, 1)">+</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="addons-section">
+                            <div class="addons-title">Add-ons</div>
+                            <div class="addon-grid">
+                                <div class="addon-item tbd" onclick="toggleTBD('school-productions', 'Cast & Show Photography', this)">
+                                    <span class="addon-name">Cast & Show Photography – TBD</span>
+                                </div>
+                                <div class="addon-item tbd" onclick="toggleTBD('school-productions', 'Graphic Design', this)">
+                                    <span class="addon-name">Graphic Design – TBD</span>
+                                </div>
+                                <div class="addon-item tbd" onclick="toggleTBD('school-productions', 'Visual Effects', this)">
+                                    <span class="addon-name">Visual Effects – TBD</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Advertising & Campaigns -->
+                <div class="product-card" data-product="campaigns">
+                    <div class="product-header" onclick="toggleProduct(this)">
+                        <h2 class="product-title">Advertising & <span>Campaigns</span></h2>
+                        <span class="expand-icon">▼</span>
+                    </div>
+                    <div class="product-content">
+                        <div class="campaigns-grid">
+                            <div class="campaigns-category">
+                                <h4>Production</h4>
+                                <div class="campaign-item">
+                                    <span class="campaign-item-name">Half day shoot</span>
+                                    <div class="campaign-item-controls">
+                                        <button class="campaign-qty-btn" onclick="changeCampaignItem('half-day', -1)">−</button>
+                                        <span class="campaign-qty" id="campaign-half-day">0</span>
+                                        <button class="campaign-qty-btn" onclick="changeCampaignItem('half-day', 1)">+</button>
+                                        <span style="color: #888; font-size: 0.8rem; margin-left: 5px;">$600</span>
+                                    </div>
+                                </div>
+                                <div class="campaign-item">
+                                    <span class="campaign-item-name">Full day shoot</span>
+                                    <div class="campaign-item-controls">
+                                        <button class="campaign-qty-btn" onclick="changeCampaignItem('full-day', -1)">−</button>
+                                        <span class="campaign-qty" id="campaign-full-day">0</span>
+                                        <button class="campaign-qty-btn" onclick="changeCampaignItem('full-day', 1)">+</button>
+                                        <span style="color: #888; font-size: 0.8rem; margin-left: 5px;">$1,000</span>
+                                    </div>
+                                </div>
+                                <div class="campaign-item">
+                                    <span class="campaign-item-name">Second camera</span>
+                                    <div class="campaign-item-controls">
+                                        <button class="campaign-qty-btn" onclick="changeCampaignItem('second-cam', -1)">−</button>
+                                        <span class="campaign-qty" id="campaign-second-cam">0</span>
+                                        <button class="campaign-qty-btn" onclick="changeCampaignItem('second-cam', 1)">+</button>
+                                        <span style="color: #888; font-size: 0.8rem; margin-left: 5px;">$400</span>
+                                    </div>
+                                </div>
+                                <div class="campaign-item">
+                                    <span class="campaign-item-name">Drone coverage</span>
+                                    <div class="campaign-item-controls">
+                                        <button class="campaign-qty-btn" onclick="changeCampaignItem('drone', -1)">−</button>
+                                        <span class="campaign-qty" id="campaign-drone">0</span>
+                                        <button class="campaign-qty-btn" onclick="changeCampaignItem('drone', 1)">+</button>
+                                        <span style="color: #888; font-size: 0.8rem; margin-left: 5px;">$250</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="campaigns-category">
+                                <h4>Post-Production</h4>
+                                <div class="campaign-item">
+                                    <span class="campaign-item-name">Short edit (&lt;2 min)</span>
+                                    <div class="campaign-item-controls">
+                                        <button class="campaign-qty-btn" onclick="changeCampaignItem('short-edit', -1)">−</button>
+                                        <span class="campaign-qty" id="campaign-short-edit">0</span>
+                                        <button class="campaign-qty-btn" onclick="changeCampaignItem('short-edit', 1)">+</button>
+                                        <span style="color: #888; font-size: 0.8rem; margin-left: 5px;">$300</span>
+                                    </div>
+                                </div>
+                                <div class="campaign-item">
+                                    <span class="campaign-item-name">Standard edit (2-5 min)</span>
+                                    <div class="campaign-item-controls">
+                                        <button class="campaign-qty-btn" onclick="changeCampaignItem('standard-edit', -1)">−</button>
+                                        <span class="campaign-qty" id="campaign-standard-edit">0</span>
+                                        <button class="campaign-qty-btn" onclick="changeCampaignItem('standard-edit', 1)">+</button>
+                                        <span style="color: #888; font-size: 0.8rem; margin-left: 5px;">$500</span>
+                                    </div>
+                                </div>
+                                <div class="campaign-item">
+                                    <span class="campaign-item-name">Long form (5-10 min)</span>
+                                    <div class="campaign-item-controls">
+                                        <button class="campaign-qty-btn" onclick="changeCampaignItem('long-edit', -1)">−</button>
+                                        <span class="campaign-qty" id="campaign-long-edit">0</span>
+                                        <button class="campaign-qty-btn" onclick="changeCampaignItem('long-edit', 1)">+</button>
+                                        <span style="color: #888; font-size: 0.8rem; margin-left: 5px;">$800</span>
+                                    </div>
+                                </div>
+                                <div class="campaign-item">
+                                    <span class="campaign-item-name">Extra revision</span>
+                                    <div class="campaign-item-controls">
+                                        <button class="campaign-qty-btn" onclick="changeCampaignItem('extra-revision', -1)">−</button>
+                                        <span class="campaign-qty" id="campaign-extra-revision">0</span>
+                                        <button class="campaign-qty-btn" onclick="changeCampaignItem('extra-revision', 1)">+</button>
+                                        <span style="color: #888; font-size: 0.8rem; margin-left: 5px;">$100</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="campaigns-category">
+                                <h4>Extras</h4>
+                                <div class="campaign-item">
+                                    <span class="campaign-item-name">Script development</span>
+                                    <div class="campaign-item-controls">
+                                        <button class="campaign-qty-btn" onclick="changeCampaignItem('script', -1)">−</button>
+                                        <span class="campaign-qty" id="campaign-script">0</span>
+                                        <button class="campaign-qty-btn" onclick="changeCampaignItem('script', 1)">+</button>
+                                        <span style="color: #888; font-size: 0.8rem; margin-left: 5px;">$200</span>
+                                    </div>
+                                </div>
+                                <div class="campaign-item">
+                                    <span class="campaign-item-name">Voiceover</span>
+                                    <div class="campaign-item-controls">
+                                        <button class="campaign-qty-btn" onclick="changeCampaignItem('voiceover', -1)">−</button>
+                                        <span class="campaign-qty" id="campaign-voiceover">0</span>
+                                        <button class="campaign-qty-btn" onclick="changeCampaignItem('voiceover', 1)">+</button>
+                                        <span style="color: #888; font-size: 0.8rem; margin-left: 5px;">$150</span>
+                                    </div>
+                                </div>
+                                <div class="campaign-item">
+                                    <span class="campaign-item-name">Licensed music</span>
+                                    <div class="campaign-item-controls">
+                                        <button class="campaign-qty-btn" onclick="changeCampaignItem('music', -1)">−</button>
+                                        <span class="campaign-qty" id="campaign-music">0</span>
+                                        <button class="campaign-qty-btn" onclick="changeCampaignItem('music', 1)">+</button>
+                                        <span style="color: #888; font-size: 0.8rem; margin-left: 5px;">$75</span>
+                                    </div>
+                                </div>
+                                <div class="campaign-item">
+                                    <span class="campaign-item-name">Motion graphics</span>
+                                    <div class="campaign-item-controls">
+                                        <button class="campaign-qty-btn" onclick="changeCampaignItem('motion', -1)">−</button>
+                                        <span class="campaign-qty" id="campaign-motion">0</span>
+                                        <button class="campaign-qty-btn" onclick="changeCampaignItem('motion', 1)">+</button>
+                                        <span style="color: #888; font-size: 0.8rem; margin-left: 5px;">$200</span>
+                                    </div>
+                                </div>
+                                <div class="campaign-item">
+                                    <span class="campaign-item-name">Subtitles</span>
+                                    <div class="campaign-item-controls">
+                                        <button class="campaign-qty-btn" onclick="changeCampaignItem('subtitles', -1)">−</button>
+                                        <span class="campaign-qty" id="campaign-subtitles">0</span>
+                                        <button class="campaign-qty-btn" onclick="changeCampaignItem('subtitles', 1)">+</button>
+                                        <span style="color: #888; font-size: 0.8rem; margin-left: 5px;">$75</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sports -->
+                <div class="product-card" data-product="sports">
+                    <div class="product-header" onclick="toggleProduct(this)">
+                        <h2 class="product-title"><span>Sports</span></h2>
+                        <span class="expand-icon">▼</span>
+                    </div>
+                    <div class="product-content">
+                        <p style="color: #999; font-size: 0.9rem; margin-bottom: 20px; line-height: 1.6;">
+                            Build your own sports package. Choose how many games you want covered and how long you want the final video to be.
+                        </p>
+                        <div class="sports-builder">
+                            <div class="sports-activate">
+                                <label class="sports-activate-label">
+                                    <input type="checkbox" id="sports-activate" onchange="toggleSportsPackage()">
+                                    <span class="sports-activate-check"></span>
+                                    <span class="sports-activate-text">Sports Package</span>
+                                    <span class="sports-activate-price">from $800</span>
+                                </label>
+                            </div>
+                            <div class="sports-options" id="sports-options" style="display: none;">
+                                <div class="sports-item">
+                                    <div class="sports-item-header">
+                                        <span class="sports-item-name">Base fee</span>
+                                        <span class="sports-item-desc">Travel, admin & gear cover</span>
+                                    </div>
+                                    <div class="sports-item-value">
+                                        <span class="sports-fixed-price">$350</span>
+                                        <span class="sports-included-badge">Included</span>
+                                    </div>
+                                </div>
+                                <div class="sports-item">
+                                    <div class="sports-item-header">
+                                        <span class="sports-item-name">Game coverage</span>
+                                        <span class="sports-item-desc">$60/game</span>
+                                    </div>
+                                    <div class="sports-item-value">
+                                        <span class="sports-calc-price" id="sports-games-total">$300</span>
+                                        <div class="sports-slider-container">
+                                            <input type="range" id="sports-games" min="5" max="30" value="5" class="sports-slider" oninput="updateSports()">
+                                            <span class="sports-slider-value" id="sports-games-value">5 games</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="sports-item">
+                                    <div class="sports-item-header">
+                                        <span class="sports-item-name">Video length</span>
+                                        <span class="sports-item-desc">$150/minute</span>
+                                    </div>
+                                    <div class="sports-item-value">
+                                        <span class="sports-calc-price" id="sports-video-total">$150</span>
+                                        <div class="sports-slider-container">
+                                            <input type="range" id="sports-video" min="1" max="6" value="1" class="sports-slider" oninput="updateSports()">
+                                            <span class="sports-slider-value" id="sports-video-value">1 min</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="sports-item">
+                                    <div class="sports-item-header">
+                                        <span class="sports-item-name">Social media cut</span>
+                                        <span class="sports-item-desc">Optional vertical edit</span>
+                                    </div>
+                                    <div class="sports-item-value">
+                                        <span class="sports-fixed-price">$250</span>
+                                        <label class="sports-toggle">
+                                            <input type="checkbox" id="sports-social" onchange="updateSports()">
+                                            <span class="sports-toggle-slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="sports-package-total">
+                                    <span>Package total:</span>
+                                    <span id="sports-total">$800</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Summary Panel -->
+            <div class="summary-panel">
+                <h3 class="summary-title">Your <span>Quote</span></h3>
+                
+                <div class="summary-items" id="summary-items">
+                    <div class="summary-empty">Select products to build your quote</div>
+                </div>
+
+                <div class="summary-totals">
+                    <div class="summary-line subtotal">
+                        <span>Subtotal</span>
+                        <span id="subtotal-amount">$0</span>
+                    </div>
+                    <div class="summary-line discount" id="discount-line" style="display: none;">
+                        <span id="discount-label">Multi-product discount (10%)</span>
+                        <span id="discount-amount" style="color: #4ade80;">-$0</span>
+                    </div>
+                    <div class="summary-line gst">
+                        <span>GST (15%)</span>
+                        <span id="gst-amount">$0</span>
+                    </div>
+                    <div class="summary-line total">
+                        <span class="total-label">Total (incl. GST)</span>
+                        <span class="total-amount" id="total-amount">$0</span>
+                    </div>
+                </div>
+
+                <button class="clear-btn" onclick="clearAll()">Clear All</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox-overlay" id="lightbox" onclick="closeLightbox(event)">
+        <div class="lightbox-content" onclick="event.stopPropagation()">
+            <div class="lightbox-header">
+                <h3 class="lightbox-title" id="lightbox-title">Product <span>Details</span></h3>
+                <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+            </div>
+            <div class="lightbox-price" id="lightbox-price">$0</div>
+            <ul class="lightbox-details" id="lightbox-details"></ul>
+        </div>
+    </div>
+
+    <script>
+        // Product details for lightbox
+        const productDetails = {
+            'eoy-highlights': {
+                'Entry': {
+                    price: 850,
+                    baseEvents: 0,
+                    details: [
+                        'You provide the footage, we craft it into a polished highlights film',
+                        '3-4 minute final edit',
+                        'Delivered in time for prizegiving',
+                        '1 revision',
+                        'Ideal for schools who already capture a lot themselves'
+                    ]
+                },
+                'Basic': {
+                    price: 1750,
+                    baseEvents: 3,
+                    details: [
+                        'We capture 2-3 key events, blended with your own footage',
+                        '4-5 minute final edit',
+                        'Delivered in time for prizegiving',
+                        'Up to 2 revisions',
+                        'Great for smaller schools or those trying professional coverage'
+                    ]
+                },
+                'Standard': {
+                    price: 3000,
+                    baseEvents: 6,
+                    details: [
+                        'We capture up to 6 events across the year',
+                        'Combined with any footage your staff or students contribute',
+                        '4-5 minute final edit',
+                        'Delivered in time for prizegiving',
+                        'Up to 3 revisions'
+                    ]
+                },
+                'Premium': {
+                    price: 4500,
+                    baseEvents: 25,
+                    details: [
+                        'Up to 25 events covered - we are there for everything that matters',
+                        '5-6 minute final edit',
+                        'Delivered in time for prizegiving',
+                        'Up to 5 revisions',
+                        'Hands-off experience: we handle it all'
+                    ]
+                }
+            },
+            'day-highlights': {
+                'Entry': {
+                    price: 400,
+                    details: [
+                        'Coverage of a short event, up to 1.5 hours',
+                        '60-90 second highlights video',
+                        'Perfect for smaller moments like assemblies or award ceremonies',
+                        'Delivered within 2 weeks',
+                        '1 revision'
+                    ]
+                },
+                'Basic': {
+                    price: 650,
+                    details: [
+                        'Half day coverage, up to 3 hours',
+                        '1-2 minute highlights video',
+                        'Ideal for single-session events like sports finals',
+                        'Delivered within 2 weeks',
+                        '1 revision'
+                    ]
+                },
+                'Standard': {
+                    price: 950,
+                    details: [
+                        'Full day coverage, up to 6 hours',
+                        '3 minute highlights video',
+                        'Great for athletics days, galas, or school productions',
+                        '1 social media cut (30-60 seconds, vertical)',
+                        'Delivered within 10 days',
+                        'Up to 2 revisions'
+                    ]
+                },
+                'Premium': {
+                    price: 1300,
+                    details: [
+                        'Full day coverage, no hour limit',
+                        '5-6 minute highlights video',
+                        'Comprehensive coverage - we stay until it is done',
+                        '2 social media cuts (vertical format)',
+                        'Delivered within 7 days',
+                        'Up to 3 revisions',
+                        'Raw footage provided on request'
+                    ]
+                }
+            },
+            'formal-events': {
+                'Entry': {
+                    price: 850,
+                    details: [
+                        'Up to 1.5 hours of coverage',
+                        '1 minute highlights video',
+                        'Ideal for smaller formal gatherings or cocktail-style events',
+                        'Cinematic edit with a focus on atmosphere',
+                        'Delivered within 2 weeks',
+                        '1 revision'
+                    ]
+                },
+                'Basic': {
+                    price: 1100,
+                    details: [
+                        'Up to 2.5 hours of coverage',
+                        '2 minute highlights video',
+                        'Captures arrivals, venue details, and the event in full swing',
+                        'Cinematic edit styled to match the tone of your evening',
+                        'Delivered within 2 weeks',
+                        '1 revision'
+                    ]
+                },
+                'Standard': {
+                    price: 1450,
+                    details: [
+                        'Up to 4 hours of coverage',
+                        '3 minute highlights video',
+                        'Full coverage from arrivals through to speeches',
+                        'Cinematic edit with attention to lighting and atmosphere',
+                        '1 vertical social cut included (60 seconds)',
+                        'Delivered within 10 days',
+                        'Up to 2 revisions'
+                    ]
+                },
+                'Premium': {
+                    price: 1850,
+                    details: [
+                        'Full event coverage, arrival to departure',
+                        'Up to 5 minute highlights video',
+                        'Comprehensive storytelling: arrivals, details, dancing, speeches',
+                        'Cinematic grade and polish throughout',
+                        '2 vertical social cuts included',
+                        'Delivered within 7 days',
+                        'Up to 3 revisions',
+                        'Select raw footage provided on request'
+                    ]
+                }
+            },
+            'school-productions': {
+                'recording-basic': {
+                    price: 600,
+                    name: 'Recording Basic',
+                    details: [
+                        '1 camera angle',
+                        'Full show recording',
+                        'Fully edited and mixed audio',
+                        'Price per show'
+                    ]
+                },
+                'recording-standard': {
+                    price: 900,
+                    name: 'Recording Standard',
+                    details: [
+                        '2 camera angles',
+                        'Full show recording with cuts',
+                        'Fully edited and mixed audio',
+                        'Price per show'
+                    ]
+                },
+                'recording-premium': {
+                    price: 1200,
+                    name: 'Recording Premium',
+                    details: [
+                        '3 camera angles',
+                        'Full show recording with professional cuts',
+                        'Fully edited and mixed audio',
+                        'Price per show'
+                    ]
+                },
+                'highlights-standard': {
+                    price: 800,
+                    name: 'Highlights Standard',
+                    details: [
+                        '2 rehearsal shoots',
+                        'Coverage of 1 show & dress rehearsal',
+                        '2-3 minute highlights video',
+                        'Perfect for social media and promotion'
+                    ]
+                },
+                'highlights-premium': {
+                    price: 1400,
+                    name: 'Highlights Premium',
+                    details: [
+                        '4 rehearsal shoots',
+                        'Coverage of 2 shows & dress rehearsal',
+                        '4-5 minute highlights video',
+                        'Comprehensive coverage of the production journey'
+                    ]
+                },
+                'documentary': {
+                    price: 2000,
+                    name: 'Documentary',
+                    details: [
+                        '7 rehearsal shoots',
+                        'Coverage of technical rehearsal and dress rehearsal',
+                        'Cast & crew interviews',
+                        'Timelapses',
+                        '20-25 minute documentary film',
+                        'The full story from first rehearsal to final bow'
+                    ]
+                },
+                'full-package': {
+                    price: 3000,
+                    name: 'Full Package',
+                    details: [
+                        'Includes Standard Recording',
+                        'Includes Premium Highlights',
+                        'Includes Full Documentary',
+                        'Save over $1,000 compared to individual pricing',
+                        'Complete coverage of your production'
+                    ]
+                }
+            }
+        };
+
+        // State management
+        let selections = {
+            'eoy-highlights': { tiers: {}, addons: {}, tbdAddons: [] },
+            'day-highlights': { tiers: {}, addons: {} },
+            'formal-events': { tiers: {}, addons: {}, tbdAddons: [] },
+            'school-productions': { components: {}, tbdAddons: [] },
+            'campaigns': {},
+            'sports': { active: false, games: 5, videoMins: 1, socialCut: false }
+        };
+
+        const campaignPrices = {
+            'half-day': 600, 'full-day': 1000, 'second-cam': 400, 'drone': 250,
+            'short-edit': 300, 'standard-edit': 500, 'long-edit': 800, 'extra-revision': 100,
+            'script': 200, 'voiceover': 150, 'music': 75, 'motion': 200, 'subtitles': 75
+        };
+
+        const campaignNames = {
+            'half-day': 'Half day shoot', 'full-day': 'Full day shoot', 'second-cam': 'Second camera',
+            'drone': 'Drone coverage', 'short-edit': 'Short edit', 'standard-edit': 'Standard edit',
+            'long-edit': 'Long form edit', 'extra-revision': 'Extra revision', 'script': 'Script development',
+            'voiceover': 'Voiceover', 'music': 'Licensed music', 'motion': 'Motion graphics', 'subtitles': 'Subtitles'
+        };
+
+        function toggleProduct(header) {
+            const card = header.closest('.product-card');
+            card.classList.toggle('expanded');
+        }
+
+        function showInfo(product, tier) {
+            const lightbox = document.getElementById('lightbox');
+            const title = document.getElementById('lightbox-title');
+            const price = document.getElementById('lightbox-price');
+            const details = document.getElementById('lightbox-details');
+
+            let info;
+            let productName;
+
+            if (product === 'school-productions') {
+                info = productDetails[product][tier];
+                productName = info.name;
+            } else {
+                info = productDetails[product][tier];
+                const productNames = {
+                    'eoy-highlights': 'End of Year Highlights',
+                    'day-highlights': 'Day Highlights',
+                    'formal-events': 'Formal Events'
+                };
+                productName = `${productNames[product]} – ${tier}`;
+            }
+
+            title.innerHTML = productName.replace(/(\w+)$/, '<span>$1</span>');
+            price.textContent = `$${info.price.toLocaleString()}`;
+            details.innerHTML = info.details.map(d => `<li>${d}</li>`).join('');
+
+            lightbox.classList.add('active');
+        }
+
+        function closeLightbox(event) {
+            if (!event || event.target === document.getElementById('lightbox')) {
+                document.getElementById('lightbox').classList.remove('active');
+            }
+        }
+
+        function changeTierQty(product, tierName, price, delta) {
+            const qtyEl = document.getElementById(`qty-${product}-${tierName}`);
+            let qty = parseInt(qtyEl.textContent) + delta;
+            if (qty < 0) qty = 0;
+            qtyEl.textContent = qty;
+
+            if (qty > 0) {
+                selections[product].tiers[tierName] = { price: price, quantity: qty };
+            } else {
+                delete selections[product].tiers[tierName];
+            }
+
+            const tierBtn = qtyEl.closest('.tier-btn');
+            tierBtn.classList.toggle('selected', qty > 0);
+
+            updateSummary();
+        }
+
+        function changeAddonQty(product, addonName, price, delta) {
+            const addonKey = addonName.toLowerCase().replace(/[^a-z]/g, '');
+            const productKey = product.split('-')[0];
+            const qtyEl = document.getElementById(`qty-addon-${productKey}-${addonKey}`) || 
+                          document.querySelector(`[id*="addon-${productKey}"] .addon-qty-display`);
+            
+            // Find the correct element
+            let actualQtyEl;
+            if (product === 'eoy-highlights') {
+                if (addonName === 'Extra Events') actualQtyEl = document.getElementById('qty-addon-eoy-extra-events');
+                if (addonName === 'Extra Edits') actualQtyEl = document.getElementById('qty-addon-eoy-extra-edits');
+            } else if (product === 'day-highlights') {
+                if (addonName === 'Drone Hire') actualQtyEl = document.getElementById('qty-addon-day-drone');
+                if (addonName === 'Day-after Delivery') actualQtyEl = document.getElementById('qty-addon-day-dayafter');
+                if (addonName === 'Extra Edits') actualQtyEl = document.getElementById('qty-addon-day-extraedits');
+            } else if (product === 'formal-events') {
+                if (addonName === '9x16 Vertical Edit') actualQtyEl = document.getElementById('qty-addon-formal-vertical');
+            }
+
+            if (!actualQtyEl) return;
+
+            let qty = parseInt(actualQtyEl.textContent) + delta;
+            if (qty < 0) qty = 0;
+            actualQtyEl.textContent = qty;
+
+            if (qty > 0) {
+                selections[product].addons[addonName] = { price: price, quantity: qty };
+            } else {
+                delete selections[product].addons[addonName];
+            }
+
+            actualQtyEl.closest('.addon-item').classList.toggle('selected', qty > 0);
+            updateSummary();
+        }
+
+        function toggleTBD(product, addonName, btn) {
+            const tbdList = selections[product].tbdAddons || [];
+            const index = tbdList.indexOf(addonName);
+            
+            if (index > -1) {
+                tbdList.splice(index, 1);
+                btn.classList.remove('selected');
+            } else {
+                tbdList.push(addonName);
+                btn.classList.add('selected');
+            }
+            
+            selections[product].tbdAddons = tbdList;
+            updateSummary();
+        }
+
+        function changeProductionQty(itemId, name, price, delta) {
+            const qtyEl = document.getElementById(`qty-${itemId}`);
+            let qty = parseInt(qtyEl.textContent) + delta;
+            if (qty < 0) qty = 0;
+            qtyEl.textContent = qty;
+
+            if (qty > 0) {
+                selections['school-productions'].components[itemId] = { name, price, quantity: qty };
+            } else {
+                delete selections['school-productions'].components[itemId];
+            }
+
+            qtyEl.closest('.production-option').classList.toggle('selected', qty > 0);
+            updateSummary();
+        }
+
+        function changeCampaignItem(item, delta) {
+            const qtyEl = document.getElementById(`campaign-${item}`);
+            let qty = parseInt(qtyEl.textContent) + delta;
+            if (qty < 0) qty = 0;
+            qtyEl.textContent = qty;
+
+            if (qty > 0) {
+                selections['campaigns'][item] = qty;
+            } else {
+                delete selections['campaigns'][item];
+            }
+
+            updateSummary();
+        }
+
+        function updateSports() {
+            const active = document.getElementById('sports-activate').checked;
+            const games = parseInt(document.getElementById('sports-games').value);
+            const videoMins = parseInt(document.getElementById('sports-video').value);
+            const socialCut = document.getElementById('sports-social').checked;
+
+            // Update state
+            selections['sports'] = { active, games, videoMins, socialCut };
+
+            // Update display values
+            document.getElementById('sports-games-value').textContent = `${games} game${games !== 1 ? 's' : ''}`;
+            document.getElementById('sports-video-value').textContent = `${videoMins} min${videoMins !== 1 ? 's' : ''}`;
+
+            // Calculate costs
+            const gamesCost = games * 60;
+            const videoCost = videoMins * 150;
+
+            document.getElementById('sports-games-total').textContent = `$${gamesCost}`;
+            document.getElementById('sports-video-total').textContent = `$${videoCost}`;
+
+            // Calculate total (base fee always included when active)
+            let total = 350 + gamesCost + videoCost;
+            if (socialCut) total += 250;
+
+            document.getElementById('sports-total').textContent = `$${total.toLocaleString()}`;
+
+            updateSummary();
+        }
+
+        function toggleSportsPackage() {
+            const active = document.getElementById('sports-activate').checked;
+            const optionsEl = document.getElementById('sports-options');
+
+            if (active) {
+                optionsEl.style.display = 'flex';
+                // Set minimums
+                document.getElementById('sports-games').value = 5;
+                document.getElementById('sports-video').value = 1;
+            } else {
+                optionsEl.style.display = 'none';
+                // Reset social cut when deactivating
+                document.getElementById('sports-social').checked = false;
+            }
+
+            updateSports();
+        }
+
+        function countBonusEvents() {
+            let count = 0;
+
+            // Day Highlights - each one adds a bonus event
+            Object.values(selections['day-highlights'].tiers).forEach(tier => {
+                count += tier.quantity;
+            });
+
+            // Formal Events - each one adds a bonus event
+            Object.values(selections['formal-events'].tiers).forEach(tier => {
+                count += tier.quantity;
+            });
+
+            // School Productions - each item adds a bonus event
+            Object.values(selections['school-productions'].components).forEach(comp => {
+                count += comp.quantity;
+            });
+
+            // Campaigns - counts as 1 if any items selected
+            if (Object.keys(selections['campaigns']).length > 0) {
+                count += 1;
+            }
+
+            return count;
+        }
+
+        function updateSummary() {
+            const summaryItems = document.getElementById('summary-items');
+            const subtotalEl = document.getElementById('subtotal-amount');
+            const gstEl = document.getElementById('gst-amount');
+            const totalEl = document.getElementById('total-amount');
+
+            let html = '';
+            let subtotal = 0;
+            let hasItems = false;
+            const bonusEvents = countBonusEvents();
+
+            const productNames = {
+                'eoy-highlights': 'End of Year Highlights',
+                'day-highlights': 'Day Highlights',
+                'formal-events': 'Formal Events'
+            };
+
+            // EOY Highlights with events tracking
+            const eoyTiers = Object.entries(selections['eoy-highlights'].tiers);
+            if (eoyTiers.length > 0) {
+                hasItems = true;
+                eoyTiers.forEach(([tierName, tierData]) => {
+                    const itemTotal = tierData.price * tierData.quantity;
+                    subtotal += itemTotal;
+
+                    const baseEvents = productDetails['eoy-highlights'][tierName].baseEvents;
+                    const extraEvents = (selections['eoy-highlights'].addons['Extra Events']?.quantity || 0);
+                    const totalEvents = baseEvents + bonusEvents + extraEvents;
+
+                    const qtyText = tierData.quantity > 1 ? ` × ${tierData.quantity}` : '';
+
+                    html += `
+                        <div class="summary-item">
+                            <div class="summary-item-details">
+                                <div class="summary-item-name">${productNames['eoy-highlights']}</div>
+                                <div class="summary-item-tier">${tierName}${qtyText}</div>
+                                ${totalEvents > 0 ? `<div class="summary-item-events">${totalEvents} events included</div>` : ''}
+                            </div>
+                            <span class="summary-item-price">$${itemTotal.toLocaleString()}</span>
+                            <button class="summary-item-remove" onclick="removeTier('eoy-highlights', '${tierName}')">×</button>
+                        </div>
+                    `;
+                });
+
+                // EOY Addons
+                Object.entries(selections['eoy-highlights'].addons).forEach(([name, data]) => {
+                    const addonTotal = data.price * data.quantity;
+                    subtotal += addonTotal;
+                    html += `
+                        <div class="summary-item" style="opacity: 0.8; padding-left: 20px;">
+                            <div class="summary-item-details">
+                                <div class="summary-item-name" style="font-size: 0.85rem;">+ ${name} ×${data.quantity}</div>
+                            </div>
+                            <span class="summary-item-price">$${addonTotal.toLocaleString()}</span>
+                        </div>
+                    `;
+                });
+
+                // EOY TBD addons
+                if (selections['eoy-highlights'].tbdAddons?.length > 0) {
+                    selections['eoy-highlights'].tbdAddons.forEach(name => {
+                        html += `
+                            <div class="summary-item" style="opacity: 0.8; padding-left: 20px;">
+                                <div class="summary-item-details">
+                                    <div class="summary-item-name" style="font-size: 0.85rem;">+ ${name}</div>
+                                </div>
+                                <span class="summary-item-price tbd">TBD</span>
+                            </div>
+                        `;
+                    });
+                }
+            }
+
+            // Other standard products
+            ['day-highlights', 'formal-events'].forEach(product => {
+                const tierEntries = Object.entries(selections[product].tiers);
+                if (tierEntries.length > 0) {
+                    hasItems = true;
+                    tierEntries.forEach(([tierName, tierData]) => {
+                        const itemTotal = tierData.price * tierData.quantity;
+                        subtotal += itemTotal;
+                        const qtyText = tierData.quantity > 1 ? ` × ${tierData.quantity}` : '';
+
+                        html += `
+                            <div class="summary-item">
+                                <div class="summary-item-details">
+                                    <div class="summary-item-name">${productNames[product]}</div>
+                                    <div class="summary-item-tier">${tierName}${qtyText}</div>
+                                </div>
+                                <span class="summary-item-price">$${itemTotal.toLocaleString()}</span>
+                                <button class="summary-item-remove" onclick="removeTier('${product}', '${tierName}')">×</button>
+                            </div>
+                        `;
+                    });
+
+                    // Addons
+                    Object.entries(selections[product].addons).forEach(([name, data]) => {
+                        const addonTotal = data.price * data.quantity;
+                        subtotal += addonTotal;
+                        html += `
+                            <div class="summary-item" style="opacity: 0.8; padding-left: 20px;">
+                                <div class="summary-item-details">
+                                    <div class="summary-item-name" style="font-size: 0.85rem;">+ ${name} ×${data.quantity}</div>
+                                </div>
+                                <span class="summary-item-price">$${addonTotal.toLocaleString()}</span>
+                            </div>
+                        `;
+                    });
+
+                    // TBD addons
+                    if (selections[product].tbdAddons?.length > 0) {
+                        selections[product].tbdAddons.forEach(name => {
+                            html += `
+                                <div class="summary-item" style="opacity: 0.8; padding-left: 20px;">
+                                    <div class="summary-item-details">
+                                        <div class="summary-item-name" style="font-size: 0.85rem;">+ ${name}</div>
+                                    </div>
+                                    <span class="summary-item-price tbd">TBD</span>
+                                </div>
+                            `;
+                        });
+                    }
+                }
+            });
+
+            // School Productions
+            const prodEntries = Object.entries(selections['school-productions'].components);
+            if (prodEntries.length > 0) {
+                hasItems = true;
+                prodEntries.forEach(([itemId, data]) => {
+                    const itemTotal = data.price * data.quantity;
+                    subtotal += itemTotal;
+                    const qtyText = data.quantity > 1 ? ` × ${data.quantity}` : '';
+
+                    html += `
+                        <div class="summary-item">
+                            <div class="summary-item-details">
+                                <div class="summary-item-name">School Productions</div>
+                                <div class="summary-item-tier">${data.name}${qtyText}</div>
+                            </div>
+                            <span class="summary-item-price">$${itemTotal.toLocaleString()}</span>
+                            <button class="summary-item-remove" onclick="removeProduction('${itemId}')">×</button>
+                        </div>
+                    `;
+                });
+
+                // School Productions TBD addons
+                if (selections['school-productions'].tbdAddons?.length > 0) {
+                    selections['school-productions'].tbdAddons.forEach(name => {
+                        html += `
+                            <div class="summary-item" style="opacity: 0.8; padding-left: 20px;">
+                                <div class="summary-item-details">
+                                    <div class="summary-item-name" style="font-size: 0.85rem;">+ ${name}</div>
+                                </div>
+                                <span class="summary-item-price tbd">TBD</span>
+                            </div>
+                        `;
+                    });
+                }
+            }
+
+            // Campaigns
+            const campSel = selections['campaigns'];
+            if (Object.keys(campSel).length > 0) {
+                hasItems = true;
+                let campTotal = 0;
+                const campItems = [];
+
+                Object.entries(campSel).forEach(([item, qty]) => {
+                    const itemTotal = campaignPrices[item] * qty;
+                    campTotal += itemTotal;
+                    campItems.push(`${campaignNames[item]}${qty > 1 ? ` ×${qty}` : ''}`);
+                });
+
+                subtotal += campTotal;
+
+                html += `
+                    <div class="summary-item">
+                        <div class="summary-item-details">
+                            <div class="summary-item-name">Advertising & Campaigns</div>
+                            <div class="summary-item-tier" style="font-size: 0.75rem;">${campItems.join(', ')}</div>
+                        </div>
+                        <span class="summary-item-price">$${campTotal.toLocaleString()}</span>
+                        <button class="summary-item-remove" onclick="removeProduct('campaigns')">×</button>
+                    </div>
+                `;
+            }
+
+            // Sports
+            const sportsSel = selections['sports'];
+            if (sportsSel.active) {
+                hasItems = true;
+                let sportsTotal = 350; // base fee always included
+                sportsTotal += sportsSel.games * 60;
+                sportsTotal += sportsSel.videoMins * 150;
+                if (sportsSel.socialCut) sportsTotal += 250;
+
+                subtotal += sportsTotal;
+
+                const sportsDetails = [];
+                sportsDetails.push(`${sportsSel.games} games`);
+                sportsDetails.push(`${sportsSel.videoMins} min video`);
+                if (sportsSel.socialCut) sportsDetails.push('+ social cut');
+
+                html += `
+                    <div class="summary-item">
+                        <div class="summary-item-details">
+                            <div class="summary-item-name">Sports Package</div>
+                            <div class="summary-item-tier" style="font-size: 0.75rem;">${sportsDetails.join(', ')}</div>
+                        </div>
+                        <span class="summary-item-price">$${sportsTotal.toLocaleString()}</span>
+                        <button class="summary-item-remove" onclick="removeProduct('sports')">×</button>
+                    </div>
+                `;
+            }
+
+            if (!hasItems) {
+                html = '<div class="summary-empty">Select products to build your quote</div>';
+            }
+
+            // Calculate discountable product count (excludes campaigns)
+            let discountableCount = 0;
+            let discountableSubtotal = 0;
+            let campaignsTotal = 0;
+
+            // Count EOY Highlights
+            Object.values(selections['eoy-highlights'].tiers).forEach(tier => {
+                discountableCount += tier.quantity;
+                discountableSubtotal += tier.price * tier.quantity;
+            });
+            Object.values(selections['eoy-highlights'].addons).forEach(addon => {
+                discountableSubtotal += addon.price * addon.quantity;
+            });
+
+            // Count Day Highlights
+            Object.values(selections['day-highlights'].tiers).forEach(tier => {
+                discountableCount += tier.quantity;
+                discountableSubtotal += tier.price * tier.quantity;
+            });
+            Object.values(selections['day-highlights'].addons).forEach(addon => {
+                discountableSubtotal += addon.price * addon.quantity;
+            });
+
+            // Count Formal Events
+            Object.values(selections['formal-events'].tiers).forEach(tier => {
+                discountableCount += tier.quantity;
+                discountableSubtotal += tier.price * tier.quantity;
+            });
+            Object.values(selections['formal-events'].addons).forEach(addon => {
+                discountableSubtotal += addon.price * addon.quantity;
+            });
+
+            // Count School Productions
+            Object.values(selections['school-productions'].components).forEach(comp => {
+                discountableCount += comp.quantity;
+                discountableSubtotal += comp.price * comp.quantity;
+            });
+
+            // Count Sports (counts as 1 discountable product if active)
+            if (selections['sports'].active) {
+                discountableCount += 1;
+                let sportsSubtotal = 350;
+                sportsSubtotal += selections['sports'].games * 60;
+                sportsSubtotal += selections['sports'].videoMins * 150;
+                if (selections['sports'].socialCut) sportsSubtotal += 250;
+                discountableSubtotal += sportsSubtotal;
+            }
+
+            // Campaigns total (not discountable)
+            Object.entries(selections['campaigns']).forEach(([item, qty]) => {
+                campaignsTotal += campaignPrices[item] * qty;
+            });
+
+            // Determine discount percentage
+            let discountPercent = 0;
+            if (discountableCount >= 10) {
+                discountPercent = 20;
+            } else if (discountableCount >= 6) {
+                discountPercent = 15;
+            } else if (discountableCount >= 3) {
+                discountPercent = 10;
+            }
+
+            const discountAmount = discountableSubtotal * (discountPercent / 100);
+            const discountedSubtotal = discountableSubtotal - discountAmount + campaignsTotal;
+            const gst = discountedSubtotal * 0.15;
+            const total = discountedSubtotal + gst;
+
+            // Update discount line visibility
+            const discountLine = document.getElementById('discount-line');
+            const discountLabel = document.getElementById('discount-label');
+            const discountAmountEl = document.getElementById('discount-amount');
+
+            if (discountPercent > 0) {
+                discountLine.style.display = 'flex';
+                discountLabel.textContent = `Multi-product discount (${discountPercent}%)`;
+                discountAmountEl.textContent = `-$${discountAmount.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+            } else {
+                discountLine.style.display = 'none';
+            }
+
+            summaryItems.innerHTML = html;
+            subtotalEl.textContent = `$${subtotal.toLocaleString()}`;
+            gstEl.textContent = `$${gst.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+            totalEl.textContent = `$${total.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+        }
+
+        function removeTier(product, tierName) {
+            delete selections[product].tiers[tierName];
+            document.getElementById(`qty-${product}-${tierName}`).textContent = '0';
+
+            const tierBtns = document.querySelectorAll(`[data-product="${product}"][data-tier="${tierName}"]`);
+            tierBtns.forEach(btn => btn.classList.remove('selected'));
+
+            if (Object.keys(selections[product].tiers).length === 0) {
+                selections[product].addons = {};
+                // Reset addon quantities
+                const card = document.querySelector(`.product-card[data-product="${product}"]`);
+                if (card) {
+                    card.querySelectorAll('.addon-qty-display').forEach(el => el.textContent = '0');
+                    card.querySelectorAll('.addon-item').forEach(el => el.classList.remove('selected'));
+                }
+            }
+
+            updateSummary();
+        }
+
+        function removeProduction(itemId) {
+            delete selections['school-productions'].components[itemId];
+            document.getElementById(`qty-${itemId}`).textContent = '0';
+            updateSummary();
+        }
+
+        function removeProduct(product) {
+            if (product === 'campaigns') {
+                selections[product] = {};
+                Object.keys(campaignPrices).forEach(item => {
+                    document.getElementById(`campaign-${item}`).textContent = '0';
+                });
+            } else if (product === 'sports') {
+                selections['sports'] = { active: false, games: 5, videoMins: 1, socialCut: false };
+                document.getElementById('sports-activate').checked = false;
+                document.getElementById('sports-games').value = 5;
+                document.getElementById('sports-video').value = 1;
+                document.getElementById('sports-social').checked = false;
+                document.getElementById('sports-games-value').textContent = '5 games';
+                document.getElementById('sports-video-value').textContent = '1 min';
+                document.getElementById('sports-games-total').textContent = '$300';
+                document.getElementById('sports-video-total').textContent = '$150';
+                document.getElementById('sports-total').textContent = '$800';
+                document.getElementById('sports-options').style.display = 'none';
+            }
+            updateSummary();
+        }
+
+        function clearAll() {
+            // Clear standard products
+            ['eoy-highlights', 'day-highlights', 'formal-events'].forEach(product => {
+                selections[product].tiers = {};
+                selections[product].addons = {};
+                selections[product].tbdAddons = [];
+
+                ['Entry', 'Basic', 'Standard', 'Premium'].forEach(tier => {
+                    const el = document.getElementById(`qty-${product}-${tier}`);
+                    if (el) el.textContent = '0';
+                });
+
+                document.querySelectorAll(`[data-product="${product}"]`).forEach(btn => {
+                    btn.classList.remove('selected');
+                });
+
+                const card = document.querySelector(`.product-card[data-product="${product}"]`);
+                if (card) {
+                    card.querySelectorAll('.addon-item').forEach(b => b.classList.remove('selected'));
+                    card.querySelectorAll('.addon-qty-display').forEach(el => el.textContent = '0');
+                }
+            });
+
+            // Clear productions
+            selections['school-productions'].components = {};
+            selections['school-productions'].tbdAddons = [];
+            ['recording-basic', 'recording-standard', 'recording-premium', 'highlights-standard', 'highlights-premium', 'documentary', 'full-package'].forEach(id => {
+                const el = document.getElementById(`qty-${id}`);
+                if (el) {
+                    el.textContent = '0';
+                    el.closest('.production-option')?.classList.remove('selected');
+                }
+            });
+            document.querySelectorAll('.product-card[data-product="school-productions"] .addon-item').forEach(el => el.classList.remove('selected'));
+
+            // Clear campaigns
+            removeProduct('campaigns');
+
+            // Clear sports
+            removeProduct('sports');
+
+            updateSummary();
+        }
+
+        // Close lightbox with escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
+        });
+    </script>
+</body>
+</html>
