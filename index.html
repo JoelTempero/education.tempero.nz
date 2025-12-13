@@ -55,7 +55,6 @@
             font-size: 1.1rem;
             color: #999;
             margin-bottom: 50px;
-            font-style: italic;
         }
 
         .calculator-grid {
@@ -99,7 +98,6 @@
             font-size: 0.9rem;
             line-height: 1.6;
             margin-bottom: 20px;
-            font-style: italic;
         }
 
         .expand-icon {
@@ -510,7 +508,6 @@
 
         .summary-item-price.tbd {
             color: #888;
-            font-style: italic;
         }
 
         .summary-item-remove {
@@ -529,7 +526,6 @@
 
         .summary-empty {
             color: #666;
-            font-style: italic;
             text-align: center;
             padding: 40px 0;
         }
@@ -858,6 +854,57 @@
             opacity: 1;
         }
 
+        .campaign-checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .campaign-checkbox-label input {
+            display: none;
+        }
+
+        .campaign-checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(232, 184, 48, 0.5);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .campaign-checkbox:after {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 2px;
+            width: 5px;
+            height: 9px;
+            border: solid var(--accent-yellow);
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .campaign-checkbox-label input:checked + .campaign-checkbox {
+            border-color: var(--accent-yellow);
+        }
+
+        .campaign-checkbox-label input:checked + .campaign-checkbox:after {
+            opacity: 1;
+        }
+
+        .campaign-checkbox-label .campaign-offer-info-row {
+            flex: 1;
+        }
+
         .campaign-offer-info {
             display: flex;
             flex-direction: column;
@@ -907,6 +954,12 @@
             font-size: 0.9rem;
             color: #888;
             min-width: 70px;
+        }
+
+        .campaign-slider-unit {
+            font-size: 0.8rem;
+            color: #666;
+            margin-right: 10px;
         }
 
         .campaign-slider {
@@ -965,6 +1018,11 @@
         .total-amount {
             font-size: 2rem;
             color: var(--accent-yellow);
+            transition: color 0.3s ease;
+        }
+
+        .total-amount.over-budget {
+            color: #ef4444;
         }
 
         .clear-btn {
@@ -984,6 +1042,253 @@
         .clear-btn:hover {
             background: rgba(255,255,255,0.05);
             color: var(--text-light);
+        }
+
+        /* Budget Setter */
+        .budget-setter {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .budget-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .budget-label {
+            font-size: 0.9rem;
+            color: #999;
+        }
+
+        .budget-input-wrapper {
+            display: flex;
+            align-items: center;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 6px;
+            padding: 6px 10px;
+        }
+
+        .budget-currency {
+            color: #888;
+            margin-right: 4px;
+        }
+
+        .budget-input {
+            background: transparent;
+            border: none;
+            color: var(--text-light);
+            font-family: inherit;
+            font-size: 1rem;
+            width: 80px;
+            text-align: right;
+            outline: none;
+        }
+
+        .budget-input::placeholder {
+            color: #555;
+        }
+
+        .budget-input::-webkit-outer-spin-button,
+        .budget-input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .budget-progress-container {
+            margin-top: 10px;
+        }
+
+        .budget-progress-bar {
+            height: 8px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .budget-progress-fill {
+            height: 100%;
+            background: var(--accent-yellow);
+            border-radius: 4px;
+            transition: width 0.3s ease, background 0.3s ease;
+            width: 0%;
+        }
+
+        .budget-progress-fill.warning {
+            background: #f59e0b;
+        }
+
+        .budget-progress-fill.danger {
+            background: #ef4444;
+        }
+
+        .budget-progress-text {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 6px;
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        .budget-gst-toggle {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .budget-gst-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            color: #999;
+        }
+
+        .budget-gst-label input {
+            display: none;
+        }
+
+        .budget-gst-check {
+            width: 16px;
+            height: 16px;
+            border: 2px solid #555;
+            border-radius: 3px;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+
+        .budget-gst-check:after {
+            content: '';
+            position: absolute;
+            left: 4px;
+            top: 1px;
+            width: 4px;
+            height: 8px;
+            border: solid var(--accent-yellow);
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .budget-gst-label input:checked + .budget-gst-check {
+            border-color: var(--accent-yellow);
+        }
+
+        .budget-gst-label input:checked + .budget-gst-check:after {
+            opacity: 1;
+        }
+
+        .gst-note {
+            color: #666;
+            font-size: 0.8rem;
+            text-align: center;
+            margin-top: 10px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .gst-note-top {
+            color: #888;
+            font-size: 0.9rem;
+            text-align: center;
+            margin-top: -35px;
+            margin-bottom: 40px;
+        }
+
+        /* Over budget warning states */
+        .sports-slider.over-budget,
+        .campaign-slider.over-budget {
+            accent-color: #ef4444;
+        }
+
+        .sports-slider.over-budget::-webkit-slider-thumb,
+        .campaign-slider.over-budget::-webkit-slider-thumb {
+            background: #ef4444;
+        }
+
+        .sports-slider.over-budget::-moz-range-thumb,
+        .campaign-slider.over-budget::-moz-range-thumb {
+            background: #ef4444;
+        }
+
+        /* Section-specific over budget styling */
+        .sports-builder.over-budget .sports-calc-price,
+        .sports-builder.over-budget .sports-fixed-price,
+        .sports-builder.over-budget .sports-package-total span:last-child,
+        .sports-builder.over-budget .sports-activate-price {
+            color: #ef4444 !important;
+        }
+
+        .sports-builder.over-budget .sports-activate-label input:checked + .sports-activate-check {
+            border-color: #ef4444;
+        }
+
+        .sports-builder.over-budget .sports-activate-label input:checked + .sports-activate-check:after {
+            border-color: #ef4444;
+        }
+
+        .sports-builder.over-budget .sports-toggle input:checked + .sports-toggle-slider {
+            background: #ef4444;
+        }
+
+        .campaign-offer.over-budget .campaign-slider-total,
+        .campaign-offer.over-budget .campaign-offer-price,
+        .campaign-offer.over-budget .campaign-offer-price-small {
+            color: #ef4444 !important;
+        }
+
+        .campaign-offer.over-budget .campaign-checkbox-label input:checked + .campaign-checkbox {
+            border-color: #ef4444;
+        }
+
+        .campaign-offer.over-budget .campaign-checkbox-label input:checked + .campaign-checkbox:after {
+            border-color: #ef4444;
+        }
+
+        /* Budget exceeded state */
+        .tier-btn.budget-exceeded {
+            opacity: 0.4;
+            filter: grayscale(70%);
+            pointer-events: none;
+        }
+
+        .tier-btn.budget-exceeded::after {
+            content: 'Over budget';
+            position: absolute;
+            bottom: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.65rem;
+            color: #ef4444;
+            white-space: nowrap;
+        }
+
+        .sports-activate.budget-exceeded {
+            opacity: 0.4;
+            filter: grayscale(70%);
+            pointer-events: none;
+        }
+
+        .production-option.budget-exceeded {
+            opacity: 0.4;
+            filter: grayscale(70%);
+            pointer-events: none;
+        }
+
+        .campaign-offer.budget-exceeded {
+            opacity: 0.4;
+            filter: grayscale(70%);
+            pointer-events: none;
+        }
+
+        .sports-builder.budget-exceeded {
+            opacity: 0.4;
+            filter: grayscale(70%);
+            pointer-events: none;
         }
 
         /* Lightbox */
@@ -1111,6 +1416,7 @@
     <div class="container">
         <h1>Pricing <span>Calculator</span></h1>
         <p class="subtitle">Select your products and options to see your total</p>
+        <p class="gst-note-top">All prices are GST exclusive</p>
 
         <div class="calculator-grid">
             <div class="products-section">
@@ -1436,34 +1742,44 @@
                                 </div>
                                 <p class="campaign-offer-desc">Capture school life of your international students doing lots of unique and fun activities around the school. Include key parts of study and co-curricular life. Showcase their experience of New Zealand culture and staying with a homestay family. This premium product offers up to two days of production onsite and unlimited revisions.</p>
                             </div>
-                            <div class="campaign-offer">
+                            <div class="campaign-offer" id="campaign-ourselves-offer">
                                 <div class="campaign-offer-header">
-                                    <div class="campaign-offer-info-row">
-                                        <span class="campaign-offer-name">"Introducing Ourselves to Ourselves"</span>
-                                        <span class="campaign-offer-price-small">$800/video</span>
-                                    </div>
+                                    <label class="campaign-checkbox-label">
+                                        <input type="checkbox" id="campaign-ourselves-activate" onchange="toggleOurselvesCampaign()">
+                                        <span class="campaign-checkbox"></span>
+                                        <div class="campaign-offer-info-row">
+                                            <span class="campaign-offer-name">"Introducing Ourselves to Ourselves"</span>
+                                            <span class="campaign-offer-price-small" id="campaign-ourselves-price-hint">from $800</span>
+                                        </div>
+                                    </label>
                                 </div>
                                 <p class="campaign-offer-desc">A resource for building connection within your school community. These short videos give a platform to unique voices - students, staff, or whanau - sharing stories, perspectives, or insights that help your community understand itself better. Each video is about 1-2 minutes long.</p>
-                                <div class="campaign-slider-row">
+                                <div class="campaign-slider-row" id="campaign-ourselves-slider-row" style="display: none;">
                                     <span class="campaign-slider-label">Videos:</span>
-                                    <input type="range" id="campaign-ourselves" min="0" max="10" value="0" class="campaign-slider" oninput="updateCampaigns()">
-                                    <span class="campaign-slider-value" id="campaign-ourselves-value">0</span>
-                                    <span class="campaign-slider-total" id="campaign-ourselves-total">$0</span>
+                                    <span class="campaign-slider-unit">$800/video</span>
+                                    <input type="range" id="campaign-ourselves" min="1" max="10" value="1" class="campaign-slider sports-slider" oninput="updateCampaigns()">
+                                    <span class="campaign-slider-value" id="campaign-ourselves-value">1</span>
+                                    <span class="campaign-slider-total" id="campaign-ourselves-total">$800</span>
                                 </div>
                             </div>
-                            <div class="campaign-offer">
+                            <div class="campaign-offer" id="campaign-testimonials-offer">
                                 <div class="campaign-offer-header">
-                                    <div class="campaign-offer-info-row">
-                                        <span class="campaign-offer-name">Student/Staff Testimonials</span>
-                                        <span class="campaign-offer-price-small">$150/interview</span>
-                                    </div>
+                                    <label class="campaign-checkbox-label">
+                                        <input type="checkbox" id="campaign-testimonials-activate" onchange="toggleTestimonialsCampaign()">
+                                        <span class="campaign-checkbox"></span>
+                                        <div class="campaign-offer-info-row">
+                                            <span class="campaign-offer-name">Student/Staff Testimonials</span>
+                                            <span class="campaign-offer-price-small" id="campaign-testimonials-price-hint">from $150</span>
+                                        </div>
+                                    </label>
                                 </div>
                                 <p class="campaign-offer-desc">Direct-to-camera storytelling, designed to be purchased in bulk. These testimonials let students or staff speak in their own words about what makes your school special. Perfect for promoting departments, co-curricular programmes, or encouraging prospective families to see themselves at your school. Each interview is about 1-2 minutes long.</p>
-                                <div class="campaign-slider-row">
+                                <div class="campaign-slider-row" id="campaign-testimonials-slider-row" style="display: none;">
                                     <span class="campaign-slider-label">Interviews:</span>
-                                    <input type="range" id="campaign-testimonials" min="0" max="30" value="0" class="campaign-slider" oninput="updateCampaigns()">
-                                    <span class="campaign-slider-value" id="campaign-testimonials-value">0</span>
-                                    <span class="campaign-slider-total" id="campaign-testimonials-total">$0</span>
+                                    <span class="campaign-slider-unit">$150/interview</span>
+                                    <input type="range" id="campaign-testimonials" min="1" max="30" value="1" class="campaign-slider sports-slider" oninput="updateCampaigns()">
+                                    <span class="campaign-slider-value" id="campaign-testimonials-value">1</span>
+                                    <span class="campaign-slider-total" id="campaign-testimonials-total">$150</span>
                                 </div>
                             </div>
                         </div>
@@ -1822,7 +2138,7 @@
                     </div>
                     <div class="product-content">
                         <p class="product-blurb">Empower your students with hands-on video production skills. Our training sessions cover everything from basic camera operation to editing techniques, building capability within your school community.</p>
-                        <p style="color: #999; font-size: 0.85rem; margin-bottom: 20px; font-style: italic;">Minimum of 5 students required per session</p>
+                        <p style="color: #999; font-size: 0.85rem; margin-bottom: 20px;">Minimum of 5 students required per session</p>
                         
                         <div class="training-tiers">
                             <!-- Entry Training -->
@@ -2031,8 +2347,12 @@
                         <span id="subtotal-amount">$0</span>
                     </div>
                     <div class="summary-line discount" id="discount-line" style="display: none;">
-                        <span id="discount-label">Multi-product discount (10%)</span>
+                        <span id="discount-label">Multi-product discount (5%)</span>
                         <span id="discount-amount" style="color: #4ade80;">-$0</span>
+                    </div>
+                    <div class="summary-line discounted-subtotal" id="discounted-subtotal-line" style="display: none;">
+                        <span>After discount</span>
+                        <span id="discounted-subtotal-amount">$0</span>
                     </div>
                     <div class="summary-line gst">
                         <span>GST (15%)</span>
@@ -2045,6 +2365,33 @@
                 </div>
 
                 <button class="clear-btn" onclick="clearAll()">Clear All</button>
+
+                <!-- Budget Setter -->
+                <div class="budget-setter">
+                    <div class="budget-header">
+                        <span class="budget-label">Budget Limit</span>
+                        <div class="budget-input-wrapper">
+                            <span class="budget-currency">$</span>
+                            <input type="number" id="budget-input" class="budget-input" placeholder="0" min="0" step="100" oninput="updateBudget()">
+                        </div>
+                    </div>
+                    <div class="budget-gst-toggle">
+                        <label class="budget-gst-label">
+                            <input type="checkbox" id="budget-incl-gst" onchange="updateBudget()" checked>
+                            <span class="budget-gst-check"></span>
+                            <span>Including GST</span>
+                        </label>
+                    </div>
+                    <div class="budget-progress-container" id="budget-progress-container" style="display: none;">
+                        <div class="budget-progress-bar">
+                            <div class="budget-progress-fill" id="budget-progress-fill"></div>
+                        </div>
+                        <div class="budget-progress-text">
+                            <span id="budget-spent">$0</span>
+                            <span id="budget-remaining">$0 remaining</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -2435,15 +2782,17 @@
 
         function updateCampaigns() {
             const international = document.getElementById('campaign-international').checked;
-            const ourselves = parseInt(document.getElementById('campaign-ourselves').value);
-            const testimonials = parseInt(document.getElementById('campaign-testimonials').value);
+            const ourselvesActive = document.getElementById('campaign-ourselves-activate').checked;
+            const testimonialsActive = document.getElementById('campaign-testimonials-activate').checked;
+            const ourselves = ourselvesActive ? parseInt(document.getElementById('campaign-ourselves').value) : 0;
+            const testimonials = testimonialsActive ? parseInt(document.getElementById('campaign-testimonials').value) : 0;
 
             // Update state
             selections['campaigns'] = { international, ourselves, testimonials };
 
             // Update display values
-            document.getElementById('campaign-ourselves-value').textContent = ourselves;
-            document.getElementById('campaign-testimonials-value').textContent = testimonials;
+            document.getElementById('campaign-ourselves-value').textContent = ourselves || 1;
+            document.getElementById('campaign-testimonials-value').textContent = testimonials || 1;
 
             // Calculate costs
             const ourselvesCost = ourselves * 800;
@@ -2453,6 +2802,40 @@
             document.getElementById('campaign-testimonials-total').textContent = `$${testimonialsCost.toLocaleString()}`;
 
             updateSummary();
+        }
+
+        function toggleOurselvesCampaign() {
+            const active = document.getElementById('campaign-ourselves-activate').checked;
+            const sliderRow = document.getElementById('campaign-ourselves-slider-row');
+            const priceHint = document.getElementById('campaign-ourselves-price-hint');
+            
+            if (active) {
+                sliderRow.style.display = 'flex';
+                priceHint.style.display = 'none';
+                document.getElementById('campaign-ourselves').value = 1;
+            } else {
+                sliderRow.style.display = 'none';
+                priceHint.style.display = '';
+            }
+            
+            updateCampaigns();
+        }
+
+        function toggleTestimonialsCampaign() {
+            const active = document.getElementById('campaign-testimonials-activate').checked;
+            const sliderRow = document.getElementById('campaign-testimonials-slider-row');
+            const priceHint = document.getElementById('campaign-testimonials-price-hint');
+            
+            if (active) {
+                sliderRow.style.display = 'flex';
+                priceHint.style.display = 'none';
+                document.getElementById('campaign-testimonials').value = 1;
+            } else {
+                sliderRow.style.display = 'none';
+                priceHint.style.display = '';
+            }
+            
+            updateCampaigns();
         }
 
         function updateSports() {
@@ -2468,16 +2851,16 @@
             document.getElementById('sports-games-value').textContent = `${games} game${games !== 1 ? 's' : ''}`;
             document.getElementById('sports-video-value').textContent = `${videoMins} min${videoMins !== 1 ? 's' : ''}`;
 
-            // Calculate costs
-            const gamesCost = games * 60;
-            const videoCost = videoMins * 150;
+            // Calculate costs with discount
+            const gamesCost = Math.round(games * applyDiscount(60));
+            const videoCost = Math.round(videoMins * applyDiscount(150));
 
             document.getElementById('sports-games-total').textContent = `$${gamesCost}`;
             document.getElementById('sports-video-total').textContent = `$${videoCost}`;
 
             // Calculate total (base fee always included when active)
-            let total = 350 + gamesCost + videoCost;
-            if (socialCut) total += 250;
+            let total = Math.round(applyDiscount(350)) + gamesCost + videoCost;
+            if (socialCut) total += Math.round(applyDiscount(250));
 
             document.getElementById('sports-total').textContent = `$${total.toLocaleString()}`;
 
@@ -2497,16 +2880,16 @@
             document.getElementById('arts-events-value').textContent = `${events} event${events !== 1 ? 's' : ''}`;
             document.getElementById('arts-video-value').textContent = `${videoMins} min${videoMins !== 1 ? 's' : ''}`;
 
-            // Calculate costs
-            const eventsCost = events * 70;
-            const videoCost = videoMins * 150;
+            // Calculate costs with discount
+            const eventsCost = Math.round(events * applyDiscount(70));
+            const videoCost = Math.round(videoMins * applyDiscount(150));
 
             document.getElementById('arts-events-total').textContent = `$${eventsCost}`;
             document.getElementById('arts-video-total').textContent = `$${videoCost}`;
 
             // Calculate total (base fee always included when active)
-            let total = 350 + eventsCost + videoCost;
-            if (socialCut) total += 250;
+            let total = Math.round(applyDiscount(350)) + eventsCost + videoCost;
+            if (socialCut) total += Math.round(applyDiscount(250));
 
             document.getElementById('arts-total').textContent = `$${total.toLocaleString()}`;
 
@@ -2554,7 +2937,7 @@
             const sessions = parseInt(document.getElementById('photography-sessions').value);
             selections['photography'].sessions = sessions;
             
-            const total = sessions * 150;
+            const total = Math.round(sessions * applyDiscount(150));
             document.getElementById('photography-sessions-value').textContent = `${sessions} session${sessions !== 1 ? 's' : ''}`;
             document.getElementById('photography-total').textContent = `$${total.toLocaleString()}`;
             
@@ -2570,14 +2953,14 @@
             
             selections['posters'] = { qty, format1x1, format16x9, format9x16 };
             
-            // Calculate per-poster price
-            let perPoster = 75;
-            if (format1x1) perPoster += 5;
-            if (format16x9) perPoster += 5;
-            if (format9x16) perPoster += 5;
+            // Calculate per-poster price with discount
+            let perPoster = applyDiscount(75);
+            if (format1x1) perPoster += applyDiscount(5);
+            if (format16x9) perPoster += applyDiscount(5);
+            if (format9x16) perPoster += applyDiscount(5);
             
-            const baseTotal = qty * 75;
-            const total = qty * perPoster;
+            const baseTotal = Math.round(qty * applyDiscount(75));
+            const total = Math.round(qty * perPoster);
             
             document.getElementById('posters-qty-value').textContent = `${qty} poster${qty !== 1 ? 's' : ''}`;
             document.getElementById('posters-base-total').textContent = `$${baseTotal}`;
@@ -2615,9 +2998,9 @@
             
             selections['training'][tier] = { active, students };
             
-            // Calculate price: base + (students - 5) * perStudent rate
+            // Calculate price with discount: base + (students - 5) * perStudent rate
             const prices = trainingPrices[tier];
-            const total = prices.base + (students - 5) * prices.perStudent;
+            const total = Math.round(applyDiscount(prices.base + (students - 5) * prices.perStudent));
             
             document.getElementById(`training-${tier}-students-value`).textContent = `${students} students`;
             document.getElementById(`training-${tier}-total`).textContent = `$${total.toLocaleString()}`;
@@ -2651,10 +3034,10 @@
             
             selections['musicvideo'] = { active, students, recordingDays, shootDays };
             
-            // Calculate costs
-            const baseFee = 600;
-            const recordingCost = students * recordingDays * 40;
-            const shootCost = students * shootDays * 45;
+            // Calculate costs with discount
+            const baseFee = Math.round(applyDiscount(600));
+            const recordingCost = Math.round(students * recordingDays * applyDiscount(40));
+            const shootCost = Math.round(students * shootDays * applyDiscount(45));
             const total = baseFee + recordingCost + shootCost;
             
             document.getElementById('musicvideo-students-value').textContent = `${students} students`;
@@ -3141,19 +3524,596 @@
             const discountLine = document.getElementById('discount-line');
             const discountLabel = document.getElementById('discount-label');
             const discountAmountEl = document.getElementById('discount-amount');
+            const discountedSubtotalLine = document.getElementById('discounted-subtotal-line');
+            const discountedSubtotalAmount = document.getElementById('discounted-subtotal-amount');
 
             if (discountPercent > 0) {
                 discountLine.style.display = 'flex';
                 discountLabel.textContent = `Multi-product discount (${discountPercent}%)`;
                 discountAmountEl.textContent = `-$${discountAmount.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+                discountedSubtotalLine.style.display = 'flex';
+                discountedSubtotalAmount.textContent = `$${discountedSubtotal.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
             } else {
                 discountLine.style.display = 'none';
+                discountedSubtotalLine.style.display = 'none';
             }
 
             summaryItems.innerHTML = html;
             subtotalEl.textContent = `$${subtotal.toLocaleString()}`;
             gstEl.textContent = `$${gst.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
             totalEl.textContent = `$${total.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+
+            // Update all prices with discount
+            updateAllPricesWithDiscount(discountPercent);
+
+            // Update budget display
+            updateBudgetDisplay(total);
+        }
+
+        // Store original prices for reference (must match productDetails and HTML)
+        const originalPrices = {
+            tiers: {
+                'eoy-highlights': { 'Entry': 850, 'Basic': 1750, 'Standard': 3000, 'Premium': 4500 },
+                'day-highlights': { 'Entry': 500, 'Basic': 750, 'Standard': 1600, 'Premium': 2500 },
+                'formal-events': { 'Entry': 500, 'Basic': 1100, 'Standard': 1450, 'Premium': 1850 },
+                'recap-website': { 'Entry': 350, 'Basic': 450, 'Standard': 550, 'Premium': 700 },
+                'pamphlets': { 'Entry': 350, 'Basic': 550, 'Standard': 650, 'Premium': 850 }
+            },
+            productions: {
+                'recording-basic': 600,
+                'recording-standard': 900,
+                'recording-premium': 1400,
+                'highlights-standard': 800,
+                'highlights-premium': 1400,
+                'documentary': 2000,
+                'full-package': 3300
+            },
+            perUnit: {
+                'sports-game': 60,
+                'sports-video': 150,
+                'sports-social': 250,
+                'sports-base': 350,
+                'arts-event': 70,
+                'arts-video': 150,
+                'arts-social': 250,
+                'arts-base': 350,
+                'photography': 150,
+                'posters-base': 75,
+                'posters-1x1': 5,
+                'posters-16x9': 5,
+                'posters-9x16': 5,
+                'musicvideo-base': 600,
+                'musicvideo-recording': 40,
+                'musicvideo-shoot': 45
+            },
+            campaigns: {
+                'international': 3500,
+                'ourselves': 800,
+                'testimonials': 150
+            },
+            training: {
+                'entry': { base: 100, perStudent: 15 },
+                'basic': { base: 150, perStudent: 20 },
+                'standard': { base: 200, perStudent: 25 },
+                'premium': { base: 400, perStudent: 35 }
+            }
+        };
+
+        let currentDiscountPercent = 0;
+
+        function applyDiscount(price) {
+            if (currentDiscountPercent === 0) return price;
+            return price * (1 - currentDiscountPercent / 100);
+        }
+
+        function updateAllPricesWithDiscount(discountPercent) {
+            currentDiscountPercent = discountPercent;
+
+            // Only update display prices if there's actually a discount
+            // When discount is 0, prices should show original values
+            
+            // Update tier buttons
+            Object.entries(originalPrices.tiers).forEach(([product, tiers]) => {
+                Object.entries(tiers).forEach(([tierName, originalPrice]) => {
+                    const tierBtn = document.querySelector(`[data-product="${product}"][data-tier="${tierName}"]`);
+                    if (!tierBtn) return;
+                    const priceEl = tierBtn.querySelector('.tier-price');
+                    if (!priceEl) return;
+                    
+                    if (discountPercent > 0) {
+                        const newPrice = Math.round(applyDiscount(originalPrice));
+                        priceEl.textContent = `$${newPrice.toLocaleString()}`;
+                    } else {
+                        priceEl.textContent = `$${originalPrice.toLocaleString()}`;
+                    }
+                });
+            });
+
+            // Update production options
+            Object.entries(originalPrices.productions).forEach(([id, originalPrice]) => {
+                const priceEl = document.querySelector(`#qty-${id}`)?.closest('.production-option')?.querySelector('.production-price');
+                if (priceEl) {
+                    if (discountPercent > 0) {
+                        const newPrice = Math.round(applyDiscount(originalPrice));
+                        priceEl.textContent = `$${newPrice.toLocaleString()}`;
+                    } else {
+                        priceEl.textContent = `$${originalPrice.toLocaleString()}`;
+                    }
+                }
+            });
+
+            // Update sports prices
+            const sportsGameDesc = document.querySelector('#sports-games')?.closest('.sports-item')?.querySelector('.sports-item-desc');
+            const sportsVideoDesc = document.querySelector('#sports-video')?.closest('.sports-item')?.querySelector('.sports-item-desc');
+            const sportsSocialPrice = document.querySelector('#sports-social')?.closest('.sports-item')?.querySelector('.sports-fixed-price');
+            const sportsBasePrice = document.querySelector('#sports-options .sports-item:first-child .sports-fixed-price');
+            
+            if (sportsGameDesc) sportsGameDesc.textContent = `$${Math.round(applyDiscount(60))}/game`;
+            if (sportsVideoDesc) sportsVideoDesc.textContent = `$${Math.round(applyDiscount(150))}/minute`;
+            if (sportsSocialPrice) sportsSocialPrice.textContent = `$${Math.round(applyDiscount(250))}`;
+            if (sportsBasePrice) sportsBasePrice.textContent = `$${Math.round(applyDiscount(350))}`;
+
+            // Update arts prices
+            const artsEventDesc = document.querySelector('#arts-events')?.closest('.sports-item')?.querySelector('.sports-item-desc');
+            const artsVideoDesc = document.querySelector('#arts-video')?.closest('.sports-item')?.querySelector('.sports-item-desc');
+            const artsSocialPrice = document.querySelector('#arts-social')?.closest('.sports-item')?.querySelector('.sports-fixed-price');
+            const artsBasePrice = document.querySelector('#arts-options .sports-item:first-child .sports-fixed-price');
+            
+            if (artsEventDesc) artsEventDesc.textContent = `$${Math.round(applyDiscount(70))}/event`;
+            if (artsVideoDesc) artsVideoDesc.textContent = `$${Math.round(applyDiscount(150))}/minute`;
+            if (artsSocialPrice) artsSocialPrice.textContent = `$${Math.round(applyDiscount(250))}`;
+            if (artsBasePrice) artsBasePrice.textContent = `$${Math.round(applyDiscount(350))}`;
+
+            // Update photography price
+            const photoDesc = document.querySelector('#photography-sessions')?.closest('.sports-item')?.querySelector('.sports-item-desc');
+            if (photoDesc) photoDesc.textContent = `$${Math.round(applyDiscount(150))}/session (1hr shoot + 1hr edit)`;
+
+            // Update poster prices
+            const posterDesc = document.querySelector('#posters-qty')?.closest('.sports-item')?.querySelector('.sports-item-desc');
+            if (posterDesc) posterDesc.textContent = `$${Math.round(applyDiscount(75))}/poster (A3 design included)`;
+            
+            // Update poster addon prices
+            document.querySelectorAll('#posters-1x1, #posters-16x9, #posters-9x16').forEach(checkbox => {
+                const desc = checkbox.closest('.sports-item')?.querySelector('.sports-item-desc');
+                if (desc) desc.textContent = `+$${Math.round(applyDiscount(5))}/poster`;
+            });
+
+            // Update training prices
+            ['entry', 'basic', 'standard', 'premium'].forEach(tier => {
+                const activatePrice = document.querySelector(`#training-${tier}-activate`)?.closest('.sports-activate-label')?.querySelector('.sports-activate-price');
+                if (activatePrice) {
+                    const basePrice = originalPrices.training[tier].base;
+                    activatePrice.textContent = `from $${Math.round(applyDiscount(basePrice))}`;
+                }
+            });
+
+            // Update music video prices
+            const mvBasePrice = document.querySelector('#musicvideo-options .sports-item:first-child .sports-fixed-price');
+            const mvRecordingDesc = document.querySelector('#musicvideo-recording')?.closest('.sports-item')?.querySelector('.sports-item-desc');
+            const mvShootDesc = document.querySelector('#musicvideo-shoot')?.closest('.sports-item')?.querySelector('.sports-item-desc');
+            
+            if (mvBasePrice) mvBasePrice.textContent = `$${Math.round(applyDiscount(600))}`;
+            if (mvRecordingDesc) mvRecordingDesc.textContent = `$${Math.round(applyDiscount(40))}/student/day`;
+            if (mvShootDesc) mvShootDesc.textContent = `$${Math.round(applyDiscount(45))}/student/day`;
+
+            // Update campaign prices (not discountable, but show for consistency)
+            // Campaigns don't get discount so we don't update them
+
+            // Update sports/arts package "from" prices
+            const sportsFromPrice = document.querySelector('#sports-activate')?.closest('.sports-activate-label')?.querySelector('.sports-activate-price');
+            const artsFromPrice = document.querySelector('#arts-activate')?.closest('.sports-activate-label')?.querySelector('.sports-activate-price');
+            const mvFromPrice = document.querySelector('#musicvideo-activate')?.closest('.sports-activate-label')?.querySelector('.sports-activate-price');
+            
+            if (sportsFromPrice) {
+                const minSports = Math.round(applyDiscount(350 + 300 + 150));
+                sportsFromPrice.textContent = `from $${minSports.toLocaleString()}`;
+            }
+            if (artsFromPrice) {
+                const minArts = Math.round(applyDiscount(350 + 350 + 150));
+                artsFromPrice.textContent = `from $${minArts.toLocaleString()}`;
+            }
+            if (mvFromPrice) {
+                const minMv = Math.round(applyDiscount(600 + 600 + 675));
+                mvFromPrice.textContent = `from $${minMv.toLocaleString()}`;
+            }
+
+            // Update displayed totals for active packages (without triggering updateSummary again)
+            updatePackageTotalsDisplay();
+        }
+
+        // Update package total displays without calling updateSummary (prevents infinite loop)
+        function updatePackageTotalsDisplay() {
+            // Sports
+            if (selections['sports'].active) {
+                const games = selections['sports'].games;
+                const videoMins = selections['sports'].videoMins;
+                const socialCut = selections['sports'].socialCut;
+                const gamesCost = Math.round(games * applyDiscount(60));
+                const videoCost = Math.round(videoMins * applyDiscount(150));
+                let total = Math.round(applyDiscount(350)) + gamesCost + videoCost;
+                if (socialCut) total += Math.round(applyDiscount(250));
+                document.getElementById('sports-games-total').textContent = `$${gamesCost}`;
+                document.getElementById('sports-video-total').textContent = `$${videoCost}`;
+                document.getElementById('sports-total').textContent = `$${total.toLocaleString()}`;
+            }
+
+            // Arts
+            if (selections['arts'].active) {
+                const events = selections['arts'].events;
+                const videoMins = selections['arts'].videoMins;
+                const socialCut = selections['arts'].socialCut;
+                const eventsCost = Math.round(events * applyDiscount(70));
+                const videoCost = Math.round(videoMins * applyDiscount(150));
+                let total = Math.round(applyDiscount(350)) + eventsCost + videoCost;
+                if (socialCut) total += Math.round(applyDiscount(250));
+                document.getElementById('arts-events-total').textContent = `$${eventsCost}`;
+                document.getElementById('arts-video-total').textContent = `$${videoCost}`;
+                document.getElementById('arts-total').textContent = `$${total.toLocaleString()}`;
+            }
+
+            // Photography
+            if (selections['photography'].sessions > 0) {
+                const total = Math.round(selections['photography'].sessions * applyDiscount(150));
+                document.getElementById('photography-total').textContent = `$${total.toLocaleString()}`;
+            }
+
+            // Posters
+            if (selections['posters'].qty > 0) {
+                const qty = selections['posters'].qty;
+                let perPoster = applyDiscount(75);
+                if (selections['posters'].format1x1) perPoster += applyDiscount(5);
+                if (selections['posters'].format16x9) perPoster += applyDiscount(5);
+                if (selections['posters'].format9x16) perPoster += applyDiscount(5);
+                const baseTotal = Math.round(qty * applyDiscount(75));
+                const total = Math.round(qty * perPoster);
+                document.getElementById('posters-base-total').textContent = `$${baseTotal}`;
+                document.getElementById('posters-total').textContent = `$${total.toLocaleString()}`;
+            }
+
+            // Training
+            ['entry', 'basic', 'standard', 'premium'].forEach(tier => {
+                if (selections['training'][tier].active) {
+                    const students = selections['training'][tier].students;
+                    const prices = trainingPrices[tier];
+                    const total = Math.round(applyDiscount(prices.base + (students - 5) * prices.perStudent));
+                    document.getElementById(`training-${tier}-total`).textContent = `$${total.toLocaleString()}`;
+                }
+            });
+
+            // Music Video
+            if (selections['musicvideo'].active) {
+                const mv = selections['musicvideo'];
+                const baseFee = Math.round(applyDiscount(600));
+                const recordingCost = Math.round(mv.students * mv.recordingDays * applyDiscount(40));
+                const shootCost = Math.round(mv.students * mv.shootDays * applyDiscount(45));
+                const total = baseFee + recordingCost + shootCost;
+                document.getElementById('musicvideo-recording-total').textContent = `$${recordingCost.toLocaleString()}`;
+                document.getElementById('musicvideo-shoot-total').textContent = `$${shootCost.toLocaleString()}`;
+                document.getElementById('musicvideo-total').textContent = `$${total.toLocaleString()}`;
+            }
+        }
+
+        function updateBudget() {
+            updateBudgetDisplay(getCurrentTotal());
+        }
+
+        function getCurrentTotal() {
+            const totalText = document.getElementById('total-amount').textContent;
+            return parseFloat(totalText.replace(/[$,]/g, '')) || 0;
+        }
+
+        function getSubtotalAfterDiscount() {
+            const subtotalText = document.getElementById('discounted-subtotal-amount').textContent;
+            if (subtotalText && subtotalText !== '$0') {
+                return parseFloat(subtotalText.replace(/[$,]/g, '')) || 0;
+            }
+            // If no discount, use regular subtotal
+            const regularSubtotal = document.getElementById('subtotal-amount').textContent;
+            return parseFloat(regularSubtotal.replace(/[$,]/g, '')) || 0;
+        }
+
+        function updateBudgetDisplay(currentTotal) {
+            const budgetInput = document.getElementById('budget-input');
+            const budgetInclGst = document.getElementById('budget-incl-gst').checked;
+            const budgetContainer = document.getElementById('budget-progress-container');
+            const budgetFill = document.getElementById('budget-progress-fill');
+            const budgetSpent = document.getElementById('budget-spent');
+            const budgetRemaining = document.getElementById('budget-remaining');
+
+            const budget = parseFloat(budgetInput.value) || 0;
+
+            if (budget <= 0) {
+                budgetContainer.style.display = 'none';
+                clearBudgetRestrictions();
+                return;
+            }
+
+            budgetContainer.style.display = 'block';
+            
+            // Compare against the right value based on GST toggle
+            let compareValue;
+            if (budgetInclGst) {
+                compareValue = currentTotal; // Total including GST
+            } else {
+                compareValue = getSubtotalAfterDiscount(); // Subtotal excluding GST
+            }
+
+            const percentage = Math.min((compareValue / budget) * 100, 100);
+            const remaining = budget - compareValue;
+
+            budgetFill.style.width = `${percentage}%`;
+            budgetFill.classList.remove('warning', 'danger');
+            if (percentage >= 100) {
+                budgetFill.classList.add('danger');
+            } else if (percentage >= 80) {
+                budgetFill.classList.add('warning');
+            }
+
+            budgetSpent.textContent = `$${compareValue.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+            
+            if (remaining >= 0) {
+                budgetRemaining.textContent = `$${remaining.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})} remaining`;
+                budgetRemaining.style.color = '#888';
+            } else {
+                budgetRemaining.textContent = `$${Math.abs(remaining).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})} over`;
+                budgetRemaining.style.color = '#ef4444';
+            }
+
+            // Apply budget restrictions to products
+            applyBudgetRestrictions(budget, remaining, budgetInclGst);
+        }
+
+        function applyBudgetRestrictions(budget, remaining, inclGst) {
+            // Check tier buttons
+            Object.entries(originalPrices.tiers).forEach(([product, tiers]) => {
+                Object.entries(tiers).forEach(([tierName, originalPrice]) => {
+                    const tierBtn = document.querySelector(`[data-product="${product}"][data-tier="${tierName}"]`);
+                    if (!tierBtn) return;
+
+                    const discountedPrice = applyDiscount(originalPrice);
+                    const priceToCompare = inclGst ? discountedPrice * 1.15 : discountedPrice;
+                    const isSelected = selections[product]?.tiers?.[tierName]?.quantity > 0;
+
+                    if (!isSelected && priceToCompare > remaining) {
+                        tierBtn.classList.add('budget-exceeded');
+                    } else {
+                        tierBtn.classList.remove('budget-exceeded');
+                    }
+                });
+            });
+
+            // Check production options
+            Object.entries(originalPrices.productions).forEach(([id, originalPrice]) => {
+                const opt = document.querySelector(`#qty-${id}`)?.closest('.production-option');
+                if (!opt) return;
+                
+                const discountedPrice = applyDiscount(originalPrice);
+                const priceToCompare = inclGst ? discountedPrice * 1.15 : discountedPrice;
+                const isSelected = opt.classList.contains('selected');
+
+                if (!isSelected && priceToCompare > remaining) {
+                    opt.classList.add('budget-exceeded');
+                } else {
+                    opt.classList.remove('budget-exceeded');
+                }
+            });
+
+            // Check sports package
+            const sportsActivate = document.querySelector('#sports-activate')?.closest('.sports-activate');
+            if (sportsActivate) {
+                const sportsMinBase = applyDiscount(350 + 300 + 150);
+                const sportsMin = inclGst ? sportsMinBase * 1.15 : sportsMinBase;
+                if (!selections['sports'].active && sportsMin > remaining) {
+                    sportsActivate.classList.add('budget-exceeded');
+                } else {
+                    sportsActivate.classList.remove('budget-exceeded');
+                }
+            }
+
+            // Check arts package
+            const artsActivate = document.querySelector('#arts-activate')?.closest('.sports-activate');
+            if (artsActivate) {
+                const artsMinBase = applyDiscount(350 + 350 + 150);
+                const artsMin = inclGst ? artsMinBase * 1.15 : artsMinBase;
+                if (!selections['arts'].active && artsMin > remaining) {
+                    artsActivate.classList.add('budget-exceeded');
+                } else {
+                    artsActivate.classList.remove('budget-exceeded');
+                }
+            }
+
+            // Check training packages
+            ['entry', 'basic', 'standard', 'premium'].forEach(tier => {
+                const trainActivate = document.querySelector(`#training-${tier}-activate`)?.closest('.sports-activate');
+                if (trainActivate) {
+                    const minPriceBase = applyDiscount(originalPrices.training[tier].base);
+                    const minPrice = inclGst ? minPriceBase * 1.15 : minPriceBase;
+                    if (!selections['training'][tier].active && minPrice > remaining) {
+                        trainActivate.classList.add('budget-exceeded');
+                    } else {
+                        trainActivate.classList.remove('budget-exceeded');
+                    }
+                }
+            });
+
+            // Check music video package
+            const mvActivate = document.querySelector('#musicvideo-activate')?.closest('.sports-activate');
+            if (mvActivate) {
+                const mvMinBase = applyDiscount(600 + 600 + 675);
+                const mvMin = inclGst ? mvMinBase * 1.15 : mvMinBase;
+                if (!selections['musicvideo'].active && mvMin > remaining) {
+                    mvActivate.classList.add('budget-exceeded');
+                } else {
+                    mvActivate.classList.remove('budget-exceeded');
+                }
+            }
+
+            // Check campaigns (not discountable)
+            const intlCampaign = document.querySelector('#campaign-international')?.closest('.campaign-offer');
+            if (intlCampaign) {
+                const intlPrice = inclGst ? 3500 * 1.15 : 3500;
+                if (!selections['campaigns'].international && intlPrice > remaining) {
+                    intlCampaign.classList.add('budget-exceeded');
+                } else {
+                    intlCampaign.classList.remove('budget-exceeded');
+                }
+            }
+
+            // Check "Introducing Ourselves" campaign
+            const ourselvesCampaign = document.getElementById('campaign-ourselves-offer');
+            if (ourselvesCampaign) {
+                const ourselvesPrice = inclGst ? 800 * 1.15 : 800;
+                const ourselvesActive = document.getElementById('campaign-ourselves-activate').checked;
+                if (!ourselvesActive && ourselvesPrice > remaining) {
+                    ourselvesCampaign.classList.add('budget-exceeded');
+                } else {
+                    ourselvesCampaign.classList.remove('budget-exceeded');
+                }
+            }
+
+            // Check "Testimonials" campaign
+            const testimonialsCampaign = document.getElementById('campaign-testimonials-offer');
+            if (testimonialsCampaign) {
+                const testimonialsPrice = inclGst ? 150 * 1.15 : 150;
+                const testimonialsActive = document.getElementById('campaign-testimonials-activate').checked;
+                if (!testimonialsActive && testimonialsPrice > remaining) {
+                    testimonialsCampaign.classList.add('budget-exceeded');
+                } else {
+                    testimonialsCampaign.classList.remove('budget-exceeded');
+                }
+            }
+
+            // Check if photography would exceed (minimum 1 session)
+            const photoSection = document.querySelector('#photography-sessions')?.closest('.sports-builder');
+            if (photoSection) {
+                const photoMinBase = applyDiscount(150);
+                const photoMin = inclGst ? photoMinBase * 1.15 : photoMinBase;
+                if (selections['photography'].sessions === 0 && photoMin > remaining) {
+                    photoSection.classList.add('budget-exceeded');
+                } else {
+                    photoSection.classList.remove('budget-exceeded');
+                }
+            }
+
+            // Check if posters would exceed (minimum 1 poster)
+            const postersSection = document.querySelector('#posters-qty')?.closest('.sports-builder');
+            if (postersSection) {
+                const posterMinBase = applyDiscount(75);
+                const posterMin = inclGst ? posterMinBase * 1.15 : posterMinBase;
+                if (selections['posters'].qty === 0 && posterMin > remaining) {
+                    postersSection.classList.add('budget-exceeded');
+                } else {
+                    postersSection.classList.remove('budget-exceeded');
+                }
+            }
+
+            // Mark sliders red AND their parent sections ONLY if that section is active
+            const allSliders = document.querySelectorAll('.sports-slider, .campaign-slider');
+            allSliders.forEach(slider => {
+                // Only mark slider red if over budget
+                if (remaining < 0) {
+                    slider.classList.add('over-budget');
+                } else {
+                    slider.classList.remove('over-budget');
+                }
+            });
+
+            // Mark active sections' prices red when over budget (only sections with active sliders)
+            // Sports
+            const sportsBuilder = document.querySelector('#sports-options')?.closest('.sports-builder');
+            if (sportsBuilder && selections['sports'].active && remaining < 0) {
+                sportsBuilder.classList.add('over-budget');
+            } else if (sportsBuilder) {
+                sportsBuilder.classList.remove('over-budget');
+            }
+
+            // Arts
+            const artsBuilder = document.querySelector('#arts-options')?.closest('.sports-builder');
+            if (artsBuilder && selections['arts'].active && remaining < 0) {
+                artsBuilder.classList.add('over-budget');
+            } else if (artsBuilder) {
+                artsBuilder.classList.remove('over-budget');
+            }
+
+            // Campaigns - only mark the specific active one
+            if (ourselvesCampaign) {
+                const ourselvesActive = document.getElementById('campaign-ourselves-activate').checked;
+                if (ourselvesActive && remaining < 0) {
+                    ourselvesCampaign.classList.add('over-budget');
+                } else if (!ourselvesCampaign.classList.contains('budget-exceeded')) {
+                    ourselvesCampaign.classList.remove('over-budget');
+                }
+            }
+            if (testimonialsCampaign) {
+                const testimonialsActive = document.getElementById('campaign-testimonials-activate').checked;
+                if (testimonialsActive && remaining < 0) {
+                    testimonialsCampaign.classList.add('over-budget');
+                } else if (!testimonialsCampaign.classList.contains('budget-exceeded')) {
+                    testimonialsCampaign.classList.remove('over-budget');
+                }
+            }
+
+            // Photography
+            if (photoSection && selections['photography'].sessions > 0 && remaining < 0) {
+                photoSection.classList.add('over-budget');
+            } else if (photoSection && !photoSection.classList.contains('budget-exceeded')) {
+                photoSection.classList.remove('over-budget');
+            }
+
+            // Posters
+            if (postersSection && selections['posters'].qty > 0 && remaining < 0) {
+                postersSection.classList.add('over-budget');
+            } else if (postersSection && !postersSection.classList.contains('budget-exceeded')) {
+                postersSection.classList.remove('over-budget');
+            }
+
+            // Training sections
+            ['entry', 'basic', 'standard', 'premium'].forEach(tier => {
+                const trainBuilder = document.querySelector(`#training-${tier}-options`)?.closest('.sports-builder');
+                if (trainBuilder && selections['training'][tier].active && remaining < 0) {
+                    trainBuilder.classList.add('over-budget');
+                } else if (trainBuilder) {
+                    trainBuilder.classList.remove('over-budget');
+                }
+            });
+
+            // Music video
+            const mvBuilder = document.querySelector('#musicvideo-options')?.closest('.sports-builder');
+            if (mvBuilder && selections['musicvideo'].active && remaining < 0) {
+                mvBuilder.classList.add('over-budget');
+            } else if (mvBuilder) {
+                mvBuilder.classList.remove('over-budget');
+            }
+
+            // Grand total turns red when over budget
+            const totalAmount = document.getElementById('total-amount');
+            if (totalAmount) {
+                if (remaining < 0) {
+                    totalAmount.classList.add('over-budget');
+                } else {
+                    totalAmount.classList.remove('over-budget');
+                }
+            }
+        }
+
+        function clearBudgetRestrictions() {
+            document.querySelectorAll('.budget-exceeded').forEach(el => {
+                el.classList.remove('budget-exceeded');
+            });
+            document.querySelectorAll('.sports-slider.over-budget, .campaign-slider.over-budget').forEach(el => {
+                el.classList.remove('over-budget');
+            });
+            document.querySelectorAll('.sports-builder.over-budget, .campaign-offer.over-budget').forEach(el => {
+                el.classList.remove('over-budget');
+            });
+            document.getElementById('total-amount')?.classList.remove('over-budget');
+            
+            // Reset budget progress bar
+            const budgetFill = document.getElementById('budget-progress-fill');
+            if (budgetFill) {
+                budgetFill.style.width = '0%';
+                budgetFill.classList.remove('warning', 'danger');
+            }
         }
 
         function removeTier(product, tierName) {
@@ -3176,12 +4136,18 @@
             if (product === 'campaigns') {
                 selections['campaigns'] = { international: false, ourselves: 0, testimonials: 0 };
                 document.getElementById('campaign-international').checked = false;
-                document.getElementById('campaign-ourselves').value = 0;
-                document.getElementById('campaign-testimonials').value = 0;
-                document.getElementById('campaign-ourselves-value').textContent = '0';
-                document.getElementById('campaign-testimonials-value').textContent = '0';
-                document.getElementById('campaign-ourselves-total').textContent = '$0';
-                document.getElementById('campaign-testimonials-total').textContent = '$0';
+                document.getElementById('campaign-ourselves-activate').checked = false;
+                document.getElementById('campaign-testimonials-activate').checked = false;
+                document.getElementById('campaign-ourselves').value = 1;
+                document.getElementById('campaign-testimonials').value = 1;
+                document.getElementById('campaign-ourselves-value').textContent = '1';
+                document.getElementById('campaign-testimonials-value').textContent = '1';
+                document.getElementById('campaign-ourselves-total').textContent = '$800';
+                document.getElementById('campaign-testimonials-total').textContent = '$150';
+                document.getElementById('campaign-ourselves-slider-row').style.display = 'none';
+                document.getElementById('campaign-testimonials-slider-row').style.display = 'none';
+                document.getElementById('campaign-ourselves-price-hint').style.display = '';
+                document.getElementById('campaign-testimonials-price-hint').style.display = '';
             } else if (product === 'sports') {
                 selections['sports'] = { active: false, games: 5, videoMins: 1, socialCut: false };
                 document.getElementById('sports-activate').checked = false;
