@@ -1414,7 +1414,8 @@
 </head>
 <body>
     <div class="container">
-        <h1>Pricing <span>Calculator</span></h1>
+        <img src="" alt="Logo" class="logo" id="company-logo" style="display: none; max-height: 80px; margin-bottom: 20px;">
+        <h1>Media in <span>Education</span></h1>
         <p class="subtitle">Select your products and options to see your total</p>
         <p class="gst-note-top">All prices are GST exclusive</p>
 
@@ -1989,7 +1990,15 @@
                     <div class="product-content">
                         <p class="product-blurb">Professional photography to capture your school's important moments. Each session includes one hour of shooting and one hour of editing, delivering polished images ready to share.</p>
                         <div class="sports-builder">
-                            <div class="sports-options" style="display: flex;">
+                            <div class="sports-activate">
+                                <label class="sports-activate-label">
+                                    <input type="checkbox" id="photography-activate" onchange="togglePhotography()">
+                                    <span class="sports-activate-check"></span>
+                                    <span class="sports-activate-text">Event Photography</span>
+                                    <span class="sports-activate-price">from $150</span>
+                                </label>
+                            </div>
+                            <div class="sports-options" id="photography-options" style="display: none;">
                                 <div class="sports-item">
                                     <div class="sports-item-header">
                                         <span class="sports-item-name">Photography sessions</span>
@@ -2064,7 +2073,15 @@
                         <div>
                             <h4 style="color: var(--accent-yellow); margin-bottom: 15px; font-weight: 400;">Advertising Posters</h4>
                             <div class="sports-builder">
-                                <div class="sports-options" style="display: flex;">
+                                <div class="sports-activate">
+                                    <label class="sports-activate-label">
+                                        <input type="checkbox" id="posters-activate" onchange="togglePosters()">
+                                        <span class="sports-activate-check"></span>
+                                        <span class="sports-activate-text">Poster Design</span>
+                                        <span class="sports-activate-price">from $75</span>
+                                    </label>
+                                </div>
+                                <div class="sports-options" id="posters-options" style="display: none;">
                                     <div class="sports-item">
                                         <div class="sports-item-header">
                                             <span class="sports-item-name">Poster designs</span>
@@ -2159,10 +2176,23 @@
                                             <span class="sports-item-desc">5 minimum</span>
                                         </div>
                                         <div class="sports-item-value">
-                                            <span class="sports-calc-price" id="training-entry-total">$100</span>
+                                            <span class="sports-calc-price" id="training-entry-students-cost">$100</span>
                                             <div class="sports-slider-container">
                                                 <input type="range" id="training-entry-students" min="5" max="20" value="5" class="sports-slider" oninput="updateTraining('entry')">
                                                 <span class="sports-slider-value" id="training-entry-students-value">5 students</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="sports-item">
+                                        <div class="sports-item-header">
+                                            <span class="sports-item-name">Days</span>
+                                            <span class="sports-item-desc">Multiplies student fee</span>
+                                        </div>
+                                        <div class="sports-item-value">
+                                            <span class="sports-calc-price" id="training-entry-total">$100</span>
+                                            <div class="sports-slider-container">
+                                                <input type="range" id="training-entry-days" min="1" max="5" value="1" class="sports-slider" oninput="updateTraining('entry')">
+                                                <span class="sports-slider-value" id="training-entry-days-value">1 day</span>
                                             </div>
                                         </div>
                                     </div>
@@ -2187,10 +2217,23 @@
                                             <span class="sports-item-desc">5 minimum</span>
                                         </div>
                                         <div class="sports-item-value">
-                                            <span class="sports-calc-price" id="training-basic-total">$150</span>
+                                            <span class="sports-calc-price" id="training-basic-students-cost">$150</span>
                                             <div class="sports-slider-container">
                                                 <input type="range" id="training-basic-students" min="5" max="20" value="5" class="sports-slider" oninput="updateTraining('basic')">
                                                 <span class="sports-slider-value" id="training-basic-students-value">5 students</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="sports-item">
+                                        <div class="sports-item-header">
+                                            <span class="sports-item-name">Days</span>
+                                            <span class="sports-item-desc">Multiplies student fee</span>
+                                        </div>
+                                        <div class="sports-item-value">
+                                            <span class="sports-calc-price" id="training-basic-total">$150</span>
+                                            <div class="sports-slider-container">
+                                                <input type="range" id="training-basic-days" min="1" max="5" value="1" class="sports-slider" oninput="updateTraining('basic')">
+                                                <span class="sports-slider-value" id="training-basic-days-value">1 day</span>
                                             </div>
                                         </div>
                                     </div>
@@ -2215,10 +2258,23 @@
                                             <span class="sports-item-desc">5 minimum</span>
                                         </div>
                                         <div class="sports-item-value">
-                                            <span class="sports-calc-price" id="training-standard-total">$200</span>
+                                            <span class="sports-calc-price" id="training-standard-students-cost">$200</span>
                                             <div class="sports-slider-container">
                                                 <input type="range" id="training-standard-students" min="5" max="20" value="5" class="sports-slider" oninput="updateTraining('standard')">
                                                 <span class="sports-slider-value" id="training-standard-students-value">5 students</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="sports-item">
+                                        <div class="sports-item-header">
+                                            <span class="sports-item-name">Days</span>
+                                            <span class="sports-item-desc">Multiplies student fee</span>
+                                        </div>
+                                        <div class="sports-item-value">
+                                            <span class="sports-calc-price" id="training-standard-total">$200</span>
+                                            <div class="sports-slider-container">
+                                                <input type="range" id="training-standard-days" min="1" max="5" value="1" class="sports-slider" oninput="updateTraining('standard')">
+                                                <span class="sports-slider-value" id="training-standard-days-value">1 day</span>
                                             </div>
                                         </div>
                                     </div>
@@ -2243,10 +2299,23 @@
                                             <span class="sports-item-desc">5 minimum</span>
                                         </div>
                                         <div class="sports-item-value">
-                                            <span class="sports-calc-price" id="training-premium-total">$400</span>
+                                            <span class="sports-calc-price" id="training-premium-students-cost">$400</span>
                                             <div class="sports-slider-container">
                                                 <input type="range" id="training-premium-students" min="5" max="20" value="5" class="sports-slider" oninput="updateTraining('premium')">
                                                 <span class="sports-slider-value" id="training-premium-students-value">5 students</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="sports-item">
+                                        <div class="sports-item-header">
+                                            <span class="sports-item-name">Days</span>
+                                            <span class="sports-item-desc">Multiplies student fee</span>
+                                        </div>
+                                        <div class="sports-item-value">
+                                            <span class="sports-calc-price" id="training-premium-total">$400</span>
+                                            <div class="sports-slider-container">
+                                                <input type="range" id="training-premium-days" min="1" max="5" value="1" class="sports-slider" oninput="updateTraining('premium')">
+                                                <span class="sports-slider-value" id="training-premium-days-value">1 day</span>
                                             </div>
                                         </div>
                                     </div>
@@ -2270,7 +2339,7 @@
                                     <input type="checkbox" id="musicvideo-activate" onchange="toggleMusicVideo()">
                                     <span class="sports-activate-check"></span>
                                     <span class="sports-activate-text">Music Video Package</span>
-                                    <span class="sports-activate-price">from $1,875</span>
+                                    <span class="sports-activate-price">from $1,425</span>
                                 </label>
                             </div>
                             <div class="sports-options" id="musicvideo-options" style="display: none;">
@@ -2299,10 +2368,10 @@
                                 <div class="sports-item">
                                     <div class="sports-item-header">
                                         <span class="sports-item-name">Recording days</span>
-                                        <span class="sports-item-desc">$40/student/day</span>
+                                        <span class="sports-item-desc">$25/student/day</span>
                                     </div>
                                     <div class="sports-item-value">
-                                        <span class="sports-calc-price" id="musicvideo-recording-total">$600</span>
+                                        <span class="sports-calc-price" id="musicvideo-recording-total">$375</span>
                                         <div class="sports-slider-container">
                                             <input type="range" id="musicvideo-recording" min="1" max="3" value="1" class="sports-slider" oninput="updateMusicVideo()">
                                             <span class="sports-slider-value" id="musicvideo-recording-value">1 day</span>
@@ -2312,10 +2381,10 @@
                                 <div class="sports-item">
                                     <div class="sports-item-header">
                                         <span class="sports-item-name">Shoot days</span>
-                                        <span class="sports-item-desc">$45/student/day</span>
+                                        <span class="sports-item-desc">$30/student/day</span>
                                     </div>
                                     <div class="sports-item-value">
-                                        <span class="sports-calc-price" id="musicvideo-shoot-total">$675</span>
+                                        <span class="sports-calc-price" id="musicvideo-shoot-total">$450</span>
                                         <div class="sports-slider-container">
                                             <input type="range" id="musicvideo-shoot" min="1" max="3" value="1" class="sports-slider" oninput="updateMusicVideo()">
                                             <span class="sports-slider-value" id="musicvideo-shoot-value">1 day</span>
@@ -2324,7 +2393,7 @@
                                 </div>
                                 <div class="sports-package-total">
                                     <span>Music video total:</span>
-                                    <span id="musicvideo-total">$1,875</span>
+                                    <span id="musicvideo-total">$1,425</span>
                                 </div>
                             </div>
                         </div>
@@ -2607,37 +2676,37 @@
                 'Entry': {
                     price: 350,
                     details: [
+                        'Up to 10 galleries',
                         'Basic digital yearbook website',
                         'Host your video highlights',
-                        'Simple, clean design',
-                        'Perfect for smaller schools'
+                        'Simple, clean design'
                     ]
                 },
                 'Basic': {
                     price: 450,
                     details: [
+                        'Up to 15 galleries',
                         'Enhanced digital yearbook',
                         'Custom branding',
-                        'Multiple video sections',
-                        'Photo galleries included'
+                        'Multiple video sections'
                     ]
                 },
                 'Standard': {
                     price: 550,
                     details: [
+                        'Up to 20 galleries',
                         'Full-featured yearbook site',
                         'Custom design & branding',
                         'Unlimited video embeds',
-                        'Interactive timeline',
-                        'Social sharing features'
+                        'Interactive timeline'
                     ]
                 },
                 'Premium': {
                     price: 700,
                     details: [
+                        'Unlimited galleries',
                         'Premium yearbook experience',
                         'Bespoke design',
-                        'All Standard features',
                         'Student/staff spotlights',
                         'Archive access for future years',
                         'Priority support'
@@ -2648,8 +2717,8 @@
                 'Entry': {
                     price: 350,
                     details: [
-                        'Basic pamphlet design',
-                        'Single-fold layout',
+                        'Basic A5 layout',
+                        'No photos included',
                         'Show information & credits',
                         'Print-ready PDF'
                     ]
@@ -2657,32 +2726,27 @@
                 'Basic': {
                     price: 550,
                     details: [
-                        'Enhanced pamphlet design',
-                        'Bi-fold layout',
-                        'Cast photos included',
-                        'Custom branding',
+                        'A5 Layout',
+                        'Cast photo included',
+                        'Design revisions included',
                         'Print-ready PDF'
                     ]
                 },
                 'Standard': {
                     price: 650,
                     details: [
-                        'Professional pamphlet',
-                        'Multi-page booklet',
-                        'Cast & crew bios',
-                        'Scene breakdown',
-                        'Custom illustrations',
+                        'Cast & Show previews',
+                        'Extra pages available',
+                        'Custom branding',
                         'Print-ready PDF'
                     ]
                 },
                 'Premium': {
                     price: 850,
                     details: [
-                        'Premium programme booklet',
-                        'Magazine-style layout',
-                        'Full cast & crew features',
-                        'Behind-the-scenes content',
-                        'Sponsor integration',
+                        'Fully customisable design',
+                        'Including custom shape',
+                        'Unlimited revisions',
                         'Digital & print versions'
                     ]
                 }
@@ -2699,10 +2763,10 @@
             'sports': { active: false, games: 5, videoMins: 1, socialCut: false },
             'arts': { active: false, events: 5, videoMins: 1, socialCut: false },
             'recap-website': { tiers: {} },
-            'photography': { sessions: 0 },
+            'photography': { active: false, sessions: 0 },
             'pamphlets': { tiers: {} },
-            'posters': { qty: 0, format1x1: false, format16x9: false, format9x16: false },
-            'training': { entry: { active: false, students: 5 }, basic: { active: false, students: 5 }, standard: { active: false, students: 5 }, premium: { active: false, students: 5 } },
+            'posters': { active: false, qty: 0, format1x1: false, format16x9: false, format9x16: false },
+            'training': { entry: { active: false, students: 5, days: 1 }, basic: { active: false, students: 5, days: 1 }, standard: { active: false, students: 5, days: 1 }, premium: { active: false, students: 5, days: 1 } },
             'musicvideo': { active: false, students: 15, recordingDays: 1, shootDays: 1 }
         };
 
@@ -2794,9 +2858,9 @@
             document.getElementById('campaign-ourselves-value').textContent = ourselves || 1;
             document.getElementById('campaign-testimonials-value').textContent = testimonials || 1;
 
-            // Calculate costs
-            const ourselvesCost = ourselves * 800;
-            const testimonialsCost = testimonials * 150;
+            // Calculate costs with discount
+            const ourselvesCost = Math.round(ourselves * applyDiscount(800));
+            const testimonialsCost = Math.round(testimonials * applyDiscount(150));
 
             document.getElementById('campaign-ourselves-total').textContent = `$${ourselvesCost.toLocaleString()}`;
             document.getElementById('campaign-testimonials-total').textContent = `$${testimonialsCost.toLocaleString()}`;
@@ -2933,9 +2997,25 @@
         }
 
         // Photography functions
+        function togglePhotography() {
+            const active = document.getElementById('photography-activate').checked;
+            const optionsEl = document.getElementById('photography-options');
+            
+            if (active) {
+                optionsEl.style.display = 'flex';
+                document.getElementById('photography-sessions').value = 1;
+            } else {
+                optionsEl.style.display = 'none';
+            }
+            
+            selections['photography'].active = active;
+            updatePhotography();
+        }
+
         function updatePhotography() {
+            const active = document.getElementById('photography-activate')?.checked || false;
             const sessions = parseInt(document.getElementById('photography-sessions').value);
-            selections['photography'].sessions = sessions;
+            selections['photography'] = { active, sessions: active ? sessions : 0 };
             
             const total = Math.round(sessions * applyDiscount(150));
             document.getElementById('photography-sessions-value').textContent = `${sessions} session${sessions !== 1 ? 's' : ''}`;
@@ -2945,13 +3025,32 @@
         }
 
         // Posters functions
+        function togglePosters() {
+            const active = document.getElementById('posters-activate').checked;
+            const optionsEl = document.getElementById('posters-options');
+            
+            if (active) {
+                optionsEl.style.display = 'flex';
+                document.getElementById('posters-qty').value = 1;
+                document.getElementById('posters-1x1').checked = false;
+                document.getElementById('posters-16x9').checked = false;
+                document.getElementById('posters-9x16').checked = false;
+            } else {
+                optionsEl.style.display = 'none';
+            }
+            
+            selections['posters'].active = active;
+            updatePosters();
+        }
+
         function updatePosters() {
+            const active = document.getElementById('posters-activate')?.checked || false;
             const qty = parseInt(document.getElementById('posters-qty').value);
             const format1x1 = document.getElementById('posters-1x1').checked;
             const format16x9 = document.getElementById('posters-16x9').checked;
             const format9x16 = document.getElementById('posters-9x16').checked;
             
-            selections['posters'] = { qty, format1x1, format16x9, format9x16 };
+            selections['posters'] = { active, qty: active ? qty : 0, format1x1, format16x9, format9x16 };
             
             // Calculate per-poster price with discount
             let perPoster = applyDiscount(75);
@@ -2984,6 +3083,7 @@
             if (active) {
                 optionsEl.style.display = 'flex';
                 document.getElementById(`training-${tier}-students`).value = 5;
+                document.getElementById(`training-${tier}-days`).value = 1;
             } else {
                 optionsEl.style.display = 'none';
             }
@@ -2995,14 +3095,18 @@
         function updateTraining(tier) {
             const active = document.getElementById(`training-${tier}-activate`).checked;
             const students = parseInt(document.getElementById(`training-${tier}-students`).value);
+            const days = parseInt(document.getElementById(`training-${tier}-days`).value);
             
-            selections['training'][tier] = { active, students };
+            selections['training'][tier] = { active, students, days };
             
-            // Calculate price with discount: base + (students - 5) * perStudent rate
+            // Calculate price with discount: (base + (students - 5) * perStudent rate) * days
             const prices = trainingPrices[tier];
-            const total = Math.round(applyDiscount(prices.base + (students - 5) * prices.perStudent));
+            const studentsCost = Math.round(applyDiscount(prices.base + (students - 5) * prices.perStudent));
+            const total = studentsCost * days;
             
             document.getElementById(`training-${tier}-students-value`).textContent = `${students} students`;
+            document.getElementById(`training-${tier}-days-value`).textContent = `${days} day${days !== 1 ? 's' : ''}`;
+            document.getElementById(`training-${tier}-students-cost`).textContent = `$${studentsCost.toLocaleString()}`;
             document.getElementById(`training-${tier}-total`).textContent = `$${total.toLocaleString()}`;
             
             updateSummary();
@@ -3036,8 +3140,8 @@
             
             // Calculate costs with discount
             const baseFee = Math.round(applyDiscount(600));
-            const recordingCost = Math.round(students * recordingDays * applyDiscount(40));
-            const shootCost = Math.round(students * shootDays * applyDiscount(45));
+            const recordingCost = Math.round(students * recordingDays * applyDiscount(25));
+            const shootCost = Math.round(students * shootDays * applyDiscount(30));
             const total = baseFee + recordingCost + shootCost;
             
             document.getElementById('musicvideo-students-value').textContent = `${students} students`;
@@ -3281,7 +3385,7 @@
             }
 
             // Photography
-            if (selections['photography'].sessions > 0) {
+            if (selections['photography'].active) {
                 hasItems = true;
                 const photoTotal = selections['photography'].sessions * 150;
                 subtotal += photoTotal;
@@ -3321,7 +3425,7 @@
             }
 
             // Posters
-            if (selections['posters'].qty > 0) {
+            if (selections['posters'].active) {
                 hasItems = true;
                 let perPoster = 75;
                 if (selections['posters'].format1x1) perPoster += 5;
@@ -3353,8 +3457,10 @@
                 if (selections['training'][tier].active) {
                     hasItems = true;
                     const students = selections['training'][tier].students;
+                    const days = selections['training'][tier].days || 1;
                     const prices = trainingPrices[tier];
-                    const total = prices.base + (students - 5) * prices.perStudent;
+                    const studentsCost = prices.base + (students - 5) * prices.perStudent;
+                    const total = studentsCost * days;
                     subtotal += total;
 
                     const tierName = tier.charAt(0).toUpperCase() + tier.slice(1);
@@ -3362,7 +3468,7 @@
                         <div class="summary-item">
                             <div class="summary-item-details">
                                 <div class="summary-item-name">Student Training</div>
-                                <div class="summary-item-tier">${tierName} (${students} students)</div>
+                                <div class="summary-item-tier">${tierName} (${students} students × ${days} day${days !== 1 ? 's' : ''})</div>
                             </div>
                             <span class="summary-item-price">$${total.toLocaleString()}</span>
                             <button class="summary-item-remove" onclick="removeProduct('training-${tier}')">×</button>
@@ -3375,7 +3481,7 @@
             if (selections['musicvideo'].active) {
                 hasItems = true;
                 const mv = selections['musicvideo'];
-                const mvTotal = 600 + (mv.students * mv.recordingDays * 40) + (mv.students * mv.shootDays * 45);
+                const mvTotal = 600 + (mv.students * mv.recordingDays * 25) + (mv.students * mv.shootDays * 30);
                 subtotal += mvTotal;
 
                 html += `
@@ -3394,10 +3500,9 @@
                 html = '<div class="summary-empty">Select products to build your quote</div>';
             }
 
-            // Calculate discountable product count (excludes campaigns)
+            // Calculate discountable product count
             let discountableCount = 0;
             let discountableSubtotal = 0;
-            let campaignsTotal = 0;
 
             // Count EOY Highlights
             Object.values(selections['eoy-highlights'].tiers).forEach(tier => {
@@ -3450,7 +3555,7 @@
             });
 
             // Count Photography (counts as 1 if any sessions)
-            if (selections['photography'].sessions > 0) {
+            if (selections['photography'].active) {
                 discountableCount += 1;
                 discountableSubtotal += selections['photography'].sessions * 150;
             }
@@ -3462,7 +3567,7 @@
             });
 
             // Count Posters (counts as 1 if any)
-            if (selections['posters'].qty > 0) {
+            if (selections['posters'].active) {
                 discountableCount += 1;
                 let perPoster = 75;
                 if (selections['posters'].format1x1) perPoster += 5;
@@ -3485,27 +3590,30 @@
             if (selections['musicvideo'].active) {
                 discountableCount += 1;
                 const mv = selections['musicvideo'];
-                discountableSubtotal += 600 + (mv.students * mv.recordingDays * 40) + (mv.students * mv.shootDays * 45);
-            }            // Count Arts (counts as 1 discountable product if active)
-            if (selections['arts'].active) {
-                discountableCount += 1;
-                let artsSubtotal = 350;
-                artsSubtotal += selections['arts'].events * 70;
-                artsSubtotal += selections['arts'].videoMins * 150;
-                if (selections['arts'].socialCut) artsSubtotal += 250;
-                discountableSubtotal += artsSubtotal;
+                discountableSubtotal += 600 + (mv.students * mv.recordingDays * 25) + (mv.students * mv.shootDays * 30);
             }
 
-            // Campaigns total (not discountable)
+            // Count Campaigns (each counts as 1)
             const campSel2 = selections['campaigns'];
-            if (campSel2.international) campaignsTotal += 3500;
-            if (campSel2.ourselves > 0) campaignsTotal += campSel2.ourselves * 800;
-            if (campSel2.testimonials > 0) campaignsTotal += campSel2.testimonials * 150;
+            if (campSel2.international) {
+                discountableCount += 1;
+                discountableSubtotal += 3500;
+            }
+            if (campSel2.ourselves > 0) {
+                discountableCount += 1;
+                discountableSubtotal += campSel2.ourselves * 800;
+            }
+            if (campSel2.testimonials > 0) {
+                discountableCount += 1;
+                discountableSubtotal += campSel2.testimonials * 150;
+            }
 
             // Determine discount percentage
             // 3 projects - 5%, 6 projects - 8%, 12 projects - 12%, 20 projects - 15%
             let discountPercent = 0;
-            if (discountableCount >= 20) {
+            if (discountableCount >= 30) {
+                discountPercent = 20;
+            } else if (discountableCount >= 20) {
                 discountPercent = 15;
             } else if (discountableCount >= 12) {
                 discountPercent = 12;
@@ -3516,7 +3624,7 @@
             }
 
             const discountAmount = discountableSubtotal * (discountPercent / 100);
-            const discountedSubtotal = discountableSubtotal - discountAmount + campaignsTotal;
+            const discountedSubtotal = discountableSubtotal - discountAmount;
             const gst = discountedSubtotal * 0.15;
             const total = discountedSubtotal + gst;
 
@@ -3562,7 +3670,7 @@
             productions: {
                 'recording-basic': 600,
                 'recording-standard': 900,
-                'recording-premium': 1400,
+                'recording-premium': 1200,
                 'highlights-standard': 800,
                 'highlights-premium': 1400,
                 'documentary': 2000,
@@ -3583,8 +3691,8 @@
                 'posters-16x9': 5,
                 'posters-9x16': 5,
                 'musicvideo-base': 600,
-                'musicvideo-recording': 40,
-                'musicvideo-shoot': 45
+                'musicvideo-recording': 25,
+                'musicvideo-shoot': 30
             },
             campaigns: {
                 'international': 3500,
@@ -3630,15 +3738,21 @@
             });
 
             // Update production options
+            const productionPriceFormats = {
+                'recording-basic': '1 camera · $PRICE/show',
+                'recording-standard': '2 cameras · $PRICE/show',
+                'recording-premium': '3 cameras · $PRICE/show',
+                'highlights-standard': '2 min · $PRICE',
+                'highlights-premium': '4-5 min · $PRICE',
+                'documentary': '15-20 min · $PRICE',
+                'full-package': 'All included · $PRICE'
+            };
+            
             Object.entries(originalPrices.productions).forEach(([id, originalPrice]) => {
-                const priceEl = document.querySelector(`#qty-${id}`)?.closest('.production-option')?.querySelector('.production-price');
-                if (priceEl) {
-                    if (discountPercent > 0) {
-                        const newPrice = Math.round(applyDiscount(originalPrice));
-                        priceEl.textContent = `$${newPrice.toLocaleString()}`;
-                    } else {
-                        priceEl.textContent = `$${originalPrice.toLocaleString()}`;
-                    }
+                const priceEl = document.querySelector(`#qty-${id}`)?.closest('.production-option')?.querySelector('.production-option-price');
+                if (priceEl && productionPriceFormats[id]) {
+                    const price = discountPercent > 0 ? Math.round(applyDiscount(originalPrice)) : originalPrice;
+                    priceEl.textContent = productionPriceFormats[id].replace('$PRICE', `$${price.toLocaleString()}`);
                 }
             });
 
@@ -3693,11 +3807,37 @@
             const mvShootDesc = document.querySelector('#musicvideo-shoot')?.closest('.sports-item')?.querySelector('.sports-item-desc');
             
             if (mvBasePrice) mvBasePrice.textContent = `$${Math.round(applyDiscount(600))}`;
-            if (mvRecordingDesc) mvRecordingDesc.textContent = `$${Math.round(applyDiscount(40))}/student/day`;
-            if (mvShootDesc) mvShootDesc.textContent = `$${Math.round(applyDiscount(45))}/student/day`;
+            if (mvRecordingDesc) mvRecordingDesc.textContent = `$${Math.round(applyDiscount(25))}/student/day`;
+            if (mvShootDesc) mvShootDesc.textContent = `$${Math.round(applyDiscount(30))}/student/day`;
 
-            // Update campaign prices (not discountable, but show for consistency)
-            // Campaigns don't get discount so we don't update them
+            // Update campaign prices with discount
+            const intlPriceEl = document.querySelector('#campaign-international')?.closest('.campaign-offer')?.querySelector('.campaign-offer-price');
+            if (intlPriceEl) {
+                const price = discountPercent > 0 ? Math.round(applyDiscount(3500)) : 3500;
+                intlPriceEl.textContent = `$${price.toLocaleString()}`;
+            }
+            
+            const ourselvesPriceHint = document.getElementById('campaign-ourselves-price-hint');
+            const ourselvesUnit = document.querySelector('#campaign-ourselves-slider-row .campaign-slider-unit');
+            if (ourselvesPriceHint) {
+                const price = discountPercent > 0 ? Math.round(applyDiscount(800)) : 800;
+                ourselvesPriceHint.textContent = `from $${price.toLocaleString()}`;
+            }
+            if (ourselvesUnit) {
+                const price = discountPercent > 0 ? Math.round(applyDiscount(800)) : 800;
+                ourselvesUnit.textContent = `$${price}/video`;
+            }
+            
+            const testimonialsPriceHint = document.getElementById('campaign-testimonials-price-hint');
+            const testimonialsUnit = document.querySelector('#campaign-testimonials-slider-row .campaign-slider-unit');
+            if (testimonialsPriceHint) {
+                const price = discountPercent > 0 ? Math.round(applyDiscount(150)) : 150;
+                testimonialsPriceHint.textContent = `from $${price.toLocaleString()}`;
+            }
+            if (testimonialsUnit) {
+                const price = discountPercent > 0 ? Math.round(applyDiscount(150)) : 150;
+                testimonialsUnit.textContent = `$${price}/interview`;
+            }
 
             // Update sports/arts package "from" prices
             const sportsFromPrice = document.querySelector('#sports-activate')?.closest('.sports-activate-label')?.querySelector('.sports-activate-price');
@@ -3713,7 +3853,7 @@
                 artsFromPrice.textContent = `from $${minArts.toLocaleString()}`;
             }
             if (mvFromPrice) {
-                const minMv = Math.round(applyDiscount(600 + 600 + 675));
+                const minMv = Math.round(applyDiscount(600 + 375 + 450));
                 mvFromPrice.textContent = `from $${minMv.toLocaleString()}`;
             }
 
@@ -3752,13 +3892,13 @@
             }
 
             // Photography
-            if (selections['photography'].sessions > 0) {
+            if (selections['photography'].active) {
                 const total = Math.round(selections['photography'].sessions * applyDiscount(150));
                 document.getElementById('photography-total').textContent = `$${total.toLocaleString()}`;
             }
 
             // Posters
-            if (selections['posters'].qty > 0) {
+            if (selections['posters'].active) {
                 const qty = selections['posters'].qty;
                 let perPoster = applyDiscount(75);
                 if (selections['posters'].format1x1) perPoster += applyDiscount(5);
@@ -3774,8 +3914,11 @@
             ['entry', 'basic', 'standard', 'premium'].forEach(tier => {
                 if (selections['training'][tier].active) {
                     const students = selections['training'][tier].students;
+                    const days = selections['training'][tier].days || 1;
                     const prices = trainingPrices[tier];
-                    const total = Math.round(applyDiscount(prices.base + (students - 5) * prices.perStudent));
+                    const studentsCost = Math.round(applyDiscount(prices.base + (students - 5) * prices.perStudent));
+                    const total = studentsCost * days;
+                    document.getElementById(`training-${tier}-students-cost`).textContent = `$${studentsCost.toLocaleString()}`;
                     document.getElementById(`training-${tier}-total`).textContent = `$${total.toLocaleString()}`;
                 }
             });
@@ -3784,8 +3927,8 @@
             if (selections['musicvideo'].active) {
                 const mv = selections['musicvideo'];
                 const baseFee = Math.round(applyDiscount(600));
-                const recordingCost = Math.round(mv.students * mv.recordingDays * applyDiscount(40));
-                const shootCost = Math.round(mv.students * mv.shootDays * applyDiscount(45));
+                const recordingCost = Math.round(mv.students * mv.recordingDays * applyDiscount(25));
+                const shootCost = Math.round(mv.students * mv.shootDays * applyDiscount(30));
                 const total = baseFee + recordingCost + shootCost;
                 document.getElementById('musicvideo-recording-total').textContent = `$${recordingCost.toLocaleString()}`;
                 document.getElementById('musicvideo-shoot-total').textContent = `$${shootCost.toLocaleString()}`;
@@ -3803,11 +3946,16 @@
         }
 
         function getSubtotalAfterDiscount() {
-            const subtotalText = document.getElementById('discounted-subtotal-amount').textContent;
-            if (subtotalText && subtotalText !== '$0') {
-                return parseFloat(subtotalText.replace(/[$,]/g, '')) || 0;
+            // First check if discounted subtotal line is visible
+            const discountedLine = document.getElementById('discounted-subtotal-line');
+            if (discountedLine && discountedLine.style.display !== 'none') {
+                const subtotalText = document.getElementById('discounted-subtotal-amount').textContent;
+                const value = parseFloat(subtotalText.replace(/[$,]/g, ''));
+                if (!isNaN(value) && value > 0) {
+                    return value;
+                }
             }
-            // If no discount, use regular subtotal
+            // If no discount or not visible, use regular subtotal
             const regularSubtotal = document.getElementById('subtotal-amount').textContent;
             return parseFloat(regularSubtotal.replace(/[$,]/g, '')) || 0;
         }
@@ -3822,9 +3970,24 @@
 
             const budget = parseFloat(budgetInput.value) || 0;
 
+            // If no budget set or cart is empty, hide and clear
             if (budget <= 0) {
                 budgetContainer.style.display = 'none';
                 clearBudgetRestrictions();
+                return;
+            }
+
+            // If cart is empty, show 0 spent
+            if (currentTotal === 0) {
+                budgetContainer.style.display = 'block';
+                budgetFill.style.width = '0%';
+                budgetFill.classList.remove('warning', 'danger');
+                budgetSpent.textContent = '$0.00';
+                budgetRemaining.textContent = `$${budget.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})} remaining`;
+                budgetRemaining.style.color = '#888';
+                clearBudgetRestrictions();
+                // Still apply budget restrictions for what can be added
+                applyBudgetRestrictions(budget, budget, budgetInclGst);
                 return;
             }
 
@@ -3939,7 +4102,7 @@
             // Check music video package
             const mvActivate = document.querySelector('#musicvideo-activate')?.closest('.sports-activate');
             if (mvActivate) {
-                const mvMinBase = applyDiscount(600 + 600 + 675);
+                const mvMinBase = applyDiscount(600 + 375 + 450);
                 const mvMin = inclGst ? mvMinBase * 1.15 : mvMinBase;
                 if (!selections['musicvideo'].active && mvMin > remaining) {
                     mvActivate.classList.add('budget-exceeded');
@@ -3948,10 +4111,11 @@
                 }
             }
 
-            // Check campaigns (not discountable)
+            // Check campaigns (now discountable)
             const intlCampaign = document.querySelector('#campaign-international')?.closest('.campaign-offer');
             if (intlCampaign) {
-                const intlPrice = inclGst ? 3500 * 1.15 : 3500;
+                const intlPriceBase = applyDiscount(3500);
+                const intlPrice = inclGst ? intlPriceBase * 1.15 : intlPriceBase;
                 if (!selections['campaigns'].international && intlPrice > remaining) {
                     intlCampaign.classList.add('budget-exceeded');
                 } else {
@@ -3962,7 +4126,8 @@
             // Check "Introducing Ourselves" campaign
             const ourselvesCampaign = document.getElementById('campaign-ourselves-offer');
             if (ourselvesCampaign) {
-                const ourselvesPrice = inclGst ? 800 * 1.15 : 800;
+                const ourselvesPriceBase = applyDiscount(800);
+                const ourselvesPrice = inclGst ? ourselvesPriceBase * 1.15 : ourselvesPriceBase;
                 const ourselvesActive = document.getElementById('campaign-ourselves-activate').checked;
                 if (!ourselvesActive && ourselvesPrice > remaining) {
                     ourselvesCampaign.classList.add('budget-exceeded');
@@ -3974,7 +4139,8 @@
             // Check "Testimonials" campaign
             const testimonialsCampaign = document.getElementById('campaign-testimonials-offer');
             if (testimonialsCampaign) {
-                const testimonialsPrice = inclGst ? 150 * 1.15 : 150;
+                const testimonialsPriceBase = applyDiscount(150);
+                const testimonialsPrice = inclGst ? testimonialsPriceBase * 1.15 : testimonialsPriceBase;
                 const testimonialsActive = document.getElementById('campaign-testimonials-activate').checked;
                 if (!testimonialsActive && testimonialsPrice > remaining) {
                     testimonialsCampaign.classList.add('budget-exceeded');
@@ -3984,26 +4150,26 @@
             }
 
             // Check if photography would exceed (minimum 1 session)
-            const photoSection = document.querySelector('#photography-sessions')?.closest('.sports-builder');
-            if (photoSection) {
+            const photoActivate = document.querySelector('#photography-activate')?.closest('.sports-activate');
+            if (photoActivate) {
                 const photoMinBase = applyDiscount(150);
                 const photoMin = inclGst ? photoMinBase * 1.15 : photoMinBase;
-                if (selections['photography'].sessions === 0 && photoMin > remaining) {
-                    photoSection.classList.add('budget-exceeded');
+                if (!selections['photography'].active && photoMin > remaining) {
+                    photoActivate.classList.add('budget-exceeded');
                 } else {
-                    photoSection.classList.remove('budget-exceeded');
+                    photoActivate.classList.remove('budget-exceeded');
                 }
             }
 
             // Check if posters would exceed (minimum 1 poster)
-            const postersSection = document.querySelector('#posters-qty')?.closest('.sports-builder');
-            if (postersSection) {
+            const postersActivate = document.querySelector('#posters-activate')?.closest('.sports-activate');
+            if (postersActivate) {
                 const posterMinBase = applyDiscount(75);
                 const posterMin = inclGst ? posterMinBase * 1.15 : posterMinBase;
-                if (selections['posters'].qty === 0 && posterMin > remaining) {
-                    postersSection.classList.add('budget-exceeded');
+                if (!selections['posters'].active && posterMin > remaining) {
+                    postersActivate.classList.add('budget-exceeded');
                 } else {
-                    postersSection.classList.remove('budget-exceeded');
+                    postersActivate.classList.remove('budget-exceeded');
                 }
             }
 
@@ -4054,17 +4220,19 @@
             }
 
             // Photography
-            if (photoSection && selections['photography'].sessions > 0 && remaining < 0) {
-                photoSection.classList.add('over-budget');
-            } else if (photoSection && !photoSection.classList.contains('budget-exceeded')) {
-                photoSection.classList.remove('over-budget');
+            const photoBuilder = document.querySelector('#photography-options')?.closest('.sports-builder');
+            if (photoBuilder && selections['photography'].active && remaining < 0) {
+                photoBuilder.classList.add('over-budget');
+            } else if (photoBuilder) {
+                photoBuilder.classList.remove('over-budget');
             }
 
             // Posters
-            if (postersSection && selections['posters'].qty > 0 && remaining < 0) {
-                postersSection.classList.add('over-budget');
-            } else if (postersSection && !postersSection.classList.contains('budget-exceeded')) {
-                postersSection.classList.remove('over-budget');
+            const postersBuilder = document.querySelector('#posters-options')?.closest('.sports-builder');
+            if (postersBuilder && selections['posters'].active && remaining < 0) {
+                postersBuilder.classList.add('over-budget');
+            } else if (postersBuilder) {
+                postersBuilder.classList.remove('over-budget');
             }
 
             // Training sections
@@ -4173,12 +4341,15 @@
                 document.getElementById('arts-total').textContent = '$850';
                 document.getElementById('arts-options').style.display = 'none';
             } else if (product === 'photography') {
-                selections['photography'] = { sessions: 0 };
+                selections['photography'] = { active: false, sessions: 0 };
+                document.getElementById('photography-activate').checked = false;
                 document.getElementById('photography-sessions').value = 1;
                 document.getElementById('photography-sessions-value').textContent = '1 session';
                 document.getElementById('photography-total').textContent = '$150';
+                document.getElementById('photography-options').style.display = 'none';
             } else if (product === 'posters') {
-                selections['posters'] = { qty: 0, format1x1: false, format16x9: false, format9x16: false };
+                selections['posters'] = { active: false, qty: 0, format1x1: false, format16x9: false, format9x16: false };
+                document.getElementById('posters-activate').checked = false;
                 document.getElementById('posters-qty').value = 1;
                 document.getElementById('posters-1x1').checked = false;
                 document.getElementById('posters-16x9').checked = false;
@@ -4186,12 +4357,16 @@
                 document.getElementById('posters-qty-value').textContent = '1 poster';
                 document.getElementById('posters-base-total').textContent = '$75';
                 document.getElementById('posters-total').textContent = '$75';
+                document.getElementById('posters-options').style.display = 'none';
             } else if (product.startsWith('training-')) {
                 const tier = product.replace('training-', '');
-                selections['training'][tier] = { active: false, students: 5 };
+                selections['training'][tier] = { active: false, students: 5, days: 1 };
                 document.getElementById(`training-${tier}-activate`).checked = false;
                 document.getElementById(`training-${tier}-students`).value = 5;
+                document.getElementById(`training-${tier}-days`).value = 1;
                 document.getElementById(`training-${tier}-students-value`).textContent = '5 students';
+                document.getElementById(`training-${tier}-days-value`).textContent = '1 day';
+                document.getElementById(`training-${tier}-students-cost`).textContent = `$${trainingPrices[tier].base}`;
                 document.getElementById(`training-${tier}-total`).textContent = `$${trainingPrices[tier].base}`;
                 document.getElementById(`training-${tier}-options`).style.display = 'none';
             } else if (product === 'musicvideo') {
@@ -4203,9 +4378,9 @@
                 document.getElementById('musicvideo-students-value').textContent = '15 students';
                 document.getElementById('musicvideo-recording-value').textContent = '1 day';
                 document.getElementById('musicvideo-shoot-value').textContent = '1 day';
-                document.getElementById('musicvideo-recording-total').textContent = '$600';
-                document.getElementById('musicvideo-shoot-total').textContent = '$675';
-                document.getElementById('musicvideo-total').textContent = '$1,875';
+                document.getElementById('musicvideo-recording-total').textContent = '$375';
+                document.getElementById('musicvideo-shoot-total').textContent = '$450';
+                document.getElementById('musicvideo-total').textContent = '$1,425';
                 document.getElementById('musicvideo-options').style.display = 'none';
             }
             updateSummary();
