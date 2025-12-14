@@ -36,7 +36,6 @@
         .container {
             max-width: 1400px;
             margin: 0 auto;
-            text-align: center;
         }
 
         .logo {
@@ -161,17 +160,23 @@
 
         .tier-header {
             display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
+            justify-content: center;
+            align-items: center;
             margin-bottom: 8px;
+            position: relative;
         }
 
         .tier-name {
             font-weight: 700;
             display: block;
+            text-align: center;
         }
 
         .tier-info-btn {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
             background: rgba(0,0,0,0.15);
             border: none;
             border-radius: 50%;
@@ -1385,14 +1390,15 @@
             }
 
             .summary-panel {
-                position: fixed;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                border-radius: 16px 16px 0 0;
-                max-height: 60vh;
-                overflow-y: auto;
-                z-index: 100;
+                position: relative;
+                bottom: auto;
+                left: auto;
+                right: auto;
+                border-radius: 16px;
+                max-height: none;
+                overflow-y: visible;
+                z-index: 1;
+                margin-top: 20px;
             }
 
             .campaigns-grid {
@@ -1434,16 +1440,17 @@
                 gap: 15px;
             }
 
-            /* Summary section adjustments */
-            .summary-section {
+            /* Summary panel adjustments - appears after products */
+            .summary-panel {
                 position: relative;
-                top: 0;
+                top: auto;
                 margin-top: 20px;
-                padding: 15px;
+                padding: 20px;
+                order: 2;
             }
 
-            .summary-section h3 {
-                font-size: 1.1rem;
+            .summary-title {
+                font-size: 1.2rem;
             }
 
             /* Product cards */
@@ -1466,6 +1473,7 @@
             .product-blurb {
                 font-size: 0.85rem;
                 margin-bottom: 15px;
+                text-align: left;
             }
 
             /* Tier grid - 2 columns on mobile */
@@ -1492,8 +1500,8 @@
             }
 
             .qty-btn {
-                width: 24px;
-                height: 24px;
+                width: 28px;
+                height: 28px;
                 font-size: 1rem;
             }
 
@@ -1533,6 +1541,7 @@
                 font-size: 0.95rem;
                 flex: 1;
                 min-width: 120px;
+                text-align: left;
             }
 
             .sports-activate-price {
@@ -1551,6 +1560,7 @@
 
             .sports-item-header {
                 width: 100%;
+                text-align: left;
             }
 
             .sports-item-name {
@@ -1604,6 +1614,7 @@
 
             .campaign-offer-name {
                 font-size: 1rem;
+                text-align: left;
             }
 
             .campaign-offer-price {
@@ -1624,7 +1635,7 @@
                 width: 100%;
             }
 
-            /* Info popup mobile */
+            /* Info popup mobile - slide up from bottom */
             .tier-info-popup {
                 position: fixed;
                 bottom: 0;
@@ -1636,6 +1647,7 @@
                 max-height: 70vh;
                 overflow-y: auto;
                 padding: 20px;
+                z-index: 1001;
             }
 
             .tier-info-popup h4 {
@@ -1656,6 +1668,7 @@
             .summary-item-details {
                 flex: 1;
                 min-width: 150px;
+                text-align: left;
             }
 
             .summary-item-name {
@@ -1671,8 +1684,8 @@
             }
 
             .summary-item-remove {
-                width: 24px;
-                height: 24px;
+                width: 28px;
+                height: 28px;
                 font-size: 1rem;
             }
 
@@ -1741,17 +1754,6 @@
             .sports-activate-check {
                 width: 22px;
                 height: 22px;
-            }
-
-            /* Buttons more touch-friendly */
-            button, .qty-btn, .summary-item-remove {
-                min-height: 44px;
-                min-width: 44px;
-            }
-
-            .qty-btn {
-                min-height: 32px;
-                min-width: 32px;
             }
 
             /* Improve slider touch target */
@@ -2343,40 +2345,52 @@
                     <div class="product-content">
                         <p class="product-blurb">Your school's digital yearbook - look back on the best moments, bring all the videos into one place and make it the perfect end-of-year gift to send out to your community.</p>
                         <div class="tier-grid">
-                            <div class="tier-btn entry" data-product="recap-website" data-tier="Entry" onclick="showInfo('recap-website', 'Entry')">
-                                <div class="tier-name">Entry</div>
-                                <div class="tier-price">$350</div>
-                                <div class="tier-qty">
-                                    <button class="qty-btn minus" onclick="event.stopPropagation(); changeTierQty('recap-website', 'Entry', 350, -1)">−</button>
-                                    <span class="qty-display" id="qty-recap-website-Entry">0</span>
-                                    <button class="qty-btn plus" onclick="event.stopPropagation(); changeTierQty('recap-website', 'Entry', 350, 1)">+</button>
+                            <div class="tier-btn entry" data-product="recap-website" data-tier="Entry" data-price="350">
+                                <div class="tier-header">
+                                    <span class="tier-name">Entry</span>
+                                    <button class="tier-info-btn" onclick="event.stopPropagation(); showInfo('recap-website', 'Entry')">i</button>
+                                </div>
+                                <span class="tier-price">$350</span>
+                                <div class="tier-qty-controls">
+                                    <button class="tier-qty-btn" onclick="event.stopPropagation(); changeTierQty('recap-website', 'Entry', 350, -1)">−</button>
+                                    <span class="tier-qty-display" id="qty-recap-website-Entry">0</span>
+                                    <button class="tier-qty-btn" onclick="event.stopPropagation(); changeTierQty('recap-website', 'Entry', 350, 1)">+</button>
                                 </div>
                             </div>
-                            <div class="tier-btn basic" data-product="recap-website" data-tier="Basic" onclick="showInfo('recap-website', 'Basic')">
-                                <div class="tier-name">Basic</div>
-                                <div class="tier-price">$450</div>
-                                <div class="tier-qty">
-                                    <button class="qty-btn minus" onclick="event.stopPropagation(); changeTierQty('recap-website', 'Basic', 450, -1)">−</button>
-                                    <span class="qty-display" id="qty-recap-website-Basic">0</span>
-                                    <button class="qty-btn plus" onclick="event.stopPropagation(); changeTierQty('recap-website', 'Basic', 450, 1)">+</button>
+                            <div class="tier-btn basic" data-product="recap-website" data-tier="Basic" data-price="450">
+                                <div class="tier-header">
+                                    <span class="tier-name">Basic</span>
+                                    <button class="tier-info-btn" onclick="event.stopPropagation(); showInfo('recap-website', 'Basic')">i</button>
+                                </div>
+                                <span class="tier-price">$450</span>
+                                <div class="tier-qty-controls">
+                                    <button class="tier-qty-btn" onclick="event.stopPropagation(); changeTierQty('recap-website', 'Basic', 450, -1)">−</button>
+                                    <span class="tier-qty-display" id="qty-recap-website-Basic">0</span>
+                                    <button class="tier-qty-btn" onclick="event.stopPropagation(); changeTierQty('recap-website', 'Basic', 450, 1)">+</button>
                                 </div>
                             </div>
-                            <div class="tier-btn standard" data-product="recap-website" data-tier="Standard" onclick="showInfo('recap-website', 'Standard')">
-                                <div class="tier-name">Standard</div>
-                                <div class="tier-price">$550</div>
-                                <div class="tier-qty">
-                                    <button class="qty-btn minus" onclick="event.stopPropagation(); changeTierQty('recap-website', 'Standard', 550, -1)">−</button>
-                                    <span class="qty-display" id="qty-recap-website-Standard">0</span>
-                                    <button class="qty-btn plus" onclick="event.stopPropagation(); changeTierQty('recap-website', 'Standard', 550, 1)">+</button>
+                            <div class="tier-btn standard" data-product="recap-website" data-tier="Standard" data-price="550">
+                                <div class="tier-header">
+                                    <span class="tier-name">Standard</span>
+                                    <button class="tier-info-btn" onclick="event.stopPropagation(); showInfo('recap-website', 'Standard')">i</button>
+                                </div>
+                                <span class="tier-price">$550</span>
+                                <div class="tier-qty-controls">
+                                    <button class="tier-qty-btn" onclick="event.stopPropagation(); changeTierQty('recap-website', 'Standard', 550, -1)">−</button>
+                                    <span class="tier-qty-display" id="qty-recap-website-Standard">0</span>
+                                    <button class="tier-qty-btn" onclick="event.stopPropagation(); changeTierQty('recap-website', 'Standard', 550, 1)">+</button>
                                 </div>
                             </div>
-                            <div class="tier-btn premium" data-product="recap-website" data-tier="Premium" onclick="showInfo('recap-website', 'Premium')">
-                                <div class="tier-name">Premium</div>
-                                <div class="tier-price">$700</div>
-                                <div class="tier-qty">
-                                    <button class="qty-btn minus" onclick="event.stopPropagation(); changeTierQty('recap-website', 'Premium', 700, -1)">−</button>
-                                    <span class="qty-display" id="qty-recap-website-Premium">0</span>
-                                    <button class="qty-btn plus" onclick="event.stopPropagation(); changeTierQty('recap-website', 'Premium', 700, 1)">+</button>
+                            <div class="tier-btn premium" data-product="recap-website" data-tier="Premium" data-price="700">
+                                <div class="tier-header">
+                                    <span class="tier-name">Premium</span>
+                                    <button class="tier-info-btn" onclick="event.stopPropagation(); showInfo('recap-website', 'Premium')">i</button>
+                                </div>
+                                <span class="tier-price">$700</span>
+                                <div class="tier-qty-controls">
+                                    <button class="tier-qty-btn" onclick="event.stopPropagation(); changeTierQty('recap-website', 'Premium', 700, -1)">−</button>
+                                    <span class="tier-qty-display" id="qty-recap-website-Premium">0</span>
+                                    <button class="tier-qty-btn" onclick="event.stopPropagation(); changeTierQty('recap-website', 'Premium', 700, 1)">+</button>
                                 </div>
                             </div>
                         </div>
@@ -2432,40 +2446,52 @@
                         <div style="margin-bottom: 25px;">
                             <h4 style="color: var(--accent-yellow); margin-bottom: 15px; font-weight: 400;">School Production Pamphlets</h4>
                             <div class="tier-grid">
-                                <div class="tier-btn entry" data-product="pamphlets" data-tier="Entry" onclick="showInfo('pamphlets', 'Entry')">
-                                    <div class="tier-name">Entry</div>
-                                    <div class="tier-price">$350</div>
-                                    <div class="tier-qty">
-                                        <button class="qty-btn minus" onclick="event.stopPropagation(); changeTierQty('pamphlets', 'Entry', 350, -1)">−</button>
-                                        <span class="qty-display" id="qty-pamphlets-Entry">0</span>
-                                        <button class="qty-btn plus" onclick="event.stopPropagation(); changeTierQty('pamphlets', 'Entry', 350, 1)">+</button>
+                                <div class="tier-btn entry" data-product="pamphlets" data-tier="Entry" data-price="350">
+                                    <div class="tier-header">
+                                        <span class="tier-name">Entry</span>
+                                        <button class="tier-info-btn" onclick="event.stopPropagation(); showInfo('pamphlets', 'Entry')">i</button>
+                                    </div>
+                                    <span class="tier-price">$350</span>
+                                    <div class="tier-qty-controls">
+                                        <button class="tier-qty-btn" onclick="event.stopPropagation(); changeTierQty('pamphlets', 'Entry', 350, -1)">−</button>
+                                        <span class="tier-qty-display" id="qty-pamphlets-Entry">0</span>
+                                        <button class="tier-qty-btn" onclick="event.stopPropagation(); changeTierQty('pamphlets', 'Entry', 350, 1)">+</button>
                                     </div>
                                 </div>
-                                <div class="tier-btn basic" data-product="pamphlets" data-tier="Basic" onclick="showInfo('pamphlets', 'Basic')">
-                                    <div class="tier-name">Basic</div>
-                                    <div class="tier-price">$550</div>
-                                    <div class="tier-qty">
-                                        <button class="qty-btn minus" onclick="event.stopPropagation(); changeTierQty('pamphlets', 'Basic', 550, -1)">−</button>
-                                        <span class="qty-display" id="qty-pamphlets-Basic">0</span>
-                                        <button class="qty-btn plus" onclick="event.stopPropagation(); changeTierQty('pamphlets', 'Basic', 550, 1)">+</button>
+                                <div class="tier-btn basic" data-product="pamphlets" data-tier="Basic" data-price="550">
+                                    <div class="tier-header">
+                                        <span class="tier-name">Basic</span>
+                                        <button class="tier-info-btn" onclick="event.stopPropagation(); showInfo('pamphlets', 'Basic')">i</button>
+                                    </div>
+                                    <span class="tier-price">$550</span>
+                                    <div class="tier-qty-controls">
+                                        <button class="tier-qty-btn" onclick="event.stopPropagation(); changeTierQty('pamphlets', 'Basic', 550, -1)">−</button>
+                                        <span class="tier-qty-display" id="qty-pamphlets-Basic">0</span>
+                                        <button class="tier-qty-btn" onclick="event.stopPropagation(); changeTierQty('pamphlets', 'Basic', 550, 1)">+</button>
                                     </div>
                                 </div>
-                                <div class="tier-btn standard" data-product="pamphlets" data-tier="Standard" onclick="showInfo('pamphlets', 'Standard')">
-                                    <div class="tier-name">Standard</div>
-                                    <div class="tier-price">$650</div>
-                                    <div class="tier-qty">
-                                        <button class="qty-btn minus" onclick="event.stopPropagation(); changeTierQty('pamphlets', 'Standard', 650, -1)">−</button>
-                                        <span class="qty-display" id="qty-pamphlets-Standard">0</span>
-                                        <button class="qty-btn plus" onclick="event.stopPropagation(); changeTierQty('pamphlets', 'Standard', 650, 1)">+</button>
+                                <div class="tier-btn standard" data-product="pamphlets" data-tier="Standard" data-price="650">
+                                    <div class="tier-header">
+                                        <span class="tier-name">Standard</span>
+                                        <button class="tier-info-btn" onclick="event.stopPropagation(); showInfo('pamphlets', 'Standard')">i</button>
+                                    </div>
+                                    <span class="tier-price">$650</span>
+                                    <div class="tier-qty-controls">
+                                        <button class="tier-qty-btn" onclick="event.stopPropagation(); changeTierQty('pamphlets', 'Standard', 650, -1)">−</button>
+                                        <span class="tier-qty-display" id="qty-pamphlets-Standard">0</span>
+                                        <button class="tier-qty-btn" onclick="event.stopPropagation(); changeTierQty('pamphlets', 'Standard', 650, 1)">+</button>
                                     </div>
                                 </div>
-                                <div class="tier-btn premium" data-product="pamphlets" data-tier="Premium" onclick="showInfo('pamphlets', 'Premium')">
-                                    <div class="tier-name">Premium</div>
-                                    <div class="tier-price">$850</div>
-                                    <div class="tier-qty">
-                                        <button class="qty-btn minus" onclick="event.stopPropagation(); changeTierQty('pamphlets', 'Premium', 850, -1)">−</button>
-                                        <span class="qty-display" id="qty-pamphlets-Premium">0</span>
-                                        <button class="qty-btn plus" onclick="event.stopPropagation(); changeTierQty('pamphlets', 'Premium', 850, 1)">+</button>
+                                <div class="tier-btn premium" data-product="pamphlets" data-tier="Premium" data-price="850">
+                                    <div class="tier-header">
+                                        <span class="tier-name">Premium</span>
+                                        <button class="tier-info-btn" onclick="event.stopPropagation(); showInfo('pamphlets', 'Premium')">i</button>
+                                    </div>
+                                    <span class="tier-price">$850</span>
+                                    <div class="tier-qty-controls">
+                                        <button class="tier-qty-btn" onclick="event.stopPropagation(); changeTierQty('pamphlets', 'Premium', 850, -1)">−</button>
+                                        <span class="tier-qty-display" id="qty-pamphlets-Premium">0</span>
+                                        <button class="tier-qty-btn" onclick="event.stopPropagation(); changeTierQty('pamphlets', 'Premium', 850, 1)">+</button>
                                     </div>
                                 </div>
                             </div>
