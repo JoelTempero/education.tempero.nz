@@ -1384,21 +1384,22 @@
             border-bottom: none;
         }
 
+        /* Mobile Quote Button - hidden on desktop */
+        .mobile-quote-btn {
+            display: none;
+        }
+
+        .summary-panel-header {
+            display: none;
+        }
+
+        .summary-drag-handle {
+            display: none;
+        }
+
         @media (max-width: 1100px) {
             .calculator-grid {
                 grid-template-columns: 1fr;
-            }
-
-            .summary-panel {
-                position: relative;
-                bottom: auto;
-                left: auto;
-                right: auto;
-                border-radius: 16px;
-                max-height: none;
-                overflow-y: visible;
-                z-index: 1;
-                margin-top: 20px;
             }
 
             .campaigns-grid {
@@ -1414,6 +1415,7 @@
         @media (max-width: 768px) {
             body {
                 padding: 20px 12px;
+                padding-bottom: 80px; /* Space for floating button */
             }
 
             .logo {
@@ -1440,17 +1442,92 @@
                 gap: 15px;
             }
 
-            /* Summary panel adjustments - appears after products */
+            /* Mobile floating quote button */
+            .mobile-quote-btn {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                position: fixed;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: linear-gradient(135deg, #e8b830, #d4a420);
+                color: #1a1a1a;
+                border: none;
+                border-radius: 50px;
+                padding: 12px 24px;
+                font-family: inherit;
+                font-size: 1rem;
+                font-weight: 600;
+                cursor: pointer;
+                box-shadow: 0 4px 20px rgba(232, 184, 48, 0.4);
+                z-index: 1000;
+                transition: all 0.3s ease;
+            }
+
+            .mobile-quote-btn:hover {
+                transform: translateX(-50%) scale(1.05);
+            }
+
+            .mobile-quote-icon {
+                font-size: 1.2rem;
+            }
+
+            .mobile-quote-total {
+                background: rgba(0,0,0,0.2);
+                padding: 4px 10px;
+                border-radius: 20px;
+                font-size: 0.9rem;
+            }
+
+            /* Summary panel - slide up from bottom */
             .summary-panel {
-                position: relative;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
                 top: auto;
-                margin-top: 20px;
+                margin: 0;
                 padding: 20px;
-                order: 2;
+                padding-top: 10px;
+                border-radius: 20px 20px 0 0;
+                max-height: 85vh;
+                overflow-y: auto;
+                z-index: 1001;
+                transform: translateY(100%);
+                transition: transform 0.3s ease;
+                background: #242424;
+                box-shadow: 0 -4px 30px rgba(0,0,0,0.5);
+            }
+
+            .summary-panel.open {
+                transform: translateY(0);
+            }
+
+            .summary-panel-header {
+                display: flex;
+                justify-content: center;
+                padding: 10px 0;
+                cursor: pointer;
+            }
+
+            .summary-drag-handle {
+                display: block;
+                width: 40px;
+                height: 4px;
+                background: rgba(255,255,255,0.3);
+                border-radius: 2px;
             }
 
             .summary-title {
                 font-size: 1.2rem;
+            }
+
+            /* Hide button when panel is open */
+            .mobile-quote-btn.hidden {
+                transform: translateX(-50%) translateY(100px);
+                opacity: 0;
+                pointer-events: none;
             }
 
             /* Product cards */
@@ -2174,7 +2251,7 @@
                                         <span class="campaign-checkbox"></span>
                                         <div class="campaign-offer-info-row">
                                             <span class="campaign-offer-name">Student/Staff Testimonials</span>
-                                            <span class="campaign-offer-price-small" id="campaign-testimonials-price-hint">from $175</span>
+                                            <span class="campaign-offer-price-small" id="campaign-testimonials-price-hint">from $150</span>
                                         </div>
                                     </label>
                                 </div>
@@ -2238,6 +2315,7 @@
                                     <div class="sports-item-header">
                                         <span class="sports-item-name">Video length</span>
                                         <span class="sports-item-desc">$150/minute</span>
+                                        <p style="color: #888; font-size: 0.75rem; margin-top: 4px; font-style: italic; width: 100%;">We recommend at least 1 minute for every 5 games covered</p>
                                     </div>
                                     <div class="sports-item-value">
                                         <span class="sports-calc-price" id="sports-video-total">$150</span>
@@ -2305,6 +2383,7 @@
                                     <div class="sports-item-header">
                                         <span class="sports-item-name">Video length</span>
                                         <span class="sports-item-desc">$150/minute</span>
+                                        <p style="color: #888; font-size: 0.75rem; margin-top: 4px; font-style: italic; width: 100%;">We recommend at least 1 minute for every 5 events covered</p>
                                     </div>
                                     <div class="sports-item-value">
                                         <span class="sports-calc-price" id="arts-video-total">$150</span>
@@ -2411,7 +2490,7 @@
                                     <input type="checkbox" id="photography-activate" onchange="togglePhotography()">
                                     <span class="sports-activate-check"></span>
                                     <span class="sports-activate-text">Event Photography</span>
-                                    <span class="sports-activate-price">from $175</span>
+                                    <span class="sports-activate-price">from $150</span>
                                 </label>
                             </div>
                             <div class="sports-options" id="photography-options" style="display: none;">
@@ -2614,7 +2693,7 @@
                                     <div class="sports-item">
                                         <div class="sports-item-header">
                                             <span class="sports-item-name">Days</span>
-                                            <span class="sports-item-desc">Multiplies student fee</span>
+                                            <span class="sports-item-desc"></span>
                                         </div>
                                         <div class="sports-item-value">
                                             <span class="sports-calc-price" id="training-entry-total">$125</span>
@@ -2655,7 +2734,7 @@
                                     <div class="sports-item">
                                         <div class="sports-item-header">
                                             <span class="sports-item-name">Days</span>
-                                            <span class="sports-item-desc">Multiplies student fee</span>
+                                            <span class="sports-item-desc"></span>
                                         </div>
                                         <div class="sports-item-value">
                                             <span class="sports-calc-price" id="training-basic-total">$175</span>
@@ -2696,7 +2775,7 @@
                                     <div class="sports-item">
                                         <div class="sports-item-header">
                                             <span class="sports-item-name">Days</span>
-                                            <span class="sports-item-desc">Multiplies student fee</span>
+                                            <span class="sports-item-desc"></span>
                                         </div>
                                         <div class="sports-item-value">
                                             <span class="sports-calc-price" id="training-standard-total">$265</span>
@@ -2737,7 +2816,7 @@
                                     <div class="sports-item">
                                         <div class="sports-item-header">
                                             <span class="sports-item-name">Days</span>
-                                            <span class="sports-item-desc">Multiplies student fee</span>
+                                            <span class="sports-item-desc"></span>
                                         </div>
                                         <div class="sports-item-value">
                                             <span class="sports-calc-price" id="training-premium-total">$475</span>
@@ -2830,8 +2909,18 @@
 
             </div>
 
+            <!-- Mobile Quote Button (floating) -->
+            <button class="mobile-quote-btn" id="mobile-quote-btn" onclick="toggleMobileQuote()">
+                <span class="mobile-quote-icon">📋</span>
+                <span class="mobile-quote-text">View Quote</span>
+                <span class="mobile-quote-total" id="mobile-quote-total">$0</span>
+            </button>
+
             <!-- Summary Panel -->
-            <div class="summary-panel">
+            <div class="summary-panel" id="summary-panel">
+                <div class="summary-panel-header" onclick="toggleMobileQuote()">
+                    <span class="summary-drag-handle"></span>
+                </div>
                 <h3 class="summary-title">Your <span>Quote</span></h3>
                 
                 <div class="summary-items" id="summary-items">
@@ -3197,6 +3286,26 @@
             'training': { entry: { active: false, students: 5, days: 1 }, basic: { active: false, students: 5, days: 1 }, standard: { active: false, students: 5, days: 1 }, premium: { active: false, students: 5, days: 1 } },
             'musicvideo': { active: false, students: 15, recordingDays: 1, shootDays: 1 }
         };
+
+        // Mobile quote panel toggle
+        function toggleMobileQuote() {
+            const panel = document.getElementById('summary-panel');
+            const btn = document.getElementById('mobile-quote-btn');
+            panel.classList.toggle('open');
+            btn.classList.toggle('hidden');
+        }
+
+        // Close panel when clicking outside (on overlay)
+        document.addEventListener('click', function(e) {
+            const panel = document.getElementById('summary-panel');
+            const btn = document.getElementById('mobile-quote-btn');
+            if (panel && panel.classList.contains('open')) {
+                if (!panel.contains(e.target) && !btn.contains(e.target)) {
+                    panel.classList.remove('open');
+                    btn.classList.remove('hidden');
+                }
+            }
+        });
 
         function toggleProduct(header) {
             const card = header.closest('.product-card');
@@ -4009,8 +4118,9 @@
                 if (selections['training'][tier].active) {
                     discountableCount += 1;
                     const students = selections['training'][tier].students;
+                    const days = selections['training'][tier].days || 1;
                     const prices = trainingPrices[tier];
-                    discountableSubtotal += prices.base + (students - 5) * prices.perStudent;
+                    discountableSubtotal += (prices.base + (students - 5) * prices.perStudent) * days;
                 }
             });
 
@@ -4079,6 +4189,12 @@
             gstEl.textContent = `$${gst.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
             totalEl.textContent = `$${total.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
 
+            // Update mobile quote button total
+            const mobileQuoteTotal = document.getElementById('mobile-quote-total');
+            if (mobileQuoteTotal) {
+                mobileQuoteTotal.textContent = `$${total.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0})}`;
+            }
+
             // Update all prices with discount
             updateAllPricesWithDiscount(discountPercent);
 
@@ -4128,10 +4244,10 @@
                 'testimonials': 150
             },
             training: {
-                'entry': { base: 100, perStudent: 15 },
-                'basic': { base: 150, perStudent: 20 },
-                'standard': { base: 200, perStudent: 25 },
-                'premium': { base: 400, perStudent: 35 }
+                'entry': { base: 125, perStudent: 20 },
+                'basic': { base: 175, perStudent: 20 },
+                'standard': { base: 265, perStudent: 20 },
+                'premium': { base: 475, perStudent: 20 }
             }
         };
 
